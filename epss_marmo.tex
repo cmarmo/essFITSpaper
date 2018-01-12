@@ -183,6 +183,7 @@
 
 \begin{keypoints}
 \item Inter-operable data formats 
+\item Planetary data
 \item 
 \end{keypoints}
 
@@ -194,30 +195,7 @@
 
 
 \begin{abstract}
-This study applies statistical post-processing to ensemble
-forecasts of near-surface temperature, 24-hour 
-%% below are examples of track changes:
-\deleted[date/time, etc.]{precipitation},
-\added{all} totals,
-and near-surface wind speed from the global model of the European
-Centre for Medium-Range Weather Forecasts (ECMWF). The main objective
-is to evaluate the evolution of the difference in skill between the
-raw ensemble and the post-processed forecasts. Reliability and
-sharpness, and 
-%% another example of track changes.
-\replaced{hence}{therefore} skill,
- of the former is expected to improve over
-time. Thus, the gain by post-processing is expected to decrease. Based
-on ECMWF forecasts from January 2002 to March 2014 and corresponding
-observations from globally distributed stations we generate
-post-processed forecasts by ensemble model output statistics
-%% another example of track changes.
-\added{abbreviated as} (EMOS)
-for each station and variable. Given the higher average skill of the
-post-processed forecasts, we analyse the evolution of the difference
-in skill between raw ensemble and EMOS. This skill gap remains almost
-constant over time indicating that post-processing will keep adding
-skill in the foreseeable future.
+
 \end{abstract}
 
 %% ------------------------------------------------------------------------ %%
@@ -252,26 +230,6 @@ skill in the foreseeable future.
 
 \section{Introduction}
 \label{sec:intro}
-Over the last two decades the paradigm in weather forecasting has
-shifted from being deterministic to probabilistic \citep[see
-e.g.][]{Palm00,Hami00}. Accordingly, numerical weather prediction
-(NWP) models have been run increasingly as ensemble forecasting
-systems. The goal of such ensemble forecasts is to approximate the
-forecast probability distribution by a finite sample of scenarios
-\citet{Leit74}\footnote{See \citet{Leit74} for a more in-depth
-description of these issues and their complex implications.}
-Global ensemble forecast systems, like the European
-Centre for Medium-Range Weather Forecasts (ECMWF) ensemble, are prone
-to probabilistic biases, and are therefore not reliable. They
-particularly tend to be underdispersive for surface weather parameters
-\citet{Boug10, Park08}. In order to correct for forecast
-underdispersion and bias in NWP ensembles different
-statistical
-post-processing methods have been developed, of which ensemble model
-output statistics (EMOS) \citep{Gneit05} is among the most widely
-applied. EMOS yields a parametric forecast distribution by linking its
-parameters to ensemble statistics. Due to its simplicity and low
-computational cost, we focus on EMOS for this study.
 
 
 
