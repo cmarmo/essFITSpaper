@@ -183,8 +183,8 @@
 
 \begin{keypoints}
 \item Inter-operable data formats 
-\item Planetary data
-\item 
+\item Planetary data standards
+\item Data processing and visualization
 \end{keypoints}
 
 %% ------------------------------------------------------------------------ %%
@@ -230,56 +230,6 @@
 
 \section{Introduction}
 \label{sec:intro}
-
-
-
-The ECMWF ensemble is under continuous development, and hence its
-forecast skill improves over time \citep{Buiz98,Buiz07,Rich13,Haid14}.
-Parts of these improvements may be due to a reduction of probabilistic
-biases. From this we deduce the following hypothesis: As the raw
-forecasts continuously improve, it is hypothesized that the gap in
-skill between raw ensemble and post-processed forecasts narrows,
-because systematic errors typically captured by post-processing are
-reduced 
-by those improvements. 
-%%
-%% Use \explain{} before change, so that it ends up on the right line.
-\explain[Jon, 2/16/16]{Redundant sentence, better without it} 
-\deleted{In other words, probabilistic biases,
-which can be reduced by statistical post-processing methods, decrease
-over time.}
-Assuming that the raw ensemble forecasts continue to
-improve in the future, the gap in skill may eventually be closed when
-the raw ensemble forecasts become reliable and unbiased.  In this work
-we analyse the evolution of the global performance of the operational
-ECMWF raw ensemble and the corresponding post-processed EMOS forecasts
-for 2 metre temperature (T2M), 24-hour precipitation (PPT24), and 10-m
-wind speed (V10). We verify the forecasts against globally distributed
-surface synoptic observations (SYNOP) data over a period of about 10
-years. We firstly evaluate the monthly average skill in terms of CRPS
-for both the raw and the EMOS forecasts. In order to assess the extent
-to which the results depend on the choice of the post-processing
-method, Bayesian model averaging (BMA), \citet{Raft05,Fra10} is
-additionally applied to the T2M raw ensemble forecasts. We will use
-the negatively oriented (i.e. the lower the value the higher the
-skill) continuous ranked probability score (CRPS) \citep{Math76} as a
-measure of skill. As the CRPS assesses both reliability and sharpness
-and is a proper score \citep{Gneit07b}, we rely on it for model fitting
-and verification throughout this study. Note that skill and
-reliability are linked in that given constant sharpness an improvement
-in reliability leads to an improvement in skill and vice versa. We
-finally analyse the evolution of the gap in CRPS between raw ensemble
-and post-processed forecasts.
-
-After presenting the dataset in section~\ref{sec:intro} we summarize
-the methods for post-processing and for the assessment of the global
-skill evolution in section~\ref{sec:meth}. In section~\ref{sec:res}
-the results are shown.  This is followed by a discussion in
-section~\ref{sec:disc} along with some concluding
-remarks. These
-analyses have been performed using the statistical software \texttt{R}
-\citep{R2013}.
-
 
 %% Enter Figures and Tables near as possible to where they are first mentioned:
 %
@@ -377,220 +327,22 @@ four&five&six
 
 \clearpage
 
-\section{Methods}
-\label{sec:meth}
+\section{FITS format in Planetary Surface investigation}
+\label{sec:fitspss}
 
-\subsection{Post-processing Using EMOS}
-Post-processing using EMOS converts a raw ensemble of discrete
-forecasts into a probability distribution. Let $y$ be the variable to
-be forecast (here: T2M, PPT24 or V10) and let ${f}=(f_{1}, f_{2},
-\dots, f_{K})^{T}$ be the vector of the $K$ member raw ensemble
-forecasts (here: HRES, ENS, and CTRL). Then the EMOS
-\added{predictive}
-density can be written as:
-\begin{linenomath*}
-\begin{equation}
-y|{f} \sim g(m, \sigma),
-\end{equation}
-\end{linenomath*}
-where $g(\cdot)$ is a parametric density function with location and
-scale parameters $m$ and $\sigma$, respectively, which depend on the
-raw ensemble.
+\subsection{FITS format}
 
-\subsubsection{Temperature}
-For T2M forecasts $g(\cdot)$ is a normal density distribution with
-mean $m$ and variance $\sigma^{2}$. Here, we use a variant of the
-original EMOS approach similar to the one proposed by
-\citet{ScheueBue13} where the departures of observed temperatures from
-their climatological means are related to those of the forecasts.
-Specifically, let $T=\{t_{1},\ldots,t_{n}\}$ be a training period of
-$n$ days preceding the forecast initialization and denote by $f_{tk}$
-the forecast of the k-th ensemble member and by $y_{t}$ the
-observation on day $t\in T$. As a first step, we fit a regression
-model
-%%% \begin{linenomath*} ...\end{linenomath*} puts a line number in equation:
-\begin{linenomath*}
-\begin{equation}
-y_{t_{j}} = c_{0} + c_{1}\sin\left(\frac{2\pi j}{365}\right) +
-c_{2}\cos\left(\frac{2\pi j}{365}\right) + \varepsilon_{t_{j}}, \quad
-j=1,\ldots,n
-\end{equation}
-\end{linenomath*}
-which captures the seasonal variation of T2M. The residual terms
-$\varepsilon_{t_{j}}$ are likely correlated over time, but for
-simplicity an ordinary least squares fit is performed. We denote by
-$\tilde{y}_{t}$ the fitted value of this periodic regression model on
-day $t$ and interpret it as the climatological mean temperature on
-this day. This model can easily be extrapolated to future days
-$t_{d+1}, t_{d+2}, \ldots$ The above regression includes both a sine
-and a cosine term which is equivalent to a cosine model with variable
-phase and amplitude. Since $j=1,\ldots,n$ is just a numbering of the
-days in $T$, different training periods have different phase
-parameters and hence $c_{1}$ and $c_{2}$ evolve over the calendar
-year. We fit the same type of model also to the ensemble mean,
-control, and high resolution run and obtain climatological means
-$\tilde{f}_{\overline{\mathrm{ENS}},t}, \tilde{f}_{\mathrm{CTRL},t}$,
-and $\tilde{f}_{\mathrm{HRES},t}$. The mean of the forecast
-distribution is then:
-\begin{linenomath*}
-\begin{equation}
-m = \tilde{y} + a_{1}(f_{\mathrm{HRES}} - \tilde{f}_{\mathrm{HRES}}) +
-a_{2}(f_{\mathrm{CTRL}} - \tilde{f}_{\mathrm{CTRL}}) +
-a_{3}(f_{\overline{\mathrm{ENS}}} -
-\tilde{f}_{\overline{\mathrm{ENS}}}).
-\end{equation}
-\end{linenomath*}
-The variance of the forecast distribution is linked to the raw
-ensemble by: 
-\begin{linenomath*}
-\begin{equation}
-\sigma^{2} = b_{0} + b_{1}s^{2},
-\end{equation}
-\end{linenomath*}
-where $s^{2} = \frac{1}{K}\sum_{k=1}^{K}(f_{k} -
-\frac{1}{K}\sum_{k=1}^{K}f_{k})^{2}$. The parameters
-${\theta}_{T2M}=(a_{1}, a_{2}, a_{3}, b_{0}, b_{1})^{T}$ are
-constrained to be non-negative, and hence $a_{k}/\sum_{k=1}^{K} a_{k}$
-can be understood as the weight of model $k$.
+\subsubsection{Planetary Surface proposed convention}
 
-\subsubsection{Precipitation}
-For PPT24 we use the EMOS approach proposed by \citet{Scheu14}, where
-$g(\cdot)$ is a left-censored (at zero) generalized extreme value
-(GEV) distribution. While the shape parameter $\xi$ of the GEV is kept
-constant ($\xi=0.2$), the location and the scale parameters $m$ and
-$\sigma$ are linked to the raw ensemble via:
-\begin{linenomath*}
-\begin{eqnarray}
-m &=& a_{0} + a_{1} f_{\mathrm{HRES}} + a_{2} f_{\mathrm{CTRL}} +
-a_{3} f_{\overline{\mathrm{ENS}}} + a_{4} \pi_{0},\nonumber\\
-\sigma &=& b_{0} + b_{1} \mathrm{MD}_{f},
-\end{eqnarray}
-\end{linenomath*}
-where $\pi_{0}$ is the fraction of ensemble members predicting zero
-precipitation and $\mathrm{MD}_{f}:= K^{-2}$\break
-$\sum_{k, k' = 1}^{K} |
-f_{k} - f_{k'} |$ is the ensemble mean difference. Again, the
-parameters are denoted by $\theta_{PPT24}=(a_{0}, \dots, a_{4}, b_{0},
-b_{1})^{T}$. The parameters $a_{1}, a_{2}, a_{3}, b_{0}, b_{1}$ are
-constrained to be non-negative, and hence the normalized parameters
-$a_{1}$ to $a_{3}$ can be understood as weights.
+\subsubsection{FITS to PDS3 and PDS4 dictionaries}
 
-\subsection{Global CRPS Analysis}
- \label{sec:meth_glob_crps}
+\subsubsection{Best Practices and Examples}
 
-As stated in the introduction, the main objective of this study is to
-analyse whether the gap in CRPS between the raw ensemble and the
-post-processed forecast narrows over time. This is assessed
-station-wise using both a parametric and a non-parametric approach.
-For the former, we fit the following regression model to the monthly
-time series of CRPS differences ($\Delta \mathrm{CRPS}_{t} =
-\mathrm{CRPS}_{\mathrm{raw},t} - \mathrm{CRPS}_{\mathrm{EMOS}, t}$):
-\begin{linenomath*}
-\begin{equation}
-\Delta \mathrm{CRPS}_{t} = \beta_{0} + \beta_{1} t + \beta_{2} \sin\left(\frac{2\pi t}{12}\right) + \beta_{3} \cos\left(\frac{2\pi t}{12} \right) + \epsilon, \phantom{bla} \epsilon \sim \mathcal{N}(0, \sigma^{2}) \label{eq:linseas}
-\end{equation}
-\end{linenomath*}
-where $\Delta \mathrm{CRPS}_{t}$ is the predictand, $t$ is now the
-time in months, and $\sigma^{2}$ denotes the error variance. For the
-latter, we use Kendall's $\tau$ correlation coefficient and the
-associated test statistics \citep{Mann45} as implemented in the
-\texttt{R} package \texttt{Kendall} \citep{Kendall}. In order to
-correct for seasonal effects, we calculate the $\tau$ statistics using
-the residuals of the following model:
-\begin{linenomath*}
-\begin{equation}
-\Delta \mathrm{CRPS}_{t} = \gamma_{0} + \gamma_{1} \sin\left(\frac{2\pi t}{12}\right) + \gamma_{2} \cos\left(\frac{2\pi t}{12} \right) + \epsilon, \phantom{bla} \epsilon \sim \mathcal{N}(0, \sigma^{2})
-\label{eq:tauseas}
-\end{equation}
-\end{linenomath*}
-Note that negative $\tau$ values indicate a negative trend and
-positive values a positive one. Figure~\ref{figone} a) and b)
-show the regression lines estimated by model (\ref{eq:linseas}) for
-monthly averages of $\Delta \mathrm{CRPS}$ and the corresponding
-Kendall's $\tau$ test statistics for an example with decreasing and
-increasing gap.
+\section{Inter-operable software developments}
+\label{sec:softdev}
 
-
-\section{Results}
-\label{sec:res}
-
-\subsection{Are There Any Significant Temporal Trends?}
-
-
-The above results indicate a tendency of a decrease in $\Delta$CRPS
-over time at least for T2M and PPT24. In the following we check the
-percentages of stations with decreasing, an absence of, or increasing
-trend in $\Delta$CRPS over time at a significance level of 0.05. In
-order to be more confident about the results this analysis is
-performed using both the parametric regression model and the
-non-parametric Kendall's $\tau$ correlation coefficient test. As
-already mentioned both approaches correct for seasonal effects.
-Furthermore, in case of T2M the same analysis has been performed
-additionally using BMA instead of EMOS in order to relax the
-dependence on one particular post-processing method. As shown in
-Table~\ref{tab:signif_gap_clos} the stations with no significant trend
-outnumber the stations with either negative or positive trend for all
-three variables and lead times considered. Note that the percentage of
-stations without any significant trend increases with increasing lead
-time. In line with the results shown in
-Figure~\ref{fig:mean_and_slope}, significantly negative trends are
-more common than positive ones for T2M and PPT24. The difference
-between the number of stations with negative and those with positive
-trend reduces with increasing lead time, but is still greater than
-zero for a 10 day forecast. Note that the high number of
-non-significant stations in case of PPT24 is likely to be due to the
-high variability of precipitation amounts, and hence variability of
-CRPS values, which leads to a large residual standard error in case of
-the parametric regression model and to a lot of pairs (a pair denotes
-here a value of $\Delta$CRPS and its associated time stamp) opposite
-to the estimated direction in case of the $\tau$ test statistics. In
-case of V10 the stations with a negative trend and those with a
-positive trend are almost equally frequent regardless of the lead
-time. Figures of the global distributions of stations with no,
-significantly negative, and significantly positive trend in
-$\Delta$CRPS are available as supplemental material to this paper.
-
-
-\section{Discussion and Conclusions}
+\section{Discussion and Perspectives}
 \label{sec:disc}
-
-According to the above analyses the gap in CRPS between the raw
-ensemble and the EMOS forecasts remains almost constant over time. For
-T2M and PPT24 $\Delta$CRPS shows a slightly decreasing tendency. The
-higher the lead time the less accentuated is this tendency. For V10
-such a tendency cannot be detected. The parametric regression model
-and the non-parametric $\tau$ test yield similar results. Hence, a
-linear model that is overlaid by seasonal fluctuations seems to be
-reasonable. Note that the skill of the raw ensemble and the EMOS
-forecasts may sometimes be negatively affected by upgrades to the
-atmospheric model. Model upgrades may deteriorate raw ensemble skill
-at some individual stations. For instance, a resolution increase may
-introduce new issues with statistical downscaling of the forecasts to
-some specific observation sites. But more importantly, the skill of
-the post-pro\-cessed forecasts can be lowered dramatically if a model
-update happens between the training and the verification period. These
-issues may result in positive trends in $\Delta$CRPS. Ideally,
-post-processing would be based on a cascade of reforecasts. That is,
-for each atmospheric model version, training of the post-processing
-model would be done using a corresponding time series of reforecasts
-made with that same model version. Furthermore, the observations may
-be affected by measurement errors. If these errors change over time,
-they may also influence the estimates of the trends in $\Delta$CRPS.
-As the problems introduced by statistical downscaling may be mitigated
-by verifying against model analysis, a similar study that replaces
-observations by model analysis, as proposed by \citet{Ghel00} and
-\citet{Papp09}, may give further insights.
-
-From the above we conclude that the probabilistic skill of both the
-raw ensembles and the EMOS forecasts improves over time. The fact that
-the gap in skill has remained almost \textbf{constant}, especially for
-V10, suggests that improvements to the atmospheric model have an
-effect quite different from what calibration by statistical
-post-processing is doing. That is, they are increasing potential
-skill. Thus this study indicates that (a) further model development is
-important even if one is just interested in point forecasts, and (b)
-statistical post-processing is important because it will keep adding
-skill in the foreseeable future.
 
 %% ------------------------------------------------------------------------ %%
 \section*{Citations}
@@ -684,22 +436,9 @@ energy ($E$)—divided by the speed of light squared ($c^2$).
 %  ACKNOWLEDGMENTS
 
 \acknowledgments
-The forecast data used in this study can be made available subject to
-a handling charge. SYNOP observations are not available through ECMWF.
-We are grateful to F. Rabier, D. S. Richardson, D. Lavers, and other
-colleagues at ECMWF for helpful discussions and inputs. We thank David
-M\"{o}ller of the University of Heidelberg for his contribution.
-Furthermore, we like to thank T. Gneiting of the Heidelberg Institute
-for Theoretical Studies and of the Institute for Stochastics at
-Karlsruhe Institute of Technology for valuable comments, and the
-colleagues at the Heidelberg Institute for Theoretical Studies.
-Additionally, we are grateful to two anonymous reviewers for their
-helpful comments. We are indebted to the ECMWF for granting access to
-their products.
-
-The Editor thanks Pierre Pinson and an anonymous reviewer for their assistance in evaluating this paper.
-
-
+This work benefits from support of VESPA/Europlanet.
+The Europlanet 2020 Research Infrastructure is funded by the European Union under the
+Horizon 2020 research and innovation program, grant agreement N.654208.
 
 
 %%  REFERENCE LIST AND TEXT CITATIONS
@@ -726,7 +465,7 @@ The Editor thanks Pierre Pinson and an anonymous reviewer for their assistance i
 % 4. Run LaTeX on your new file which will produce the citations.
 %
 
-\bibliography{agusample}
+\bibliography{epss_marmo}
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
@@ -1014,6 +753,3 @@ Math coded inside display math mode \[ ...\]
 %  \begin{equation}
 %  \end{equation}
 %  \end{linenomath*}
-
-
-
