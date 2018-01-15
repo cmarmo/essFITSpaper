@@ -160,12 +160,16 @@
 %% ------------------------------------------------------------------------ %%
 
  \authors{C. Marmo\affil{1},
- T. M. Hare\affil{2}, ...}
+ T. M. Hare\affil{2},
+ S. Erard\affil{3},
+ B. Cecconi\affil{3},
+ M. Minin\affil{4},
+ A. P. Rossi\affil{4} ...}
 
 \affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay, Orsay, France}
 \affiliation{2}{U. S. Geological Survey, Astrogeology Science Center, Flagstaff, AZ, USA}
-%\affiliation{3}{}
-%\affiliation{4}{}
+\affiliation{3}{LESIA, Observatoire de Paris, PSL Research University, CNRS, Sorbonne Universités, UPMC Univ. Paris 06, Univ. Paris Diderot, Sorbonne Paris Cité, Meudon, France}
+\affiliation{4}{Jacobs University, Bremen, Germany}
 %\affiliation{5}{}
 
 
@@ -195,7 +199,27 @@
 
 
 \begin{abstract}
-
+Planetary science is a vast field of investigation that brings together several
+research communities (geologists, astronomers, physicists, geochemists, etc.),
+and produces an impressively growing amount of heterogeneous data.
+Planetary surface research continues to evolve from mostly visual assessment
+to more automated quantitative analysis.
+Interoperability and openness of data formats and processing techniques are
+becoming a necessity, to avoid the risk of being unable to efficiently extract
+scientific information from the data, and to guarantee the reproducibility of
+the scientific results.
+This paper will describe how Flexible Image Transport System (FITS) can be used
+in planetary surface investigations, and how its metadata can easily be inserted
+in the PDS 4 metadata distribution model.
+FITS format is open and flexible, largely implemented in open and efficient
+processing tools.
+Those reasons make FITS format appropriate for large amounts of raster data
+processing.
+The purpose of this approach is to make easier data mining and re-processing in
+Planetary Surface investigations, promoting general software based on those
+standards.
+More than capturing a formal data model, FITS description for those data aims to
+simplify operational logistics.
 \end{abstract}
 
 %% ------------------------------------------------------------------------ %%
@@ -230,6 +254,94 @@
 
 \section{Introduction}
 \label{sec:intro}
+Planetary science is a vast field of investigation that brings together several
+research communities (geologists, astronomers, physicists, geochemists, etc.),
+and produces an impressively growing amount of heterogeneous data.
+Planetary surface research continues to evolve from mostly visual assessment
+to more automated quantitative analysis.
+Interoperability and openness of data formats and processing techniques are
+becoming a necessity, to avoid the risk of being unable to efficiently extract
+scientific information from the data, and to guarantee the reproducibility of
+the scientific results.
+This paper will describe how Flexible Image Transport System (FITS) can be used
+in planetary surface investigations, and how its metadata can easily be inserted
+in the PDS 4 metadata distribution model.
+FITS format is open and flexible, largely implemented in open and efficient
+processing tools.
+Those reasons make FITS format appropriate for large amounts of raster data
+processing.
+The purpose of this approach is to make easier data mining and re-processing in
+Planetary Surface investigations, promoting general software based on those
+standards.
+More than capturing a formal data model, FITS description for those data aims to
+simplify operational logistics.
+
+The option to use FITS within the
+planetary domain could be an opportunity to allow
+more seamless sharing of data across these different
+domains and potentially homogenize methods from
+acquisition, to visualization, while giving more chances
+to optimize data processing
+
+This paper is organized as follows:
+\begin{enumerate}
+\item{a brief description of FITS format and on its pros and cons in using it in planetary science;}
+\item{a proposition for planetary surface metadata description in FITS}
+\item{Dictionaries between FITS and PDS metadata description}
+\item{examples of planetary dataset in FITS}
+\item{current developments for making FITS usable in planetary sciences}
+\end{enumerate}
+
+\section{FITS format in Planetary Surface investigation}
+\label{sec:fitspss}
+
+\subsection{FITS format}
+FITS\citep{fitsorig,fitsver3,fitsoffice} stands for 'Flexible Image Transport System'.
+It is an open digital standard, defined for data acquisition and archiving in astronomical
+observatories back in the late 70's, and it is used for spatial telescope data.
+In fact, FITS is the IAU-approved standard format for astronomical
+data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
+Therefore, FITS is one of the standard implemented formats in the Virtual
+Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html} (VO).
+Finally, FITS format is compatible with the Planetary Data System (PDS)
+3\footnote{https://pds.nasa.gov/pds4/about/} and
+4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml} archiving specifications and
+supported by a large number of open libraries and software tools.
+
+FITS is already able to propose standard formatting for some data products quite common by now in
+planetary surface investigations.
+In particular, Multi-Extension FITS (MEF) schema proposes an easy way
+to store inhomogeneous digital information (reflectance, calibration data, vector table data, etc.)
+in the same file each with relative metadata, as well as
+multi-detector imagery (e.g. from HiRISE \citep{hirise}) or hyperspectral cubes
+(e.g. from CRISM \citep{crism} or OMEGA \citep{omega}).
+FITS has been already chosen to distribute, e.g.,
+Hayabusa [10] and some of the Dawn [11] data.
+To be efficiently used in planetary surface investigations, FITS metadata must be extended in order to
+take into account the size of the reference body.
+planetary body shapes and orientations are well defined
+and standardized by the International Astronomical
+Union (IAU) Working Group on Cartographic
+Coordinates and Rotational Elements (WGCCRE).
+This group reports triennially on the preferred rotation
+rate, spin axis, prime meridian, and reference surface
+for planets and satellites which helps ensure that
+cartographic endeavors are effectively comparable [8].
+In the framework of the VESPA [12, 13] component of the
+Europlanet 2020 project an extension to FITS meta-
+data (GeoFITS) has been proposed [14].
+
+\subsubsection{Planetary Surface proposed convention}
+
+\subsubsection{FITS to PDS3 and PDS4 dictionaries}
+
+\subsubsection{Best Practices and Examples}
+
+\section{Inter-operable software developments}
+\label{sec:softdev}
+
+\section{Discussion and Perspectives}
+\label{sec:disc}
 
 %% Enter Figures and Tables near as possible to where they are first mentioned:
 %
@@ -246,7 +358,7 @@
 % \begin{figure}
 % \end{figure}
 
-\begin{figure}[ht!]
+%\begin{figure}[ht!]
 % \centering
 % when using pdflatex, use pdf file:
 % \includegraphics[width=20pc]{figsamp.pdf}
@@ -256,109 +368,92 @@
 %
 % If you don't specify the file extension, 
 % \includegraphics will insert the right file:
-\centerline{\includegraphics[height=1.5in]{figsamp}}
-\caption{Short caption}
-\label{figone}
-\end{figure}
+%\centerline{\includegraphics[height=1.5in]{figsamp}}
+%\caption{Short caption}
+%\label{figone}
+%\end{figure}
 
-\begin{figure}[ht!]
-\centerline{\includegraphics[angle=45,height=2in]{figsamp}}
-\caption{The figure caption should begin with an overall descriptive
-statement of the figure followed by additional text. They should be
-immediately after each figure.  Figure parts are indicated with
-lower-case letters ({\bf a, b, c}\ldots).  For initial submission, please place
-both the figures and captions in the text near where they are cited.}
-\label{fig:mean_and_slope}
-\end{figure}
+%\begin{figure}[ht!]
+%\centerline{\includegraphics[angle=45,height=2in]{figsamp}}
+%\caption{The figure caption should begin with an overall descriptive
+%statement of the figure followed by additional text. They should be
+%immediately after each figure.  Figure parts are indicated with
+%lower-case letters ({\bf a, b, c}\ldots).  For initial submission, please place
+%both the figures and captions in the text near where they are cited.}
+%\label{fig:mean_and_slope}
+%\end{figure}
 
 
-\begin{table}
-\caption{Start this caption with a short description of your
-table.
-Large tables
-especially presenting rich data should be presented as separate excel
-or .cvs files, not as part of the main text.}
-== Table Here ==
-\end{table}
+%\begin{table}
+%\caption{Start this caption with a short description of your
+%table.
+%Large tables
+%especially presenting rich data should be presented as separate excel
+%or .cvs files, not as part of the main text.}
+%== Table Here ==
+%\end{table}
 
 %
 % ---------------
 % EXAMPLE TABLE
 %
-\begin{table}
-\caption{Time of the Transition Between Phase 1 and Phase 2$^{a}$}
-\centering
-\begin{tabular}{l c}
-\hline
- Run  & Time (min)  \\
-\hline
-  $l1$  & 260   \\
-  $l2$  & 300   \\
-  $l3$  & 340   \\
-  $h1$  & 270   \\
-  $h2$  & 250   \\
-  $h3$  & 380   \\
-  $r1$  & 370   \\
-  $r2$  & 390   \\
-\hline
-\multicolumn{2}{l}{$^{a}$Table note text here.}
-\end{tabular}
-\end{table}
+%\begin{table}
+%\caption{Time of the Transition Between Phase 1 and Phase 2$^{a}$}
+%\centering
+%\begin{tabular}{l c}
+%\hline
+% Run  & Time (min)  \\
+%\hline
+%  $l1$  & 260   \\
+%  $l2$  & 300   \\
+%  $l3$  & 340   \\
+%  $h1$  & 270   \\
+%  $h2$  & 250   \\
+%  $h3$  & 380   \\
+%  $r1$  & 370   \\
+%  $r2$  & 390   \\
+%\hline
+%\multicolumn{2}{l}{$^{a}$Table note text here.}
+%\end{tabular}
+%\end{table}
 
 
 % See below for how to make sideways figures or tables.
 
 % AGU prefers the use of {sidewaystable} over {landscapetable} as it causes fewer problems.
 %
- \begin{sidewaysfigure}
- \includegraphics[width=20pc]{figsamp}
- \caption{Caption here}
- \label{newfig}
- \end{sidewaysfigure}
+% \begin{sidewaysfigure}
+% \includegraphics[width=20pc]{figsamp}
+% \caption{Caption here}
+% \label{newfig}
+% \end{sidewaysfigure}
 %
- \begin{sidewaystable}
- \caption{Caption here}
-\label{tab:signif_gap_clos}
- \begin{tabular}{ccc}
-one&two&three\\
-four&five&six
- \end{tabular}
- \end{sidewaystable}
+% \begin{sidewaystable}
+% \caption{Caption here}
+%\label{tab:signif_gap_clos}
+% \begin{tabular}{ccc}
+%one&two&three\\
+%four&five&six
+% \end{tabular}
+% \end{sidewaystable}
 
-\clearpage
-
-\section{FITS format in Planetary Surface investigation}
-\label{sec:fitspss}
-
-\subsection{FITS format}
-
-\subsubsection{Planetary Surface proposed convention}
-
-\subsubsection{FITS to PDS3 and PDS4 dictionaries}
-
-\subsubsection{Best Practices and Examples}
-
-\section{Inter-operable software developments}
-\label{sec:softdev}
-
-\section{Discussion and Perspectives}
-\label{sec:disc}
+%\clearpage
 
 %% ------------------------------------------------------------------------ %%
-\section*{Citations}
+%\section*{Citations}
 
 % Please use ONLY \citet and \citep for reference citations.
 % DO NOT use other cite commands (e.g., \cite, \citeyear, \nocite, \citealp, etc.).
 
-\subsection*{Cites made with \tt\string\citet\string{\string}}
-...as shown by \citet{Boug10}, \citet{Buiz07}, \citet{Fra10},
-\citet{Ghel00}, and \citet{Leit74}. 
+%\subsection*{Cites made with \tt\string\citet\string{\string}}
+%...as shown by \citet{Boug10}, \citet{Buiz07}, \citet{Fra10},
+%\citet{Ghel00}, and \citet{Leit74}. 
 
-\subsection*{Cites made with \tt\string\citep\string{\string}}
-...as shown by \citep{Boug10}, \citep{Buiz07}, \citep{Fra10},
-\citep{Ghel00, Leit74}. 
+%\subsection*{Cites made with \tt\string\citep\string{\string}}
+%...as shown by \citep{Boug10}, \citep{Buiz07}, \citep{Fra10},
+%\citep{Ghel00, Leit74}. 
 
-...has been shown \citep [e.g.,][]{Boug10,Buiz07,Fra10}.
+%...has been shown \citep [e.g.,][]{Boug10,Buiz07,Fra10}.
 
 
 
@@ -376,18 +471,18 @@ four&five&six
 % will show
 % A: Here Is Appendix Title
 %
-\appendix
-\section{Here is a sample appendix}
-This is an Appendix section.
+%\appendix
+%\section{Here is a sample appendix}
+%This is an Appendix section.
 
-\subsection{subsection}
-This is an Appendix subsection.
+%\subsection{subsection}
+%This is an Appendix subsection.
 
-\subsubsection{subsubsection}
-This is an Appendix subsubsection.
-\begin{linenomath*}
-\begin{equation}asdf\end{equation}
-\end{linenomath*}
+%\subsubsection{subsubsection}
+%This is an Appendix subsubsection.
+%\begin{linenomath*}
+%\begin{equation}asdf\end{equation}
+%\end{linenomath*}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
@@ -395,38 +490,38 @@ This is an Appendix subsubsection.
 %
 %%%%%%%%%%%%%%
 % Glossary is only allowed in Reviews of Geophysics
-\begin{glossary}
-\term{Term}
- Term Definition here
-\term{Term}
- Term Definition here
-\term{Term}
- Term Definition here
-\end{glossary}
+%\begin{glossary}
+%\term{Term}
+% Term Definition here
+%\term{Term}
+% Term Definition here
+%\term{Term}
+% Term Definition here
+%\end{glossary}
 
 %
 %%%%%%%%%%%%%%
 % Acronyms
- \begin{acronyms}
- \acro{Acronym}
- Definition here
- \acro{EMOS}
- Ensemble model output statistics 
- \acro{ECMWF}
- Centre for Medium-Range Weather Forecasts
- \end{acronyms}
+% \begin{acronyms}
+% \acro{Acronym}
+% Definition here
+% \acro{EMOS}
+% Ensemble model output statistics 
+% \acro{ECMWF}
+% Centre for Medium-Range Weather Forecasts
+% \end{acronyms}
 
 %
 %%%%%%%%%%%%%%
 % Notation 
- \begin{notation}
- \notation{$a+b$} Notation Definition here
- \notation{$e=mc^2$} 
- Equation in German-born physicist Albert Einstein's theory of special
-relativity that showed that the increased relativistic mass ($m$) of a
-body comes from the energy of motion of the body—that is, its kinetic
-energy ($E$)—divided by the speed of light squared ($c^2$).
- \end{notation}
+% \begin{notation}
+% \notation{$a+b$} Notation Definition here
+% \notation{$e=mc^2$} 
+% Equation in German-born physicist Albert Einstein's theory of special
+%relativity that showed that the increased relativistic mass ($m$) of a
+%body comes from the energy of motion of the body—that is, its kinetic
+%energy ($E$)—divided by the speed of light squared ($c^2$).
+% \end{notation}
 
 
 
@@ -437,8 +532,8 @@ energy ($E$)—divided by the speed of light squared ($c^2$).
 
 \acknowledgments
 This work benefits from support of VESPA/Europlanet.
-The Europlanet 2020 Research Infrastructure is funded by the European Union under the
-Horizon 2020 research and innovation program, grant agreement N.654208.
+The Europlanet 2020 Research Infrastructure is funded by the European Union
+under the Horizon 2020 research and innovation program, grant agreement N.654208.
 
 
 %%  REFERENCE LIST AND TEXT CITATIONS
@@ -470,7 +565,8 @@ Horizon 2020 research and innovation program, grant agreement N.654208.
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
 
-% % \begin{thebibliography}{}
+%\begin{thebibliography}{}
+
 
 % % \bibitem[{\textit{Bell and Munoz}}(2008)]{Boug10} Bell, A.~H., and
 % % Munoz, D.~P.  (2008). Activity in the superior colliculus reflects
@@ -584,7 +680,7 @@ Horizon 2020 research and innovation program, grant agreement N.654208.
 % the intermediate layers of the monkey superior colliculus.
 % \textit{J.~Neurophysiol.} 79, 1193--1209.
 
-% \end{thebibliography}
+%\end{thebibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Track Changes:
