@@ -285,7 +285,8 @@ to optimize data processing
 
 This paper is organized as follows:
 \begin{enumerate}
-\item{a brief description of FITS format and on its pros and cons in using it in planetary science;}
+\item{a brief description of FITS format and on its pros and cons in using it in
+planetary science;}
 \item{a proposition for planetary surface metadata description in FITS}
 \item{Dictionaries between FITS and PDS metadata description}
 \item{examples of planetary dataset in FITS}
@@ -305,28 +306,28 @@ Therefore, FITS is one of the standard implemented formats in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html} (VO).
 Finally, FITS format is compatible with the Planetary Data System (PDS)
 3\footnote{https://pds.nasa.gov/pds4/about/} and
-4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml} archiving specifications and
-supported by a large number of open libraries and software tools.
+4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml} archiving
+specifications and supported by a large number of open libraries and software tools.
 
-FITS is already able to propose standard formatting for some data products quite common by now in
-planetary surface investigations.
+FITS is already able to propose standard formatting for some data products quite
+common by now in planetary surface investigations.
 In particular, Multi-Extension FITS (MEF) schema proposes an easy way
-to store inhomogeneous digital information (reflectance, calibration data, vector table data, etc.)
-in the same file each with relative metadata, as well as
+to store inhomogeneous digital information (reflectance, calibration data, vector
+table data, etc.) in the same file each with relative metadata, as well as
 multi-detector imagery (e.g. from HiRISE \citep{hirise}) or hyperspectral cubes
 (e.g. from CRISM \citep{crism} or OMEGA \citep{omega}).
 FITS has been already chosen to distribute, e.g.,
-Hayabusa [10] and some of the Dawn [11] data.
-To be efficiently used in planetary surface investigations, FITS metadata must be extended in order to
-take into account the size of the reference body.
-planetary body shapes and orientations are well defined
-and standardized by the International Astronomical
-Union (IAU) Working Group on Cartographic
+Hayabusa\footnote{http://darts.isas.jaxa.jp/planet/project/hayabusa/index.html},
+Akatsuki\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
+and some of the Dawn\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
+To be efficiently used in planetary surface investigations, FITS metadata must
+be extended in order to take into account the size of the reference body.
+Planetary body shapes and orientations are well defined and standardized by the
+International Astronomical Union (IAU) Working Group on Cartographic
 Coordinates and Rotational Elements (WGCCRE).
-This group reports triennially on the preferred rotation
-rate, spin axis, prime meridian, and reference surface
-for planets and satellites which helps ensure that
-cartographic endeavors are effectively comparable [8].
+This group reports triennially on the preferred rotation rate, spin axis, prime meridian,
+and reference surface for planets and satellites which helps ensure that
+cartographic endeavors are effectively comparable \citep{wgccre}.
 In the framework of the VESPA [12, 13] component of the
 Europlanet 2020 project an extension to FITS meta-
 data (GeoFITS) has been proposed [14].
