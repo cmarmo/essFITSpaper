@@ -350,12 +350,86 @@ Transverse Mercator or Simple Cylindrical and
 Equirectangular map projections.
 There is no need for East or West positive longitude definitions as the pixel
 conversion in world coordinates is set by a common
-oriented matrix. 
+oriented matrix.
+
+\begin{table}
+\label{table:proj}
+\caption{Projection names and codes already available in FITS suitable for planetary applications:
+their translation in PDS vocabulary is also provided}
+\centering
+\begin{tabular}{l l l}
+\hline
+FITS Name$^{a}$ & FITS code$^{a}$ & PDS name \\ 
+\hline
+Sanson-Flamsteed & SFL & \\
+Zenithal Equal-Area & ZEA & \\
+Conic ortomorphic & COO & \\
+Plate Carre & CAR & \\
+generalization of Lambert Equal-Area & CEA \\
+Mercator & MER & \\
+Ortographic & SIN & \\
+Zenithal perspective & AZP & \\
+Stereographic & STG & \\
+\hline
+\multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}}
+\end{tabular}
+\end{table}
+
+\begin{table}
+\label{table:ctype}
+\caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.}
+\centering
+\begin{tabular}{l l}
+\hline
+Body & CTYPE$^{a}$ \\ 
+\hline
+Moon & SE \\
+Venus & VE \\
+Mars & MA \\
+Jupiter & JU \\
+Saturn & SA \\
+Uranus & UR \\
+Neptune & NE \\
+Planetary bodies & B \\
+\hline
+\multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}}
+\end{tabular}
+\end{table}
+
 However, if still needed, FITS does offer the possibility to fully describe those
 same parameters using alternative WCS definitions (meters, degrees,
 East and West longitude, etc.)\citep{greisencalaII}.
 Nevertheless, WCS does not record information about the body shape and
 orientation, and reference surface.
+
+\begin{sidewaystable}
+\label{table:newkeys}
+\caption{Proposed keywords are related to 3D surface shape,
+not available in astronomical celestial standards.}
+\centering
+\begin{tabular}{l l l l}
+\hline
+Keyword & Type & Status & Definition  \\
+\hline
+WGCCRECS & string & reserved & Value field contains a string referring to the WGCCRE report \\
+& & & or document defining the coordinate system describing the data. (DOI)    \\
+A\_RADIUS$^{a}$ & real & mandatory & Value field contains the semi-major axis of the ellipsoid that \\
+& & & defines the approximate shape of a target body used in projection. \\
+& & & 'A' is usually in the equatorial plane. Always in meters.  \\
+B\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the intermediate axis of \\
+& & & the ellipsoid that defines the approximate shape of a target body used in projection. \\
+& & & 'B' is usually in the equatorial plane. Always in meters.   \\
+C\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the semi-minor axis of the \\
+& & & ellipsoid that defines the approximate shape of a target body used in projection. \\
+& & & 'C' is normal to the plane defined by 'A' and 'B'. Always in meters. \\
+OGCCODE	& string & reserved, optional & Value field contains a string describing the standard OGC code \\
+& & & (if any) from \citet{hare2006} corresponding to the shape and projection used in the image. \\
+& & & This keyword will assure compatibility with standard GIS softwares. \\
+\hline
+\multicolumn{4}{l}{$^{a}$Note that IAU Working Group defines a mean radius for each Solar System body. When this Mean Radius is used in projection definition,} \\
+\multicolumn{4}{l}{  the three keywords A\_RADIUS, B\_RADIUS,C\_RADIUS, must be set to the same value of the defined Mean Radius.} \\
+\end{tabular}
+\end{sidewaystable}
 
 \subsubsection{FITS to PDS3 and PDS4 dictionaries}
 
