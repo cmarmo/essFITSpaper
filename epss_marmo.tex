@@ -297,7 +297,8 @@ planetary science;}
 \label{sec:fitspss}
 
 \subsection{FITS format}
-FITS\citep{fitsorig,fitsver3,fitsoffice} stands for 'Flexible Image Transport System'.
+FITS\footnote{https://fits.gsfc.nasa.gov/} \citep{fitsorig,fitsver3} stands for
+'Flexible Image Transport System'.
 It is an open digital standard, defined for data acquisition and archiving in astronomical
 observatories back in the late 70's, and it is used for spatial telescope data.
 In fact, FITS is the IAU-approved standard format for astronomical
@@ -328,11 +329,33 @@ Coordinates and Rotational Elements (WGCCRE).
 This group reports triennially on the preferred rotation rate, spin axis, prime meridian,
 and reference surface for planets and satellites which helps ensure that
 cartographic endeavors are effectively comparable \citep{wgccre}.
-In the framework of the VESPA [12, 13] component of the
-Europlanet 2020 project an extension to FITS meta-
-data (GeoFITS) has been proposed [14].
+In the framework of the VESPA\footnote{http://europlanet-vespa.eu/} \citep{vespapss}
+component of the EuroplanetRI2020 project an extension to FITS meta-
+data (GeoFITS) has been proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention}.
 
 \subsubsection{Planetary Surface proposed convention}
+When willing to use FITS format for Planetary Surfaces the issue of rigorous
+geographical representation must be addressed.
+Planetary surface researchers for their mapping and analysis needs, commonly use
+Geographical Information Systems (GIS).
+In general, GIS applications excel in data interoperability even
+though some have historically been anchored to Earth's spatial description.
+FITS World Coordinate System representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html.}
+simplifies the spatial coordinate description with respect to historical terrestrial
+references.
+There is no need for oblique projection definitions \citep{Snyder1987,calagreisenI}
+as projection parameters (projection center or reference point)
+describe the difference between the Mercator and
+Transverse Mercator or Simple Cylindrical and
+Equirectangular map projections.
+There is no need for East or West positive longitude definitions as the pixel
+conversion in world coordinates is set by a common
+oriented matrix. 
+However, if still needed, FITS does offer the possibility to fully describe those
+same parameters using alternative WCS definitions (meters, degrees,
+East and West longitude, etc.)\citep{greisencalaII}.
+Nevertheless, WCS does not record information about the body shape and
+orientation, and reference surface.
 
 \subsubsection{FITS to PDS3 and PDS4 dictionaries}
 
