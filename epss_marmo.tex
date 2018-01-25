@@ -333,7 +333,7 @@ In the framework of the VESPA\footnote{http://europlanet-vespa.eu/} \citep{vespa
 component of the EuroplanetRI2020 project an extension to FITS meta-
 data (GeoFITS) has been proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention}.
 
-\subsubsection{Planetary Surface proposed convention}
+\section{Planetary Surface proposed convention}
 When willing to use FITS format for Planetary Surfaces the issue of rigorous
 geographical representation must be addressed.
 Planetary surface researchers for their mapping and analysis needs, commonly use
@@ -346,11 +346,34 @@ references.
 There is no need for oblique projection definitions \citep{Snyder1987,calagreisenI}
 as projection parameters (projection center or reference point)
 describe the difference between the Mercator and
-Transverse Mercator or Simple Cylindrical and
+Oblique Mercator or Simple Cylindrical and
 Equirectangular map projections.
 There is no need for East or West positive longitude definitions as the pixel
 conversion in world coordinates is set by a common
 oriented matrix.
+
+\begin{table}
+\label{table:wcskeys}
+\caption{WCS FITS keywords in the Planetary Surface context}
+\centering
+\begin{tabular}{l l l l}
+\hline
+Keyword & Type & Definition & PDS4 \\
+\hline
+EQUINOX & real & & \\
+RADESYS	& string & & \\
+CRPIXn & real & & \\
+CTYPEn & string & & \\
+CRVALn & real & & \\
+CDi\_j & real matrix & & \\
+PCi\_j & real matrix & & \\
+CDELTn & real & & \\
+CUNITn & string & & \\
+WCSNAME & string & & \\
+CNAMEn & string (up to 68 characters) & & \\
+\hline
+\end{tabular}
+\end{table}
 
 \begin{table}
 \label{table:proj}
@@ -363,13 +386,14 @@ FITS Name$^{a}$ & FITS code$^{a}$ & PDS name$^{b}$ \\
 \hline
 Sanson-Flamsteed & SFL & Sinusoidal \\
 Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
-Conic ortomorphic & COO & Lambert Conformal Conic\\
+Conic Ortomorphic & COO & Lambert Conformal Conic\\
 Plate Carre & CAR & Equirectangular \\
-Cylindrical Equal-Area & CEA & \\
+Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
 Mercator & MER & Mercator, Oblique Mercator \\
 Ortographic & SIN & Orthographic \\
-Zenithal perspective & AZP & \\
-Stereographic & STG & \\
+Zenithal Perspective & AZP & General Vertical Near-sided Perspective \\
+Stereographic & STG & Stereographic, Polar Stereographic \\
+Gnomonic & TAN & Gnomonic \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
 \multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}}
@@ -434,7 +458,7 @@ OGCCODE	& string & reserved, optional & Value field contains a string describing
 
 \subsubsection{FITS to PDS3 and PDS4 dictionaries}
 
-\subsubsection{Best Practices and Examples}
+\subsection{Best Practices and Examples}
 
 \section{Inter-operable software developments}
 \label{sec:softdev}
