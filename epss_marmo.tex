@@ -271,6 +271,11 @@ System\footnote{https://fits.gsfc.nasa.gov/}
 and describes how FITS metadata can easily be inserted in the
 PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
 metadata distribution model.
+FITS is one of the standard implemented formats in the Virtual
+Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
+(VO), therefore making obvious its connection to the Planetary Virtual
+Observatory initiative and the planetary Table Access Protocol (EPN-TAP)
+\citep{ERARDepntap}.
 FITS format is open and flexible, largely implemented in open and efficient
 processing tools.
 Those reasons make FITS format appropriate for large amounts of raster data
@@ -286,7 +291,8 @@ This paper is organized as follows:
 \begin{enumerate}
 \item{a brief description of FITS format;}
 \item{a proposition for planetary surface meta-data description in FITS;}
-\item{dictionaries between FITS and PDS meta-data description;}
+\item{dictionaries between FITS, PDS meta-data description and EPN-TAP2.0
+parameters;}
 \item{some examples of planetary dataset in FITS;}
 \item{current developments for making FITS usable in planetary sciences.}
 \end{enumerate}
@@ -345,37 +351,52 @@ FITS World Coordinate System
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html}
 simplifies the spatial coordinate description with respect to historical
 terrestrial references.
-There is no need for oblique projection definitions \citep{calagreisenI,Snyder1987}
-as projection parameters (projection center or reference point)
+There is no need for oblique projection definitions
+\citep{calagreisenI,Snyder1987} as projection parameters
+(projection center or reference point)
 describe the difference between,e.g., the Mercator and
 Oblique Mercator or Simple Cylindrical and
 Equirectangular map projections.
-There is no need for East or West positive longitude definitions as the pixel
-conversion in world coordinates is set by an oriented matrix.
+This simplification is effective when a spherical local approximation
+is applied on planetary imagery.
+This is particularly the case with growing image resolutions and
+increasing computing capabilities: spherical projections with a local
+radius definition are easier to reproject from one system to another, than
+global spheroidal data (see for example the distribution of HiRISE images).
+In addition, there is no need for East or West positive longitude
+definitions as the pixel conversion in world coordinates is set by an
+oriented matrix.
+Table \ref{table:proj} summarizes the FITS projection codes and their
+correspondent PDS4 projection names (see table A.1. in \citet{calagreisenI}
+for details).
 
 \begin{table}
 \label{table:proj}
 \caption{Projection names and codes already available in FITS suitable for
-planetary applications: their translation in PDS4 vocabulary is
-provided. See Table A.1. in \citet{calagreisenI} for details.}
+planetary applications: their correspondent in PDS4 vocabulary are
+provided.}
 \centering
 \begin{tabular}{l l l}
 \hline
 FITS Name$^{a}$ & FITS code$^{a}$ & PDS name$^{b}$ \\ 
 \hline
+Zenithal Equidistant & ARC & Azimuthal Equidistant \\
+Zenithal Perspective & AZP & General Vertical Near-sided Projection \\
+Plate Carre & CAR & Equirectangular, Miller Cylindrical \\
+Equidistant Conic & COD & Equidistant Conic \\
+Conic Equal-Area & COE & Albers Conical Equal Area \\ 
 Sanson-Flamsteed & SFL & Sinusoidal \\
-Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 Conic Ortomorphic & COO & Lambert Conformal Conic\\
-Plate Carre & CAR & Equirectangular \\
-Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
-Mercator & MER & Mercator, Oblique Mercator \\
+%Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
+Mercator & MER & Mercator, Oblique Mercator, Transverse Mercator \\
+Polyconic & PCO & Polyconic \\
 Ortographic & SIN & Orthographic \\
-Zenithal Perspective & AZP & General Vertical Near-sided Perspective \\
 Stereographic & STG & Stereographic, Polar Stereographic \\
 Gnomonic & TAN & Gnomonic \\
+Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
-\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}}
+\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences for PDS4 Robinson, Van Den Grinten and Space Oblique Mercator.}
 \end{tabular}
 \end{table}
 
