@@ -150,7 +150,8 @@
 %% ------------------------------------------------------------------------ %%
 
 
-\title{FITS format for planetary surfaces: definitions, applications and best practices.}
+\title{FITS format for planetary surfaces: definitions,
+applications and best practices.}
 
 
 %% ------------------------------------------------------------------------ %%
@@ -166,9 +167,13 @@
  M. Minin\affil{4},
  A. P. Rossi\affil{4} ...}
 
-\affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay, Orsay, France}
-\affiliation{2}{U. S. Geological Survey, Astrogeology Science Center, Flagstaff, AZ, USA}
-\affiliation{3}{LESIA, Observatoire de Paris, PSL Research University, CNRS, Sorbonne Universités, UPMC Univ. Paris 06, Univ. Paris Diderot, Sorbonne Paris Cité, Meudon, France}
+\affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay,
+Orsay, France}
+\affiliation{2}{U. S. Geological Survey, Astrogeology Science Center,
+Flagstaff, AZ, USA}
+\affiliation{3}{LESIA, Observatoire de Paris, PSL Research University,
+CNRS, Sorbonne Universités, UPMC Univ. Paris 06, Univ. Paris Diderot,
+Sorbonne Paris Cité, Meudon, France}
 \affiliation{4}{Jacobs University, Bremen, Germany}
 %\affiliation{5}{}
 
@@ -199,27 +204,25 @@
 
 
 \begin{abstract}
-Planetary science is a vast field of investigation that brings together several
-research communities (geologists, astronomers, physicists, geochemists, etc.),
-and produces an impressively growing amount of heterogeneous data.
-Planetary surface research continues to evolve from mostly visual assessment
-to more automated quantitative analysis.
+Planetary science encompasses a broad number of research fields and
+brings together several research communities (geologists, astronomers,
+physicists, geochemists, etc.).
+Planetary missions produce an impressively growing amount of heterogeneous
+data which mining evolves those days from mostly visual assessment to more
+automated quantitative analysis.
 Interoperability and openness of data formats and processing techniques are
 becoming a necessity, to avoid the risk of being unable to efficiently extract
 scientific information from the data, and to guarantee the reproducibility of
 the scientific results.
-This paper will describe how Flexible Image Transport System (FITS) can be used
-in planetary surface investigations, and how its metadata can easily be inserted
-in the PDS 4 metadata distribution model.
-FITS format is open and flexible, largely implemented in open and efficient
-processing tools.
-Those reasons make FITS format appropriate for large amounts of raster data
-processing.
-The purpose of this approach is to make easier data mining and re-processing in
-Planetary Surface investigations, promoting general software based on those
-standards.
-More than capturing a formal data model, FITS description for those data aims to
-simplify operational logistics.
+This paper will describe how Flexible Image Transport System (FITS) can be
+used in planetary surface investigations, and how its metadata can easily be
+inserted in the PDS4 metadata distribution model.
+An evolution to the actual standard is proposed to adapt FITS to
+planetary body description.
+Some examples and implementations are then presented.
+More than imposing a formal data model, FITS description for those data aims
+to simplify the processing chain in planetary science, promoting
+interoperability from data acquisition to final visualization.
 \end{abstract}
 
 %% ------------------------------------------------------------------------ %%
@@ -254,61 +257,55 @@ simplify operational logistics.
 
 \section{Introduction}
 \label{sec:intro}
-Planetary science is a vast field of investigation that brings together several
-research communities (geologists, astronomers, physicists, geochemists, etc.),
-and produces an impressively growing amount of heterogeneous data.
-Planetary surface research continues to evolve from mostly visual assessment
-to more automated quantitative analysis.
-Interoperability and openness of data formats and processing techniques are
-becoming a necessity, to avoid the risk of being unable to efficiently extract
-scientific information from the data, and to guarantee the reproducibility of
-the scientific results.
-This paper will describe how Flexible Image Transport System (FITS) can be used
-in planetary surface investigations, and how its metadata can easily be inserted
-in the PDS 4 metadata distribution model.
+Planetary science brings together several research communities
+(geologists, astronomers, physicists, geochemists, etc.),
+and planetary missions produce a growing amount of heterogeneous data.
+To efficiently extract scientific information from those data, they must
+be made integrable, thus inter-operable.
+Openness of data format and processing techniques is becoming a necessity,
+to guarantee the reproducibility of the results obtained from those data.
+
+This paper proposes to use Flexible Image Transport System\footnote{https://fits.gsfc.nasa.gov/}
+(FITS) \citep{fitsorig,fitsver3} in planetary surface investigations,
+and describes how FITS metadata can easily be inserted in the
+PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
+metadata distribution model.
 FITS format is open and flexible, largely implemented in open and efficient
 processing tools.
 Those reasons make FITS format appropriate for large amounts of raster data
 processing.
-The purpose of this approach is to make easier data mining and re-processing in
-Planetary Surface investigations, promoting general software based on those
+The goal of this approach is to make easier data mining and re-processing
+in planetary surface investigations, promoting general software based on those
 standards.
-More than capturing a formal data model, FITS description for those data aims to
-simplify operational logistics.
-
-The option to use FITS within the
-planetary domain could be an opportunity to allow
-more seamless sharing of data across these different
-domains and potentially homogenize methods from
-acquisition, to visualization, while giving more chances
-to optimize data processing
+The option to use FITS within the planetary domain could potentially
+homogenize methods from acquisition, to visualization, while
+giving chances to optimize data processing.
 
 This paper is organized as follows:
 \begin{enumerate}
-\item{a brief description of FITS format and on its pros and cons in using it in
-planetary science;}
-\item{a proposition for planetary surface metadata description in FITS}
-\item{Dictionaries between FITS and PDS metadata description}
-\item{examples of planetary dataset in FITS}
-\item{current developments for making FITS usable in planetary sciences}
+\item{a brief description of FITS format;}
+\item{a proposition for planetary surface metadata description in FITS;}
+\item{dictionaries between FITS and PDS metadata description;}
+\item{some examples of planetary dataset in FITS;}
+\item{current developments for making FITS usable in planetary sciences.}
 \end{enumerate}
 
 \section{FITS format in Planetary Surface investigation}
 \label{sec:fitspss}
 
 \subsection{FITS format}
-FITS\footnote{https://fits.gsfc.nasa.gov/} \citep{fitsorig,fitsver3} stands for
-'Flexible Image Transport System'.
-It is an open digital standard, defined for data acquisition and archiving in astronomical
-observatories back in the late 70's, and it is used for spatial telescope data.
+FITS stands for 'Flexible Image Transport System'.
+It is an open digital standard, defined for data acquisition and archiving
+in astronomical observatories back in the late 70's, and it is used for
+spatial telescope data.
 In fact, FITS is the IAU-approved standard format for astronomical
 data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard implemented formats in the Virtual
-Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html} (VO).
+Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
+(VO).
 Finally, FITS format is compatible with the Planetary Data System (PDS)
-3\footnote{https://pds.nasa.gov/pds4/about/} and
-4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml} archiving
-specifications and supported by a large number of open libraries and software tools.
+archiving specifications and supported by a large number of open libraries
+and software tools.
 
 FITS is already able to propose standard formatting for some data products quite
 common by now in planetary surface investigations.
