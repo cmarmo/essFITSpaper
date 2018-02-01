@@ -261,12 +261,13 @@ Planetary science brings together several research communities
 (geologists, astronomers, physicists, geochemists, etc.),
 and planetary missions produce a growing amount of heterogeneous data.
 To efficiently extract scientific information from those data, they must
-be made integrable, thus inter-operable.
+be made integrable, thus interoperable.
 Openness of data format and processing techniques is becoming a necessity,
 to guarantee the reproducibility of the results obtained from those data.
 
-This paper proposes to use Flexible Image Transport System\footnote{https://fits.gsfc.nasa.gov/}
-(FITS) \citep{fitsorig,fitsver3} in planetary surface investigations,
+This paper proposes to use Flexible Image Transport
+System\footnote{https://fits.gsfc.nasa.gov/}
+(FITS) format \citep{fitsorig,fitsver3} in planetary surface investigations,
 and describes how FITS metadata can easily be inserted in the
 PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
 metadata distribution model.
@@ -274,7 +275,7 @@ FITS format is open and flexible, largely implemented in open and efficient
 processing tools.
 Those reasons make FITS format appropriate for large amounts of raster data
 processing.
-The goal of this approach is to make easier data mining and re-processing
+The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
 The option to use FITS within the planetary domain could potentially
@@ -284,8 +285,8 @@ giving chances to optimize data processing.
 This paper is organized as follows:
 \begin{enumerate}
 \item{a brief description of FITS format;}
-\item{a proposition for planetary surface metadata description in FITS;}
-\item{dictionaries between FITS and PDS metadata description;}
+\item{a proposition for planetary surface meta-data description in FITS;}
+\item{dictionaries between FITS and PDS meta-data description;}
 \item{some examples of planetary dataset in FITS;}
 \item{current developments for making FITS usable in planetary sciences.}
 \end{enumerate}
@@ -294,12 +295,11 @@ This paper is organized as follows:
 \label{sec:fitspss}
 
 \subsection{FITS format}
-FITS stands for 'Flexible Image Transport System'.
-It is an open digital standard, defined for data acquisition and archiving
-in astronomical observatories back in the late 70's, and it is used for
+FITS is an open digital standard, defined for data acquisition and archiving
+in astronomical observatories in the late 70's, and it is used for
 spatial telescope data.
-In fact, FITS is the IAU-approved standard format for astronomical
-data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
+The International Astronomical Union approved FITS as the standard format
+for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard implemented formats in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO).
@@ -307,47 +307,77 @@ Finally, FITS format is compatible with the Planetary Data System (PDS)
 archiving specifications and supported by a large number of open libraries
 and software tools.
 
-FITS is already able to propose standard formatting for some data products quite
-common by now in planetary surface investigations.
-In particular, Multi-Extension FITS (MEF) schema proposes an easy way
-to store inhomogeneous digital information (reflectance, calibration data, vector
-table data, etc.) in the same file each with relative metadata, as well as
-multi-detector imagery (e.g. from HiRISE \citep{hirise}) or hyperspectral cubes
-(e.g. from CRISM \citep{crism} or OMEGA \citep{omega}).
+FITS is already able to propose standard formatting for some data products
+quite common by now in planetary surface investigations.
+In particular, the Multi-Extension FITS (MEF) schema proposes an easy way
+to store inhomogeneous digital information (reflectance, calibration data,
+vector, table data, etc.) in the same file, each with relative metadata,
+as well as multi-detector imagery (e.g. from HiRISE \citep{hirise})
+or hyperspectral cubes with geometry information (e.g. from CRISM
+\citep{crism} or OMEGA \citep{omega} instruments).
 FITS has been already chosen to distribute, e.g.,
 Hayabusa\footnote{http://darts.isas.jaxa.jp/planet/project/hayabusa/index.html},
 Akatsuki\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
 and some of the Dawn\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
 To be efficiently used in planetary surface investigations, FITS metadata must
 be extended in order to take into account the size of the reference body.
-Planetary body shapes and orientations are well defined and standardized by the
-International Astronomical Union (IAU) Working Group on Cartographic
-Coordinates and Rotational Elements (WGCCRE).
-This group reports triennially on the preferred rotation rate, spin axis, prime meridian,
-and reference surface for planets and satellites which helps ensure that
-cartographic endeavors are effectively comparable \citep{wgccre}.
-In the framework of the VESPA\footnote{http://europlanet-vespa.eu/} \citep{vespapss}
-component of the EuroplanetRI2020 project an extension to FITS meta-
-data (GeoFITS) has been proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention}.
+Planetary body shapes and orientations are well defined and standardized by
+the IAU Working Group on Cartographic Coordinates and Rotational Elements
+(WGCCRE).
+This group reports triennially \citep{wgccre} on the preferred rotation rate,
+spin axis, prime meridian, and reference surface for planets and satellites
+ensuring that cartographic endeavors are effectively comparable.
+In the framework of the VESPA\footnote{http://europlanet-vespa.eu/}
+\citep{vespapss} workpackage of the EuroplanetRI2020\footnote{http://www.europlanet-2020-ri.eu/}
+project an extension to FITS metadata (GeoFITS) has been
+proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention},
+taking into account the WGCCRE recommendations.
 
-\section{Planetary Surface proposed convention}
-When willing to use FITS format for Planetary Surfaces the issue of rigorous
+\subsection{Planetary Surface proposed convention}
+\label{ssec:geofits}
+When willing to use FITS format for planetary surfaces the issue of rigorous
 geographical representation must be addressed.
-Planetary surface researchers for their mapping and analysis needs, commonly use
+For their mapping and analysis needs planetary researchers commonly use
 Geographical Information Systems (GIS).
 In general, GIS applications excel in data interoperability even
 though some have historically been anchored to Earth's spatial description.
-FITS World Coordinate System representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html.}
-simplifies the spatial coordinate description with respect to historical terrestrial
-references.
-There is no need for oblique projection definitions \citep{Snyder1987,calagreisenI}
+FITS World Coordinate System
+representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html}
+simplifies the spatial coordinate description with respect to historical
+terrestrial references.
+There is no need for oblique projection definitions \citep{calagreisenI,Snyder1987}
 as projection parameters (projection center or reference point)
-describe the difference between the Mercator and
+describe the difference between,e.g., the Mercator and
 Oblique Mercator or Simple Cylindrical and
 Equirectangular map projections.
 There is no need for East or West positive longitude definitions as the pixel
-conversion in world coordinates is set by a common
-oriented matrix.
+conversion in world coordinates is set by an oriented matrix.
+
+\begin{table}
+\label{table:proj}
+\caption{Projection names and codes already available in FITS suitable for
+planetary applications: their translation in PDS4 vocabulary is
+provided. See Table A.1. in \citet{calagreisenI} for details.}
+\centering
+\begin{tabular}{l l l}
+\hline
+FITS Name$^{a}$ & FITS code$^{a}$ & PDS name$^{b}$ \\ 
+\hline
+Sanson-Flamsteed & SFL & Sinusoidal \\
+Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
+Conic Ortomorphic & COO & Lambert Conformal Conic\\
+Plate Carre & CAR & Equirectangular \\
+Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
+Mercator & MER & Mercator, Oblique Mercator \\
+Ortographic & SIN & Orthographic \\
+Zenithal Perspective & AZP & General Vertical Near-sided Perspective \\
+Stereographic & STG & Stereographic, Polar Stereographic \\
+Gnomonic & TAN & Gnomonic \\
+\hline
+\multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
+\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}}
+\end{tabular}
+\end{table}
 
 \begin{table}
 \label{table:wcskeys}
@@ -369,31 +399,6 @@ CUNITn & string & & \\
 WCSNAME & string & & \\
 CNAMEn & string (up to 68 characters) & & \\
 \hline
-\end{tabular}
-\end{table}
-
-\begin{table}
-\label{table:proj}
-\caption{Projection names and codes already available in FITS suitable for planetary applications:
-their translation in PDS vocabulary is also provided}
-\centering
-\begin{tabular}{l l l}
-\hline
-FITS Name$^{a}$ & FITS code$^{a}$ & PDS name$^{b}$ \\ 
-\hline
-Sanson-Flamsteed & SFL & Sinusoidal \\
-Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
-Conic Ortomorphic & COO & Lambert Conformal Conic\\
-Plate Carre & CAR & Equirectangular \\
-Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
-Mercator & MER & Mercator, Oblique Mercator \\
-Ortographic & SIN & Orthographic \\
-Zenithal Perspective & AZP & General Vertical Near-sided Perspective \\
-Stereographic & STG & Stereographic, Polar Stereographic \\
-Gnomonic & TAN & Gnomonic \\
-\hline
-\multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
-\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}}
 \end{tabular}
 \end{table}
 
