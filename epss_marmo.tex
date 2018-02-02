@@ -487,7 +487,74 @@ OGCCODE	& string & reserved, optional & Value field contains a string describing
 \end{tabular}
 \end{sidewaystable}
 
-\subsubsection{FITS to PDS3 and PDS4 dictionaries}
+\subsubsection{Correspondence between reserved FITS keywords and PDS4 standard reference}
+\label{sssec:stdfitspds4}
+The correspondence between mandatory and reserved FITS keywords (as defined in
+the last version of the FITS standard document\footnote{https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf})
+and PDS4 attributes, is described here.
+\begin{itemize}
+\item{\texttt{BITPIX}.
+It specifies the number of bits that represent a data value in
+the associated data array.
+PDS4 uses the attribute \texttt{data\_type}: correspondent 
+values depend on the associated object class.}
+
+\item{\texttt{NAXIS}.
+It contains a non-negative integer representing the number of axes in
+the associated data array.
+A value of zero signifies that no data follow the header.
+PDS4 uses \texttt{axes}, always defined as a non-negative integer.}
+
+\item{\texttt{NAXISn}.
+It contains a non-negative integer representing the number of
+elements along axis \texttt{n} of a data array.
+The \texttt{elements} attribute of the \texttt{Axis\_Array} class provides
+the count of the number of elements along an array.}
+
+\item{\texttt{BUNIT}.
+It contains a string, describing the physical units in which the quantities
+in the array are expressed.
+The units of all FITS header keyword values should conform with the recommendations
+in the IAU Style Manual.
+For angular measurements given as floating point values, degrees are the recommended
+units (with the units, if specified, given as 'deg').
+PDS4 specifies in the class Element (of a vector, array, or any other class
+containing Elements), a \texttt{unit\_id}} (unit abbreviation) and a \texttt{unit}
+(unit long name).
+
+\item{\texttt{BSCALE}.
+It contains a floating point number representing the coefficient of the linear term
+in the scaling equation $physical\_value = BZERO + BSCALE \times array\_value$,
+the ratio of physical value to array value at zero offset.
+For all classes containing Elements, PDS4 defines a \texttt{scaling\_factor}
+attribute. Both FITS and PDS4 defaulted this value to $1$.}
+
+\item{\texttt{BZERO}.
+It contains a floating point number representing the constant term in the
+scaling equation $physical\_value = BZERO + BSCALE \times array\_value$
+For all classes containing Elements, PDS4 defines a \texttt{value\_offset}
+attribute. Both FITS and PDS4 defaulted this value to $0$.}
+
+\item{\texttt{BLANK}.
+This keyword must be used only in integer data.
+It contains an integer that specifies the value that is used to
+represent pixels that have an undefined physical value.... 
+\textit{PDS4 Special\_Constants?}}
+
+\item{\texttt{DATAMAX}}
+\item{\texttt{DATAMIN}}
+
+\item{\texttt{DATE}.
+The date on which the file was created,}
+\item{\texttt{DATE-OBS}}
+\item{\texttt{INSTRUME}}
+\item{\texttt{TELESCOP}}
+\item{\texttt{OBJECT}}
+\item{\texttt{ORIGIN}}
+\item{\texttt{AUTHOR}}
+\item{\texttt{REFERENC}}
+
+\end{itemize}
 
 \subsection{Best Practices and Examples}
 
@@ -625,75 +692,9 @@ OGCCODE	& string & reserved, optional & Value field contains a string describing
 % will show
 % A: Here Is Appendix Title
 %
-\appendix
-\section{Correspondence between reserved FITS keywords and PDS4 standard reference}
-\label{app:stdfitspds4}
+%\appendix
+%\section{Here Is Appendix Title}
 %This is an Appendix section.
-The correspondence between mandatory and reserved FITS keywords (as defined in
-the last version of the FITS standard document\footnote{https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf})
-and PDS4 attributes, is described in this Appendix.
-\begin{itemize}
-\item{\texttt{BITPIX}.
-It specifies the number of bits that represent a data value in
-the associated data array.
-PDS4 uses the attribute \texttt{data\_type}: correspondent 
-values depend on the associated object class.}
-
-\item{\texttt{NAXIS}.
-It contains a non-negative integer representing the number of axes in
-the associated data array.
-A value of zero signifies that no data follow the header.
-PDS4 uses \texttt{axes}, always defined as a non-negative integer.}
-
-\item{\texttt{NAXISn}.
-It contains a non-negative integer representing the number of
-elements along axis \texttt{n} of a data array.
-The \texttt{elements} attribute of the \texttt{Axis\_Array} class provides
-the count of the number of elements along an array.}
-
-\item{\texttt{BUNIT}.
-It contains a string, describing the physical units in which the quantities
-in the array are expressed.
-The units of all FITS header keyword values should conform with the recommendations
-in the IAU Style Manual.
-For angular measurements given as floating point values, degrees are the recommended
-units (with the units, if specified, given as 'deg').
-PDS4 specifies in the class Element (of a vector, array, or any other class
-containing Elements), a \texttt{unit\_id}} (unit abbreviation) and a \texttt{unit}
-(unit long name).
-
-\item{\texttt{BSCALE}.
-It contains a floating point number representing the coefficient of the linear term
-in the scaling equation $physical\_value = BZERO + BSCALE \times array\_value$,
-the ratio of physical value to array value at zero offset.
-For all classes containing Elements, PDS4 defines a \texttt{scaling\_factor}
-attribute. Both FITS and PDS4 defaulted this value to $1$.}
-
-\item{\texttt{BZERO}.
-It contains a floating point number representing the constant term in the
-scaling equation $physical\_value = BZERO + BSCALE \times array\_value$
-For all classes containing Elements, PDS4 defines a \texttt{value\_offset}
-attribute. Both FITS and PDS4 defaulted this value to $0$.}
-
-\item{\texttt{BLANK}.
-This keyword must be used only in integer data.
-It contains an integer that specifies the value that is used to
-represent pixels that have an undefined physical value.}
-
-
-\item{\texttt{DATAMAX}}
-\item{\texttt{DATAMIN}}
-\item{\texttt{DATE}}
-\item{\texttt{DATE-OBS}}
-\item{\texttt{INSTRUME}}
-\item{\texttt{TELESCOP}}
-\item{\texttt{OBJECT}}
-\item{\texttt{ORIGIN}}
-\item{\texttt{AUTHOR}}
-\item{\texttt{REFERENC}}
-
-\end{itemize}
-
 
 %\begin{linenomath*}
 %\begin{equation}asdf\end{equation}
