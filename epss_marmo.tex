@@ -34,6 +34,7 @@
 %  \end{equation}
 %  \end{linenomath*}
 
+
 %% To submit your paper:
 \documentclass[linenumbers,draft]{agujournal}
 
@@ -172,8 +173,8 @@ Orsay, France}
 \affiliation{2}{U. S. Geological Survey, Astrogeology Science Center,
 Flagstaff, AZ, USA}
 \affiliation{3}{LESIA, Observatoire de Paris, PSL Research University,
-CNRS, Sorbonne Universités, UPMC Univ. Paris 06, Univ. Paris Diderot,
-Sorbonne Paris Cité, Meudon, France}
+CNRS, Sorbonne Universit\'es, UPMC Univ. Paris 06, Univ. Paris Diderot,
+Sorbonne Paris Cit\'e, Meudon, France}
 \affiliation{4}{Jacobs University, Bremen, Germany}
 %\affiliation{5}{}
 
@@ -290,8 +291,8 @@ giving chances to optimize data processing.
 This paper is organized as follows:
 \begin{enumerate}
 \item{a brief description of FITS format;}
-\item{a proposition for planetary surface meta-data description in FITS;}
-\item{dictionaries between FITS, PDS meta-data description and EPN-TAP2.0
+\item{a proposition for planetary surface metadata description in FITS;}
+\item{dictionaries between FITS, PDS metadata description and EPN-TAP2.0
 parameters;}
 \item{some examples of planetary dataset in FITS;}
 \item{current developments for making FITS usable in planetary sciences.}
@@ -317,7 +318,7 @@ FITS is already able to propose standard formatting for some data products
 quite common by now in planetary surface investigations.
 In particular, the Multi-Extension FITS (MEF) schema proposes an easy way
 to store inhomogeneous digital information (reflectance, calibration data,
-vector, table data, etc.) in the same file, each with relative metadata,
+vector, table data, etc.) in the same file, each with correspondent metadata,
 as well as multi-detector imagery (e.g. from HiRISE \citep{hirise})
 or hyperspectral cubes with geometry information (e.g. from CRISM
 \citep{crism} or OMEGA \citep{omega} instruments).
@@ -354,7 +355,7 @@ terrestrial references.
 There is no need for oblique projection definitions
 \citep{calagreisenI,Snyder1987} as projection parameters
 (projection center or reference point)
-describe the difference between,e.g., the Mercator and
+describe the difference between, e.g., the Mercator and
 Oblique Mercator or Simple Cylindrical and
 Equirectangular map projections.
 This simplification is effective when a spherical local approximation
@@ -362,10 +363,15 @@ is applied on planetary imagery.
 This is particularly the case with growing image resolutions and
 increasing computing capabilities: spherical projections with a local
 radius definition are easier to reproject from one system to another, than
-global spheroidal data (see for example the distribution of HiRISE images).
+from or to a global spheroidal datum (see for example how the HiRISE team
+has chosen to distribute HiRISE images).
 In addition, there is no need for East or West positive longitude
 definitions as the pixel conversion in world coordinates is set by an
 oriented matrix.
+If needed, FITS does offer the possibility to fully describe the projected
+coordinate system using several alternative WCS definitions (meters, degrees,
+East and West longitude, etc.)\citep{greisencalaII}.
+
 Table \ref{table:proj} summarizes the FITS projection codes and their
 correspondent PDS4 projection names (see table A.1. in \citet{calagreisenI}
 for details).
@@ -385,20 +391,23 @@ Zenithal Perspective & AZP & General Vertical Near-sided Projection \\
 Plate Carre & CAR & Equirectangular, Miller Cylindrical \\
 Equidistant Conic & COD & Equidistant Conic \\
 Conic Equal-Area & COE & Albers Conical Equal Area \\ 
-Sanson-Flamsteed & SFL & Sinusoidal \\
 Conic Ortomorphic & COO & Lambert Conformal Conic\\
 %Cylindrical Equal-Area & CEA & \textit{there is no CEA option in PDS4 neither in ISIS3}\\
 Mercator & MER & Mercator, Oblique Mercator, Transverse Mercator \\
 Polyconic & PCO & Polyconic \\
+Sanson-Flamsteed & SFL & Sinusoidal \\
 Ortographic & SIN & Orthographic \\
 Stereographic & STG & Stereographic, Polar Stereographic \\
 Gnomonic & TAN & Gnomonic \\
 Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
-\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences for PDS4 Robinson, Van Den Grinten and Space Oblique Mercator.}
+\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences in the WCS scheme for PDS4 Robinson,} \\
+\multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator.}
 \end{tabular}
 \end{table}
+
+Table \ref{table:wcskeys}
 
 \begin{table}
 \label{table:wcskeys}
@@ -423,6 +432,8 @@ CNAMEn & string (up to 68 characters) & & \\
 \end{tabular}
 \end{table}
 
+
+
 \begin{table}
 \label{table:ctype}
 \caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.}
@@ -444,9 +455,6 @@ Planetary bodies & B \\
 \end{tabular}
 \end{table}
 
-However, if still needed, FITS does offer the possibility to fully describe those
-same parameters using alternative WCS definitions (meters, degrees,
-East and West longitude, etc.)\citep{greisencalaII}.
 Nevertheless, WCS does not record information about the body shape and
 orientation, and reference surface.
 
@@ -617,15 +625,76 @@ OGCCODE	& string & reserved, optional & Value field contains a string describing
 % will show
 % A: Here Is Appendix Title
 %
-%\appendix
-%\section{Here is a sample appendix}
+\appendix
+\section{Correspondence between reserved FITS keywords and PDS4 standard reference}
+\label{app:stdfitspds4}
 %This is an Appendix section.
+The correspondence between mandatory and reserved FITS keywords (as defined in
+the last version of the FITS standard document\footnote{https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf})
+and PDS4 attributes, is described in this Appendix.
+\begin{itemize}
+\item{\texttt{BITPIX}.
+It specifies the number of bits that represent a data value in
+the associated data array.
+PDS4 uses the attribute \texttt{data\_type}: correspondent 
+values depend on the associated object class.}
 
-%\subsection{subsection}
-%This is an Appendix subsection.
+\item{\texttt{NAXIS}.
+It contains a non-negative integer representing the number of axes in
+the associated data array.
+A value of zero signifies that no data follow the header.
+PDS4 uses \texttt{axes}, always defined as a non-negative integer.}
 
-%\subsubsection{subsubsection}
-%This is an Appendix subsubsection.
+\item{\texttt{NAXISn}.
+It contains a non-negative integer representing the number of
+elements along axis \texttt{n} of a data array.
+The \texttt{elements} attribute of the \texttt{Axis\_Array} class provides
+the count of the number of elements along an array.}
+
+\item{\texttt{BUNIT}.
+It contains a string, describing the physical units in which the quantities
+in the array are expressed.
+The units of all FITS header keyword values should conform with the recommendations
+in the IAU Style Manual.
+For angular measurements given as floating point values, degrees are the recommended
+units (with the units, if specified, given as 'deg').
+PDS4 specifies in the class Element (of a vector, array, or any other class
+containing Elements), a \texttt{unit\_id}} (unit abbreviation) and a \texttt{unit}
+(unit long name).
+
+\item{\texttt{BSCALE}.
+It contains a floating point number representing the coefficient of the linear term
+in the scaling equation $physical\_value = BZERO + BSCALE \times array\_value$,
+the ratio of physical value to array value at zero offset.
+For all classes containing Elements, PDS4 defines a \texttt{scaling\_factor}
+attribute. Both FITS and PDS4 defaulted this value to $1$.}
+
+\item{\texttt{BZERO}.
+It contains a floating point number representing the constant term in the
+scaling equation $physical\_value = BZERO + BSCALE \times array\_value$
+For all classes containing Elements, PDS4 defines a \texttt{value\_offset}
+attribute. Both FITS and PDS4 defaulted this value to $0$.}
+
+\item{\texttt{BLANK}.
+This keyword must be used only in integer data.
+It contains an integer that specifies the value that is used to
+represent pixels that have an undefined physical value.}
+
+
+\item{\texttt{DATAMAX}}
+\item{\texttt{DATAMIN}}
+\item{\texttt{DATE}}
+\item{\texttt{DATE-OBS}}
+\item{\texttt{INSTRUME}}
+\item{\texttt{TELESCOP}}
+\item{\texttt{OBJECT}}
+\item{\texttt{ORIGIN}}
+\item{\texttt{AUTHOR}}
+\item{\texttt{REFERENC}}
+
+\end{itemize}
+
+
 %\begin{linenomath*}
 %\begin{equation}asdf\end{equation}
 %\end{linenomath*}
