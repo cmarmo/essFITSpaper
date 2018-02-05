@@ -407,18 +407,44 @@ Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \end{tabular}
 \end{table}
 
-Table \ref{table:wcskeys}
+Once reprojected in one of the standard projections listed in Table \ref{table:proj}
+Planetary images or maps can be described using the WCS scheme
+\citep{greisencalaII,calagreisenI}.
+In WCS context pixels are first translated in an intermediate pixel coordinate system
+via linear transformations, then mapped on the grid specified by the \texttt{CTYPE}
+keyword, containing the projection code and the coordinate system.
+The coordinate system must be defined with respect to a specific inertial reference frame.
 
-\begin{table}
+Multiple coordinate system descriptions are allowed in the same header: this is a valuable
+property for planetary surface imagery, as angular ('deg') and linear ('m') description of
+the surface are often needed at the same time.
+Further below 3D keyword will be proposed for FITS metadata, in order to standardize
+the conversion between angular and linear coordinates: alternate description will still
+be important in our framework as standard libraries (e.g.
+wcslib\footnote{http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/} or
+astropy\footnote{http://www.astropy.org/} \citet{astropy}) and some FITS visualization
+software (e.g. ds9\footnote{http://ds9.si.edu/}) already implement them.
+
+Table \ref{table:wcskeys} describes FITS WCS keywords and their recommended use in
+planetary surface context.
+
+\begin{sidewaystable}
 \label{table:wcskeys}
 \caption{WCS FITS keywords in the Planetary Surface context}
 \centering
-\begin{tabular}{l l l l}
+\begin{tabular}{l l l l l}
 \hline
-Keyword & Type & Definition & PDS4 \\
+Keyword & Type & Definition & PDS4 & EPN-TAP \\
 \hline
-EQUINOX & real & & \\
-RADESYS	& string & & \\
+RADESYS	& string & Name of the inertial reference frame with respect & & \\
+& & to which the coordinate system is defined & & \\
+& & (defaulted to \texttt{'ICRS'}) & & \\
+EQUINOX & real & The value field contains the equinox in years for the celestial & & \\
+& & coordinate system in which positions are expressed & & \\
+& & (defaulted to \texttt{'J2000'}) & & \\
+WCSAXES & integer & Number of axes in the WCS description & & \\
+& & The value of WCSAXES may exceed the number of raster pixel axes & & \\
+WCSNAME & & & & \\
 CRPIXn & real & & \\
 CTYPEn & string & & \\
 CRVALn & real & & \\
@@ -426,12 +452,10 @@ CDi\_j & real matrix & & \\
 PCi\_j & real matrix & & \\
 CDELTn & real & & \\
 CUNITn & string & & \\
-WCSNAME & string & & \\
 CNAMEn & string (up to 68 characters) & & \\
 \hline
 \end{tabular}
-\end{table}
-
+\end{sidewaystable}
 
 
 \begin{table}
@@ -538,7 +562,8 @@ attribute. Both FITS and PDS4 defaulted this value to $0$.}
 \item{\texttt{BLANK}.
 This keyword must be used only in integer data.
 It contains an integer that specifies the value that is used to
-represent pixels that have an undefined physical value.... 
+represent pixels that have an undefined physical value.
+On floating point data the IEEE NaN must be used to represent undefined values.  
 \texttt{PDS4 Special\_Constants?}}
 
 \item{\texttt{DATAMAX}}
@@ -560,8 +585,8 @@ PDS4 provides a \texttt{Time\_Coordinates} class with attributes
 \textit{start\_date\_time} and \texttt{stop\_date\_time} providing start and
 stop date and time appropriate to the product being labeled, always in UT
 coordinates.
-EPN-TAP also strongly recommends to fill in the \texttt{time\_min} and
-\texttt{time\_max} fields, always in UTC and formatted in Julian Days.}
+The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP scheme,
+they must always be formatted in UTC and Julian Days.}
 % * <chiara.marmo@u-psud.fr> 2018-02-05T10:20:13.335Z:
 % 
 % > Julian Days
@@ -569,22 +594,66 @@ EPN-TAP also strongly recommends to fill in the \texttt{time\_min} and
 % 
 % ^.
 
-\item{\texttt{INSTRUME}.}
-\item{\texttt{TELESCOP}}
-\item{\texttt{OBJECT}}
-\item{\texttt{ORIGIN}}
-\item{\texttt{AUTHOR}}
-\item{\texttt{REFERENC}}
+\item{\texttt{INSTRUME}.
+It contains a character string identifying the instrument used to acquire the data.
+PDS4 provides an \texttt{Instrument} class which attribute \texttt{Name} ideally corresponds
+to this FITS keywords.
+EPN-TAP provides with an \texttt{instrument\_name} parameter.}
+
+\item{\texttt{TELESCOP}.
+It contains a character string identifying the telescope used to acquire the data.
+The PDS4 \texttt{Instrument\_Host} class provides the description of the physical object
+mounting the instrument. Its \texttt{Name} attribute should correspond to the FITS keyword.
+PDS4 also provides for the definition of a \texttt{Telescope} class, in case of
+ground-based observations.
+In the EPN-TAP scheme this will defined the \texttt{instrument\_host\_name} parameter.
+\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Spacecraft}}
+
+\item{\texttt{OBJECT}.
+It contains a character string giving a name for the observed object\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Planets\%20and\%20Satellites}.
+The PDS4 \texttt{Target} class contains the \texttt{name} attribute corresponding to this
+FITS keyword.
+EPN-TAP standard also provides with a \texttt{target\_name} parameter.
+Notice that PDS4 and EPN-TAP also ask for a \texttt{target\_type} attribute, which must be
+specified from an enumerated list.}
+
+%
+%\item{\texttt{ORIGIN}.
+%It contains string identifying the organization or institution responsible for
+%creating the FITS file.
+%}
+%
+%\item{\texttt{AUTHOR}}
+
+\item{\texttt{REFERENC}.
+It contains a character string citing a reference where the data are published.
+It is recommended that either the Astrophysics Data System bibliographic databases\footnote{http://adswww.harvard.edu/}
+bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
+be used.
+PDS4 \texttt{External\_Reference} class 
+EPN-TAP \texttt{bib\_reference} has exactly the same meaning and use than the FITS keyword.}
 
 \end{itemize}
 
-\subsection{Best Practices and Examples}
-
+\subsection{Examples and Best Practices}
+\subsubsection{Global maps}
+\subsubsection{HiRISE mosaics}
+\subsubsection{OMEGA spectra and geometry data}
+\subsubsection{Akatsuki imaging data}
 \section{Inter-operable software developments}
 \label{sec:softdev}
 
 \section{Discussion and Perspectives}
 \label{sec:disc}
+FITS discussion in astronomy\citep{THOMAS2015133} 
+let's astronomy learn from planetary sciences too: accent must be put on interoperability
+.... blabla
+Planetary surface is lacking open and modular software for massive processing and can benefit
+of astronomy experience. In addition to that WCS projection scheme is simpler than the
+historical one used in planetary applications. 
+Archiving flexibility and data model are today approached by PDS4 and EPN-TAP efforts.
+Reducing data format conversion during the processing chain but
+allowing easy conversion for final products following the needed application.
 
 %% Enter Figures and Tables near as possible to where they are first mentioned:
 %
