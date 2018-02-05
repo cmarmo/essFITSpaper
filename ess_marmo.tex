@@ -539,15 +539,37 @@ attribute. Both FITS and PDS4 defaulted this value to $0$.}
 This keyword must be used only in integer data.
 It contains an integer that specifies the value that is used to
 represent pixels that have an undefined physical value.... 
-\textit{PDS4 Special\_Constants?}}
+\texttt{PDS4 Special\_Constants?}}
 
 \item{\texttt{DATAMAX}}
 \item{\texttt{DATAMIN}}
 
 \item{\texttt{DATE}.
-The date on which the file was created,}
-\item{\texttt{DATE-OBS}}
-\item{\texttt{INSTRUME}}
+It contains the date on which the file was created, provided as ISO 8601
+string.
+PDS4 provides a \texttt{creation\_date\_time} attribute defining date
+and time of product creation.}
+
+\item{\texttt{DATE-OBS}.
+It contains the date of the observation, provided as ISO 8601
+string. The value shall be assumed to refer to the start of the observation,
+unless another interpretation is clearly explained in the comment field.
+It is assumed to be expressed in UTC but other systems are accepted as long as they
+are specified in the ISO string. 
+PDS4 provides a \texttt{Time\_Coordinates} class with attributes
+\textit{start\_date\_time} and \texttt{stop\_date\_time} providing start and
+stop date and time appropriate to the product being labeled, always in UT
+coordinates.
+EPN-TAP also strongly recommends to fill in the \texttt{time\_min} and
+\texttt{time\_max} fields, always in UTC and formatted in Julian Days.}
+% * <chiara.marmo@u-psud.fr> 2018-02-05T10:20:13.335Z:
+% 
+% > Julian Days
+% From https://voparis-confluence.obspm.fr/display/VES/EPN-TAP+v2+parameter+description I see that ISO format is still in the race.... Maybe it would be better to homogenize PDS4 EPN-TAP and FITS?
+% 
+% ^.
+
+\item{\texttt{INSTRUME}.}
 \item{\texttt{TELESCOP}}
 \item{\texttt{OBJECT}}
 \item{\texttt{ORIGIN}}
@@ -776,7 +798,7 @@ under the Horizon 2020 research and innovation program, grant agreement N.654208
 % 4. Run LaTeX on your new file which will produce the citations.
 %
 
-\bibliography{epss_marmo}
+\bibliography{ess_marmo}
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
