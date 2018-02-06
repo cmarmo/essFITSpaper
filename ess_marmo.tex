@@ -349,6 +349,12 @@ For their mapping and analysis needs planetary researchers commonly use
 Geographical Information Systems (GIS).
 In general, GIS applications excel in data interoperability even
 though some have historically been anchored to Earth's spatial description.
+Several of them are based on the Geospatial Data Abstraction
+Library\footnote{http://www.gdal.org} (GDAL), released by the Open Source
+Geospatial Foundation.
+GDAL is essentially a format translation library written in C++ for geospatial raster
+and vector data and, fortunately, it also offer basic support for FITS format.
+
 FITS World Coordinate System
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html}
 simplifies the spatial coordinate description with respect to historical
@@ -648,14 +654,33 @@ and GeoTIFF are completely interchangeable.
 As an example we have downloaded some global maps from USGS
 Astropedia\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
 We used ds9 to display the FITS image and were able to visualize coordinates in meters
-as in QGIS, but also in planetary latitude and longitude thanks to alternate coordinate
-description.
+as in QGIS, but also in planetary latitude and longitude thanks to the alternate coordinate
+description (see figure \ref{fig:ds9qgis}, left side).
+\begin{figure}[ht!]
+\centerline{\includegraphics[height=17pc]{ess_marmo2} \includegraphics[height=17pc]{ess_marmo1}}
+\caption{left: Mercury South Pole FITS image displayed in ds9;
+right: GeoTIFF raster superposed to the virtual
+description of the FITS raster.
+Mercury image credits: MESSENGER Team, Arizona State University, Johns Hopkins Applied Physics
+Laboratory, Carnegie Science}
+\label{fig:ds9qgis}
+\end{figure}
 
+Assuming projected products distributed in FITS format a quick method to add GIS support for
+FITS images is to use a GDAL-supported detached header.
+GDAL Virtual Header files simply describe the internal structure of a FITS image, but
+also the map projection and body size in a standardized "well known text"
+(WKT) projection string.
+As a result, the FITS raster loaded into QGIS thanks to its correspondent GDAL Virtual Header
+is indistinguishable from the GeoTIFF layer (see figure \ref{fig:ds9qgis}, right side).
 
+MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
 
 \subsubsection{HiRISE mosaics}
 
 \subsubsection{OMEGA spectra and geometry data}
+
+
 \subsubsection{Akatsuki imaging data}
 \section{Inter-operable software developments}
 \label{sec:softdev}
