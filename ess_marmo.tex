@@ -166,7 +166,8 @@ applications and best practices.}
  S. Erard\affil{3},
  B. Cecconi\affil{3},
  M. Minin\affil{4},
- A. P. Rossi\affil{4} ...}
+ A. Zinzi\affil{5},
+ A. P. Rossi\affil{4}}
 
 \affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay,
 Orsay, France}
@@ -338,7 +339,7 @@ In the framework of the VESPA\footnote{http://europlanet-vespa.eu/}
 \citep{vespapss} workpackage of the EuroplanetRI2020\footnote{http://www.europlanet-2020-ri.eu/}
 project an extension to FITS metadata (GeoFITS) has been
 proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention},
-taking into account the WGCCRE recommendations.
+taking into account the WGCCRE recommendations \citep{MarmoLPSC}.
 
 \subsection{Planetary Surface proposed convention}
 \label{ssec:geofits}
@@ -423,7 +424,8 @@ the conversion between angular and linear coordinates: alternate description wil
 be important in our framework as standard libraries (e.g.
 wcslib\footnote{http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/} or
 astropy\footnote{http://www.astropy.org/} \citet{astropy}) and some FITS visualization
-software (e.g. ds9\footnote{http://ds9.si.edu/}) already implement them.
+software (e.g. ds9\footnote{http://ds9.si.edu/}) already implement them, making linear
+coordinate tracking more efficient.  
 
 Table \ref{table:wcskeys} describes FITS WCS keywords and their recommended use in
 planetary surface context.
@@ -636,8 +638,23 @@ EPN-TAP \texttt{bib\_reference} has exactly the same meaning and use than the FI
 \end{itemize}
 
 \subsection{Examples and Best Practices}
-\subsubsection{Global maps}
+
+\subsubsection{Visualization of global and projected maps}
+High level products are meant to be used for visual inspection or GIS analysis.
+They are distributed as projected rasters, often in GeoTIFF\footnote{http://geotiff.osgeo.org/}
+format, as GeoTIFF make them GIS ready.
+Once new keywords introduced in FITS and WCS definitions adapted to planetary surface, FITS
+and GeoTIFF are completely interchangeable.
+As an example we have downloaded some global maps from USGS
+Astropedia\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
+We used ds9 to display the FITS image and were able to visualize coordinates in meters
+as in QGIS, but also in planetary latitude and longitude thanks to alternate coordinate
+description.
+
+
+
 \subsubsection{HiRISE mosaics}
+
 \subsubsection{OMEGA spectra and geometry data}
 \subsubsection{Akatsuki imaging data}
 \section{Inter-operable software developments}
