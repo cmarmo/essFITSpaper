@@ -164,9 +164,9 @@ applications and best practices.}
  \authors{C. Marmo\affil{1},
  T. M. Hare\affil{2},
  S. Erard\affil{3},
- B. Cecconi\affil{3},
  M. Minin\affil{4},
- A. Zinzi\affil{5},
+ A. Zinzi\affil{5,6},
+ B. Cecconi\affil{3},
  A. P. Rossi\affil{4}}
 
 \affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay,
@@ -177,7 +177,8 @@ Flagstaff, AZ, USA}
 CNRS, Sorbonne Universit\'es, UPMC Univ. Paris 06, Univ. Paris Diderot,
 Sorbonne Paris Cit\'e, Meudon, France}
 \affiliation{4}{Jacobs University, Bremen, Germany}
-%\affiliation{5}{}
+\affiliation{5}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
+\affiliation{6}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
 
 
 %% Corresponding Author
@@ -666,7 +667,7 @@ Laboratory, Carnegie Science}
 \label{fig:ds9qgis}
 \end{figure}
 
-Assuming projected products distributed in FITS format a quick method to add GIS support for
+Assuming projected products distributed in FITS format, a quick method to add GIS support for
 FITS images is to use a GDAL-supported detached header.
 GDAL Virtual Header files simply describe the internal structure of a FITS image, but
 also the map projection and body size in a standardized "well known text"
@@ -674,15 +675,29 @@ also the map projection and body size in a standardized "well known text"
 As a result, the FITS raster loaded into QGIS thanks to its correspondent GDAL Virtual Header
 is indistinguishable from the GeoTIFF layer (see figure \ref{fig:ds9qgis}, right side).
 
-MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
+In order to straightforward load FITS files in GIS software, it is recommended to have
+body radii and linear coordinates filled in.
+Information about invalid values (NoData values) and minimum and maximum values are useful
+for correct display.
+
+\subsubsection{OMEGA spectra and geometry data}
+As stressed above, having planetary data distributed in FITS at any processing level is
+a way to avoid multiple conversions in the processing chain and simplify reprocessing.
+As an example of non projected planetary data we have converted in FITS format data
+acquired by the spectroimager OMEGA onboard of Mars Express.
+OMEGA unprojected and uncalibrated data are distributed by ESA-PSA and PDS archives.
+Their structure is described in the OMEGA Experiment Archive 
+Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
+In planetary science a first spatial calibration data often consists in providing coordinates
+on specific points on the detector (the center of the pixel, one or more pixel corners, etc.)
+
+\subsubsection{Akatsuki imaging data}
 
 \subsubsection{HiRISE mosaics}
 
-\subsubsection{OMEGA spectra and geometry data}
-
-
-\subsubsection{Akatsuki imaging data}
 \section{Inter-operable software developments}
+VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
 \label{sec:softdev}
 
 \section{Discussion and Perspectives}
@@ -883,7 +898,9 @@ allowing easy conversion for final products following the needed application.
 This work benefits from support of VESPA/Europlanet.
 The Europlanet 2020 Research Infrastructure is funded by the European Union
 under the Horizon 2020 research and innovation program, grant agreement N.654208.
-
+C. Marmo would lik to thanks Mark Calabretta from Australia Telescope National Facility
+for his WCSLIB library, and David Berry from Joint Astronomy Center, Hilo, for useful
+discussions about TAB projection in FITS.
 
 %%  REFERENCE LIST AND TEXT CITATIONS
 %
