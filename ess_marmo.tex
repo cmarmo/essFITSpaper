@@ -701,8 +701,15 @@ acquired by the spectroimager OMEGA on-board of Mars Express.
 OMEGA unprojected and uncalibrated data are distributed by ESA-PSA and PDS archives.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
+\begin{figure}[ht!]
+\centerline{\includegraphics[height=17pc]{ess_marmo4}\hspace{60pt}\includegraphics[height=17pc]{ess_marmo3}}
+\caption{left: OMEGA data structure (from OMEGA EAICD); right: FITS Multi Digital Object
+conversion}
+\label{fig:omegascheme}
+\end{figure}
 
-
+TAB projection is implemented in the Calabretta WCSLIB\footnote{http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/},
+available in all major linux distribution, and consequently in all 
 
 \subsubsection{Akatsuki imaging data}
 
@@ -711,7 +718,9 @@ Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRE
 \section{Inter-operable software developments}
 \label{sec:softdev}
 VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+
 MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
+
 Aladin\footnote{http://aladin.u-strasbg.fr/}
 
 \section{Discussion and Perspectives}
