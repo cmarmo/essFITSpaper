@@ -685,15 +685,23 @@ for correct display.
 \subsubsection{OMEGA spectra and geometry data}
 As stressed above, having planetary data distributed in FITS at any processing level is
 a way to avoid multiple conversions in the processing chain and simplify reprocessing.
+In planetary science a first spatial calibration data often consists in providing coordinates
+on specific points on the detector (the center of the pixel, one or more pixel corners, etc.).
+To support such look-up table coordinate representation the \texttt{TAB} algorithm
+has been defined in \citet{wcsspectral}.
+In the \texttt{TAB} algorithm, coordinates are listed in a coordinate array, an indexing vector
+can be used to address coordinate array elements.
+Coordinates can then be sampled more or less coarsely depending on the behavior of the spatial
+reconstruction.
+Also, when the field is only partially covered by the planetary surface, coordinate array
+dimensions can be significantly reduced. 
+
 As an example of non projected planetary data we have converted in FITS format data
 acquired by the spectroimager OMEGA on-board of Mars Express.
 OMEGA unprojected and uncalibrated data are distributed by ESA-PSA and PDS archives.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
-In planetary science a first spatial calibration data often consists in providing coordinates
-on specific points on the detector (the center of the pixel, one or more pixel corners, etc.).
-To support such look-up table coordinate representation the \texttt{TAB} algorithm
-is defined in \citet{wcsspectral}.
+
 
 
 \subsubsection{Akatsuki imaging data}
