@@ -165,7 +165,8 @@ applications and best practices.}
  T. M. Hare\affil{2},
  S. Erard\affil{3},
  M. Minin\affil{4},
- A. Zinzi\affil{5,6},
+ F.-X. Pineau\affil{5},
+ A. Zinzi\affil{6,7},
  B. Cecconi\affil{3},
  A. P. Rossi\affil{4}}
 
@@ -177,8 +178,9 @@ Flagstaff, AZ, USA}
 CNRS, Sorbonne Universit\'es, UPMC Univ. Paris 06, Univ. Paris Diderot,
 Sorbonne Paris Cit\'e, Meudon, France}
 \affiliation{4}{Jacobs University, Bremen, Germany}
-\affiliation{5}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
-\affiliation{6}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
+\affiliation{5}{Observatoire astronomique de Strasbourg, Universit\'e de Strasbourg, CNRS, UMR 7550, 11 rue de l'Universit\'e, 67000, Strasbourg, France}
+\affiliation{6}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
+\affiliation{7}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
 
 
 %% Corresponding Author
@@ -684,21 +686,25 @@ for correct display.
 As stressed above, having planetary data distributed in FITS at any processing level is
 a way to avoid multiple conversions in the processing chain and simplify reprocessing.
 As an example of non projected planetary data we have converted in FITS format data
-acquired by the spectroimager OMEGA onboard of Mars Express.
+acquired by the spectroimager OMEGA on-board of Mars Express.
 OMEGA unprojected and uncalibrated data are distributed by ESA-PSA and PDS archives.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
 In planetary science a first spatial calibration data often consists in providing coordinates
-on specific points on the detector (the center of the pixel, one or more pixel corners, etc.)
+on specific points on the detector (the center of the pixel, one or more pixel corners, etc.).
+To support such look-up table coordinate representation the \texttt{TAB} algorithm
+is defined in \citet{wcsspectral}.
+
 
 \subsubsection{Akatsuki imaging data}
 
 \subsubsection{HiRISE mosaics}
 
 \section{Inter-operable software developments}
+\label{sec:softdev}
 VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
 MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
-\label{sec:softdev}
+Aladin\footnote{http://aladin.u-strasbg.fr/}
 
 \section{Discussion and Perspectives}
 \label{sec:disc}
@@ -898,7 +904,7 @@ allowing easy conversion for final products following the needed application.
 This work benefits from support of VESPA/Europlanet.
 The Europlanet 2020 Research Infrastructure is funded by the European Union
 under the Horizon 2020 research and innovation program, grant agreement N.654208.
-C. Marmo would lik to thanks Mark Calabretta from Australia Telescope National Facility
+C. Marmo would like to thanks Mark Calabretta from Australia Telescope National Facility
 for his WCSLIB library, and David Berry from Joint Astronomy Center, Hilo, for useful
 discussions about TAB projection in FITS.
 
