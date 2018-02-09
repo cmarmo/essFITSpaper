@@ -147,7 +147,6 @@
 \title{FITS format for planetary surfaces: definitions,
 applications and best practices.}
 
-
 %% ------------------------------------------------------------------------ %%
 %
 %  AUTHORS AND AFFILIATIONS
@@ -251,7 +250,7 @@ Observatory initiative and the planetary Table Access Protocol (EPN-TAP)
 FITS format is open and flexible, largely implemented in open and efficient
 processing tools.
 Those reasons make FITS format appropriate for large amounts of raster data
-processing.
+automatic processing.
 The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
@@ -651,7 +650,7 @@ for correct display.
 \subsubsection{OMEGA Spectra and Geometry Data}
 As stressed above, having planetary data distributed in FITS at any processing level is
 a way to avoid multiple conversions in the processing chain and simplify reprocessing.
-In planetary science a first spatial calibration data often consists in providing coordinates
+In planetary science a first spatial calibrated product often consists in providing coordinates
 on specific points on the detector (the center of the pixel, one or more pixel corners, etc.).
 To support such look-up table coordinate representation the \texttt{TAB} algorithm
 has been defined in \citet{wcsspectral}.
@@ -679,7 +678,8 @@ conversion.}
 OMEGA rasters are equally sampled all over the field: we use them to exemplify
 TAB description without indexing, then we only use spatial information on the center
 of the pixel. 
-The output result can be downloaded at the address ...
+The output result can be downloaded at the address https://github.com/cmarmo/convertofits/releases/download/v1.0-beta/orb0413\_1.IR1.fits.gz together with the python script
+used for conversion\footnote{https://github.com/cmarmo/convertofits/blob/master/omega2fits.py}.
 
 The \texttt{wcsware} tool (available in the \texttt{wcslib-utils} package in Fedora
 distribution, in the \texttt{wcslib-tools} in Debian) had been run on the output file,
@@ -687,8 +687,26 @@ validating the WCS structure and checking the ability to convert to (\texttt{wcs
 and from (\texttt{wcsware -x}) pixel and planetary surface coordinates.
 
 \subsubsection{Akatsuki Imaging Data}
+The Venus Climate Orbiter Akatsuki\footnote{http://akatsuki.isas.jaxa.jp/en/} is a JAXA
+spacecraft dedicated to the study of the Venus atmosphere.
+Akatsuki imaging data are already distributed in FITS format.
+Geometry information is distributed in two different cubes of data, containing respectively 
+values at the center of the pixel and at the lower left corner of the pixel.
+Tabular coordinate representation allows us to gather geometry in one table together with
+the described raster.
+In addition to that, in Akatsuki images Venus is often far from completely filling the field:
+tabular representation avoids to store unnecessary data. 
+In that case, coordinate indexes are necessary to identify which pixels contains the spatial
+information.
+The output result can be downloaded at the address https://github.com/cmarmo/convertofits/releases/download/v1.0-beta/ir1\_20160415\_070351\_097\_l2b\_v10\_out.fit.gz
+together with the python script
+used for conversion\footnote{https://github.com/cmarmo/convertofits/blob/master/akatsukil2b.py}.
 
-\subsubsection{HiRISE Mosaics}
+Again, we used \texttt{wcsware} to validate the WCS structure and to test pixel to world /
+world to pixel coordinate conversion.
+Even if TAB projection is not fully implemented in FITS visualization tools, this representation
+has the advantage to store the detector geometrical information together with physical
+quantities measured by the detector itself in a standardized way.
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
@@ -703,7 +721,7 @@ Aladin\footnote{http://aladin.u-strasbg.fr/}
 FITS discussion in astronomy\citep{THOMAS2015133} 
 let's astronomy learn from planetary sciences too: accent must be put on interoperability
 .... blabla
-Planetary surface is lacking open and modular software for massive processing and can benefit
+Planetary surface is lacking open and general software for massive processing and can benefit
 of astronomy experience. In addition to that WCS projection scheme is simpler than the
 historical one used in planetary applications. 
 Archiving flexibility and data model are today approached by PDS4 and EPN-TAP efforts.
