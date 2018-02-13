@@ -201,22 +201,30 @@ Sorbonne Paris Cit\'e, Meudon, France}
 \begin{abstract}
 Planetary science encompasses a broad number of research fields and
 brings together several research communities (geologists, astronomers,
-physicists, geochemists, etc.).
-Planetary missions produce an impressively growing amount of heterogeneous
-data which mining evolves those days from mostly visual assessment to more
-automated quantitative analysis.
-Interoperability and openness of data formats and processing techniques are
-becoming a necessity, to avoid the risk of being unable to efficiently extract
-scientific information from the data, and to guarantee the reproducibility of
-the scientific results.
-This paper will describe how Flexible Image Transport System (FITS) can be
-used in planetary surface investigations, and how its metadata can easily be
-inserted in the PDS4 metadata distribution model.
-An evolution to the actual standard is proposed to adapt FITS to
-planetary body description.
-Some examples and implementations are then presented.
-More than imposing a formal data model, FITS description for those data aims
-to simplify the processing chain in planetary science, promoting
+physicists, geochemists, etc.). Planetary missions produce an impressively growing 
+amount of diverse data requiring an evolution from a mostly manual-based visual 
+analysis to a more automated and quantitative analysis.
+Interoperability, openness of data formats, and shared processing techniques are
+becoming a necessity to efficiently extract scientific information from the data and 
+to guarantee the reproducibility of the scientific results.
+Unfortunately, the technologies 
+and data formats used by researchers for planetary surface studies and the field of astronomy 
+diverged as these related, but almost completely isolated domains evolved.  
+% * <thare@usgs.gov> 2018-02-13T00:44:29.292Z:
+% 
+% > Unfortunately, the technologies 
+% > and data formats used by researchers for planetary surface studies and the field of astronomy 
+% > diverged as these related, but almost completely isolated domains evolved.  
+% 
+% Is this too strong a statement?
+% 
+% ^.
+In this paper we will will describe how a small addition to the Flexible Image Transport System (FITS) 
+standard, widely used in the astronomy investigations,  will allow FITS to be more easily used in planetary
+surface investigations , we will  show  how FITS metadata can easily be transformed in the PDS4 metadata
+archival model, and lastly provide example implementations.
+More than imposing a formal data model, a FITS description for planetary data aims
+to simplify sharing data across the planetary and astronomy domains and promoting
 interoperability from data acquisition to final visualization.
 \end{abstract}
 
@@ -401,42 +409,64 @@ astropy\footnote{http://www.astropy.org/} \citet{astropy}) and some FITS visuali
 software (e.g. ds9\footnote{http://ds9.si.edu/}) already implement them, making linear
 coordinate tracking more efficient.  
 
-Table \ref{table:wcskeys} describes FITS WCS keywords and their recommended use in
-planetary surface context.
-
-\begin{sidewaystable}
-\label{table:wcskeys}
-\caption{WCS FITS keywords in the Planetary Surface context}
-\centering
-\begin{tabular}{l l l l l}
-\hline
-Keyword & Type & Definition & PDS4 & EPN-TAP \\
-\hline
-RADESYS	& string & Name of the inertial reference frame with respect & & \\
-& & to which the coordinate system is defined & & \\
-& & (defaulted to \texttt{'ICRS'}) & & \\
-EQUINOX & real & The value field contains the equinox in years for the celestial & & \\
-& & coordinate system in which positions are expressed & & \\
-& & (defaulted to \texttt{'J2000'}) & & \\
-WCSAXES & integer & Number of axes in the WCS description & & \\
-& & The value of WCSAXES may exceed the number of raster pixel axes & & \\
-WCSNAME & & & & \\
-CRPIXn & real & & \\
-CTYPEn & string & & \\
-CRVALn & real & & \\
-CDi\_j & real matrix & & \\
-PCi\_j & real matrix & & \\
-CDELTn & real & & \\
-CUNITn & string & & \\
-CNAMEn & string (up to 68 characters) & & \\
-\hline
-\end{tabular}
-\end{sidewaystable}
-
+\subsubsection{FITS WCS keywords and their recommended use in planetary surface context}
+\label{sssec:wcskeys}
+In this section WCS FITS keywords are inserted in the planetary surface context.
+Correspondence with PDS4 and EPN-TAP are added when available.
+\begin{enumerate}
+\item{RADESYS.
+Name of the inertial reference frame with respect to which the coordinate
+system is defined (defaulted to \texttt{'ICRS'})}
+\item{EQUINOX.
+The value field contains the equinox in years for the celestial
+coordinate system in which positions are expressed (defaulted to \texttt{'J2000'})}
+\item{WCSAXES.
+Number of axes in the WCS description.
+The value of WCSAXES may exceed the number of raster pixel axes.}
+\item{WCSNAME.
+Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic, non-rotating, inertial).
+EPN-TAP provides a \texttt{spatial\_coordinate\_description} parameter.}
+\item{CRPIXn.
+Location of a reference point along axis $n$, in units of the axis index.
+The reference point value do not need to lie within the actual data array.}
+\item{CTYPEn.
+Name of the coordinate represented by axis $n$, inn “4–3” form: the first four characters
+specify the coordinate type, the fifth character is a '-' and the
+remaining three characters specify an algorithm code for computing the world coordinate
+value (\ref{table:proj}).
+For angular coordinates \citet{calagreisenI} provides the form xLN xLG or yzLN yzLG, where x or yz
+are listed in Table \ref{table:ctype}.
+For linear coordinates a similar scheme (xPX as Projected X xPY as Projected Y or yzPX and yzPY) is proposed.
+Alternative representation of WCS are already possible in FITS, to describe images in degrees and in meters
+\citep{greisencalaII}.
+The name of the alternative axis will be specified using the alternative CNAMEn keyword.}
+\item{CRVALn.
+Value of the coordinate specified by the CTYPEn keyword at the reference point CRPIXn.}
+\item{CDi\_j.
+The $ij$ linear transformation matrix (rotation, skewness, scaling) defining the intermediate
+world coordinates.}
+\item{PCi\_j.
+The $ij$ linear transformation matrix (rotation, skewness) defining the intermediate pixel coordinates (to be used with CDELT keywords).}
+\item{CDELTn.
+The coordinate increment along axis $n$ (scaling component of the linear transformation
+matrix PCi\_j).
+In PDS4 they correspond to the \textit{pixel\_resolution\_x} and \texttt{pixel\_resolution\_y}
+attributes.
+In EPN-TAP they are connected to the \texttt{spatial\_resolution} parameter.}
+\item{CUNITn.
+Units of the coordinate system , not mandatory, defaulted to deg for angular coordinates
+and to meters (m) for linear ones.}
+\item{CNAMEn.
+The description of a particular coordinate for an axis in a particular WCS (up to 68
+characters), while the WCSNAMEa keyword names the particular WCS as a whole.
+Its default value will be blank.}
+\end{enumerate}
 
 \begin{table}
 \label{table:ctype}
-\caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.}
+\caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.
+Codes for planets are assumed in \citet{calagreisenI}. We propose to add codes for classes of targets,
+more or less corresponding to PDS4 Target type attribute and to EPN-TAP target\_class parameter.}
 \centering
 \begin{tabular}{l l}
 \hline
@@ -449,7 +479,10 @@ Jupiter & JU \\
 Saturn & SA \\
 Uranus & UR \\
 Neptune & NE \\
-Planetary bodies & B \\
+Satellites (other than the Moon) & ST \\
+Asteroids & AS \\
+Dwarf Planets & DW \\
+Comets & CO \\
 \hline
 \multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}}
 \end{tabular}
@@ -593,11 +626,10 @@ EPN-TAP standard also provides with a \texttt{target\_name} parameter.
 Notice that PDS4 and EPN-TAP also ask for a \texttt{target\_type} attribute, which must be
 specified from an enumerated list.}
 
-%
-%\item{\texttt{ORIGIN}.
-%It contains string identifying the organization or institution responsible for
-%creating the FITS file.
-%}
+\item{\texttt{ORIGIN}.
+It contains string identifying the organization or institution responsible for
+creating the FITS file.
+}
 %
 %\item{\texttt{AUTHOR}}
 
