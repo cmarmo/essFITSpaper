@@ -207,8 +207,8 @@ analysis to a more automated and quantitative analysis.
 Interoperability, openness of data formats, and shared processing techniques are
 becoming a necessity to efficiently extract scientific information from the data and 
 to guarantee the reproducibility of the scientific results.
-Unfortunately, the technologies 
-and data formats used by researchers for planetary surface studies and the field of astronomy 
+Unfortunately, the technologies and data formats used by researchers for
+planetary surface studies and the field of astronomy 
 diverged as these related, but almost completely isolated domains evolved.  
 % * <thare@usgs.gov> 2018-02-13T00:44:29.292Z:
 % 
@@ -250,19 +250,18 @@ System\footnote{https://fits.gsfc.nasa.gov/}
 and describes how FITS metadata can easily be inserted in the
 PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
 metadata distribution model.
-FITS is one of the standard implemented formats in the Virtual
+FITS is one of the standard formats implemented in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO), therefore making obvious its connection to the Planetary Virtual
 Observatory initiative and the planetary Table Access Protocol (EPN-TAP)
 \citep{ERARDepntap}.
 FITS format is open and flexible, largely implemented in open and efficient
 processing tools.
-Those reasons make FITS format appropriate for large amounts of raster data
-automatic processing.
+Those reasons make FITS format appropriate to automatically handle large amounts of raster data.
 The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
-The option to use FITS within the planetary domain could potentially
+The option to use FITS within the planetary surface domain could potentially
 homogenize methods from acquisition, to visualization, while
 giving chances to optimize data processing.
 
@@ -273,7 +272,7 @@ This paper is organized as follows:
 \item{dictionaries between FITS, PDS metadata description and EPN-TAP2.0
 parameters;}
 \item{some examples of planetary dataset in FITS;}
-\item{current developments for making FITS usable in planetary sciences.}
+\item{current developments for making FITS \added{more} usable \deleted{in planetary sciences} \added{to handle data of planetary surfaces}.}
 \end{enumerate}
 
 \section{FITS Format in Planetary Surface Investigation}
@@ -285,7 +284,7 @@ in astronomical observatories in the late 70's, and it is used for
 spatial telescope data.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
-Therefore, FITS is one of the standard implemented formats in the Virtual
+Therefore, FITS is one of the standard formats implemented in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO).
 Finally, FITS format is compatible with the Planetary Data System (PDS)
@@ -336,7 +335,7 @@ FITS World Coordinate System
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html}
 simplifies the spatial coordinate description with respect to historical
 terrestrial references.
-There is no need for oblique projection definitions
+For instance, there is no need for oblique projection definitions
 \citep{calagreisenI,Snyder1987} as projection parameters
 (projection center or reference point)
 describe the difference between, e.g., the Mercator and
@@ -349,8 +348,8 @@ increasing computing capabilities: spherical projections with a local
 radius definition are easier to reproject from one system to another, than
 from or to a global spheroidal datum (see for example how the HiRISE team
 has chosen to distribute HiRISE images).
-In addition, there is no need for East or West positive longitude
-definitions as the pixel conversion in world coordinates is set by an
+In addition, WCS resolves the ambiguity between east-handed and west-handed longitude systems,
+as the pixel conversion in world coordinates is set by an
 oriented matrix.
 If needed, FITS does offer the possibility to fully describe the projected
 coordinate system using several alternative WCS definitions (meters, degrees,
@@ -424,21 +423,23 @@ coordinate system in which positions are expressed (defaulted to \texttt{'J2000'
 Number of axes in the WCS description.
 The value of WCSAXES may exceed the number of raster pixel axes.}
 \item{WCSNAME.
-Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic, non-rotating, inertial).
+Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic,
+non-rotating, inertial).
 EPN-TAP provides a \texttt{spatial\_coordinate\_description} parameter.}
 \item{CRPIXn.
 Location of a reference point along axis $n$, in units of the axis index.
 The reference point value do not need to lie within the actual data array.}
 \item{CTYPEn.
-Name of the coordinate represented by axis $n$, inn “4–3” form: the first four characters
+Name of the coordinate represented by axis $n$, in “4–3” form: the first four characters
 specify the coordinate type, the fifth character is a '-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
 value (\ref{table:proj}).
 For angular coordinates \citet{calagreisenI} provides the form xLN xLG or yzLN yzLG, where x or yz
 are listed in Table \ref{table:ctype}.
-For linear coordinates a similar scheme (xPX as Projected X xPY as Projected Y or yzPX and yzPY) is proposed.
-Alternative representation of WCS are already possible in FITS, to describe images in degrees and in meters
-\citep{greisencalaII}.
+For linear coordinates we propose a similar scheme: xPX as Projected X, xPY as Projected Y,
+or yzPX and yzPY.
+Alternative representation of WCS are already possible in FITS, to describe images in degrees
+and in meters \citep{greisencalaII}.
 The name of the alternative axis will be specified using the alternative CNAMEn keyword.}
 \item{CRVALn.
 Value of the coordinate specified by the CTYPEn keyword at the reference point CRPIXn.}
@@ -446,7 +447,8 @@ Value of the coordinate specified by the CTYPEn keyword at the reference point C
 The $ij$ linear transformation matrix (rotation, skewness, scaling) defining the intermediate
 world coordinates.}
 \item{PCi\_j.
-The $ij$ linear transformation matrix (rotation, skewness) defining the intermediate pixel coordinates (to be used with CDELT keywords).}
+The $ij$ linear transformation matrix (rotation, skewness) defining the intermediate pixel
+coordinates (to be used with CDELT keywords).}
 \item{CDELTn.
 The coordinate increment along axis $n$ (scaling component of the linear transformation
 matrix PCi\_j).
@@ -541,7 +543,7 @@ PDS4 uses \texttt{axes}, always defined as a non-negative integer.}
 \item{\texttt{NAXISn}.
 It contains a non-negative integer representing the number of
 elements along axis \texttt{n} of a data array.
-The \texttt{elements} attribute of the \texttt{Axis\_Array} class provides
+The \texttt{elements} attribute of the \added{PDS4} \texttt{Axis\_Array} class provides
 the count of the number of elements along an array.}
 
 \item{\texttt{BUNIT}.
@@ -560,16 +562,17 @@ It contains a floating point number representing the coefficient of the linear t
 in the scaling equation $physical\_value = BZERO + BSCALE \times array\_value$,
 the ratio of physical value to array value at zero offset.
 For all classes containing Elements, PDS4 defines a \texttt{scaling\_factor}
-attribute. Both FITS and PDS4 defaulted this value to $1$.}
+attribute.
+Both FITS and PDS4 default this value to $1$.}
 
 \item{\texttt{BZERO}.
 It contains a floating point number representing the constant term in the
 scaling equation $physical\_value = BZERO + BSCALE \times array\_value$
 For all classes containing Elements, PDS4 defines a \texttt{value\_offset}
-attribute. Both FITS and PDS4 defaulted this value to $0$.}
+attribute. Both FITS and PDS4 default this value to $0$.}
 
 \item{\texttt{BLANK}.
-This keyword must be used only in integer data.
+This keyword must be used only with integer data.
 It contains an integer that specifies the value that is used to
 represent pixels that have an undefined physical value.
 On floating point data the IEEE NaN must be used to represent undefined values.  
@@ -592,8 +595,7 @@ It is assumed to be expressed in UTC but other systems are accepted as long as t
 are specified in the ISO string. 
 PDS4 provides a \texttt{Time\_Coordinates} class with attributes
 \textit{start\_date\_time} and \texttt{stop\_date\_time} providing start and
-stop date and time appropriate to the product being labeled, always in UT
-coordinates.
+stop date and time appropriate to the product being labeled, always in UTC.
 The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP scheme,
 they must always be formatted in UTC and Julian Days.}
 % * <chiara.marmo@u-psud.fr> 2018-02-05T10:20:13.335Z:
@@ -605,8 +607,8 @@ they must always be formatted in UTC and Julian Days.}
 
 \item{\texttt{INSTRUME}.
 It contains a character string identifying the instrument used to acquire the data.
-PDS4 provides an \texttt{Instrument} class which attribute \texttt{Name} ideally corresponds
-to this FITS keywords.
+PDS4 provides an \texttt{Instrument} class which attribute \texttt{Name} ideally \replaced{corresponds}{corresponding}
+to this FITS keyword.
 EPN-TAP provides with an \texttt{instrument\_name} parameter.}
 
 \item{\texttt{TELESCOP}.
@@ -615,7 +617,7 @@ The PDS4 \texttt{Instrument\_Host} class provides the description of the physica
 mounting the instrument. Its \texttt{Name} attribute should correspond to the FITS keyword.
 PDS4 also provides for the definition of a \texttt{Telescope} class, in case of
 ground-based observations.
-In the EPN-TAP scheme this will defined the \texttt{instrument\_host\_name} parameter.
+In the EPN-TAP scheme this is introduced by the \texttt{instrument\_host\_name} parameter.
 \footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Spacecraft}}
 
 \item{\texttt{OBJECT}.
@@ -628,18 +630,19 @@ specified from an enumerated list.}
 
 \item{\texttt{ORIGIN}.
 It contains string identifying the organization or institution responsible for
-creating the FITS file.
-}
+creating the FITS file.}
+
 %
 %\item{\texttt{AUTHOR}}
 
 \item{\texttt{REFERENC}.
 It contains a character string citing a reference where the data are published.
-It is recommended that either the Astrophysics Data System bibliographic databases\footnote{http://adswww.harvard.edu/}
+It is recommended that either the Astrophysics Data System bibliographic
+databases\footnote{http://adswww.harvard.edu/}
 bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
 be used.
-PDS4 \texttt{External\_Reference} class 
-EPN-TAP \texttt{bib\_reference} has exactly the same meaning and use than the FITS keyword.}
+PDS4 \texttt{External\_Reference} class and EPN-TAP \texttt{bib\_reference} have
+exactly the same meaning and use than the FITS keyword.}
 
 \end{enumerate}
 
@@ -649,12 +652,13 @@ EPN-TAP \texttt{bib\_reference} has exactly the same meaning and use than the FI
 High level products are meant to be used for visual inspection or GIS analysis.
 They are distributed as projected rasters, often in GeoTIFF\footnote{http://geotiff.osgeo.org/}
 format, as GeoTIFF make them GIS ready.
-Once new keywords introduced in FITS and WCS definitions adapted to planetary surface, FITS
+Given some new keywords introduced in FITS and WCS definitions adapted to planetary surface, FITS
 and GeoTIFF are completely interchangeable.
 As an example we have downloaded some global maps from USGS
 Astropedia\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
 We used ds9 to display the FITS image and were able to visualize coordinates in meters
-as in QGIS, but also in planetary latitude and longitude thanks to the alternate coordinate
+as in QGIS, a popular open source GIS software, but also in planetary latitude and longitude
+thanks to the alternate coordinate
 description (see figure \ref{fig:ds9qgis}, left side).
 \begin{figure}[ht!]
 \centerline{\includegraphics[height=17pc]{ess_marmo2} \includegraphics[height=17pc]{ess_marmo1}}
@@ -666,7 +670,7 @@ Laboratory, Carnegie Science}
 \label{fig:ds9qgis}
 \end{figure}
 
-Assuming projected products distributed in FITS format, a quick method to add GIS support for
+Assuming projected products are distributed in FITS format, a quick method to add GIS support for
 FITS images is to use a GDAL-supported detached header.
 GDAL Virtual Header files simply describe the internal structure of a FITS image, but
 also the map projection and body size in a standardized "well known text"
@@ -674,14 +678,14 @@ also the map projection and body size in a standardized "well known text"
 As a result, the FITS raster loaded into QGIS thanks to its correspondent GDAL Virtual Header
 is indistinguishable from the GeoTIFF layer (see figure \ref{fig:ds9qgis}, right side).
 
-In order to straightforward load FITS files in GIS software, it is recommended to have
+In order to load FITS files in GIS software, it is recommended to have
 body radii and linear coordinates filled in.
 Information about invalid values (NoData values) and minimum and maximum values are useful
-for correct display.
+to correctly display the image dynamics.
 
 \subsubsection{OMEGA Spectra and Geometry Data}
 As stressed above, having planetary data distributed in FITS at any processing level is
-a way to avoid multiple conversions in the processing chain and simplify reprocessing.
+a way to avoid multiple conversions in the processing chain and to simplify reprocessing.
 In planetary science a first spatial calibrated product often consists in providing coordinates
 on specific points on the detector (the center of the pixel, one or more pixel corners, etc.).
 To support such look-up table coordinate representation the \texttt{TAB} algorithm
@@ -695,8 +699,8 @@ dimensions can be significantly reduced.
 TAB projection is implemented in the Calabretta WCSLIB\footnote{http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/},
 available in all major linux distribution.
 
-As an example of non projected planetary data we have converted in FITS format data
-acquired by the spectroimager OMEGA on-board of Mars Express.
+As an example of non projected planetary data we have converted in FITS format some data
+acquired by the imaging spectrometer OMEGA on-board of Mars Express.
 OMEGA unprojected and uncalibrated data are distributed by ESA-PSA and PDS archives.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
