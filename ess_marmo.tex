@@ -272,7 +272,8 @@ This paper is organized as follows:
 \item{dictionaries between FITS, PDS metadata description and EPN-TAP2.0
 parameters;}
 \item{some examples of planetary dataset in FITS;}
-\item{current developments for making FITS \added{more} usable \deleted{in planetary sciences} \added{to handle data of planetary surfaces}.}
+\item{current developments for making FITS more usable to handle data
+of planetary surfaces.}
 \end{enumerate}
 
 \section{FITS Format in Planetary Surface Investigation}
@@ -287,7 +288,7 @@ for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_19
 Therefore, FITS is one of the standard formats implemented in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO).
-Finally, FITS format is compatible with the Planetary Data System (PDS)
+Finally, FITS data storage is compatible with the Planetary Data System (PDS)
 archiving specifications and supported by a large number of open libraries
 and software tools.
 
@@ -295,14 +296,16 @@ FITS is already able to propose standard formatting for some data products
 quite common by now in planetary surface investigations.
 In particular, the Multi-Extension FITS (MEF) schema proposes an easy way
 to store inhomogeneous digital information (reflectance, calibration data,
-vector, table data, etc.) in the same file, each with correspondent metadata,
+vector, table data, etc.) in the same file, each with corresponding metadata,
 as well as multi-detector imagery (e.g. from HiRISE \citep{hirise})
 or hyperspectral cubes with geometry information (e.g. from CRISM
 \citep{crism} or OMEGA \citep{omega} instruments).
-FITS has been already chosen to distribute, e.g.,
-Hayabusa\footnote{http://darts.isas.jaxa.jp/planet/project/hayabusa/index.html},
-Akatsuki\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
-and some of the Dawn\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
+FITS has been already chosen to distribute data from, e.g.,
+Hayabusa AMICA and NIRS cameras\footnote{http://darts.isas.jaxa.jp/planet/project/hayabusa/index.html},
+all Akatsuki cameras\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
+(except the Lightning and Airglow Camera),
+and the Dawn Framing Camera\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
+In addition, many PDS3 datasets in the Small Bodies Node include FITS files.
 To be efficiently used in planetary surface investigations, FITS metadata must
 be extended in order to take into account the size of the reference body.
 Planetary body shapes and orientations are well defined and standardized by
@@ -332,10 +335,12 @@ GDAL is essentially a format translation library written in C++ for geospatial r
 and vector data and, fortunately, it also offer basic support for FITS format.
 
 FITS World Coordinate System
-representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html}
-simplifies the spatial coordinate description with respect to historical
+representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
+way to describe spatial dependencies in FITS metadata.
+WCS simplifies the spatial coordinate description with respect to historical
 terrestrial references.
-For instance, there is no need for oblique projection definitions
+F
+or instance, there is no need for oblique projection definitions
 \citep{calagreisenI,Snyder1987} as projection parameters
 (projection center or reference point)
 describe the difference between, e.g., the Mercator and
@@ -346,23 +351,26 @@ is applied on planetary imagery.
 This is particularly the case with growing image resolutions and
 increasing computing capabilities: spherical projections with a local
 radius definition are easier to reproject from one system to another, than
-from or to a global spheroidal datum (see for example how the HiRISE team
-has chosen to distribute HiRISE images).
-In addition, WCS resolves the ambiguity between east-handed and west-handed longitude systems,
-as the pixel conversion in world coordinates is set by an
+from or to a global spheroidal datum.
+As an example, the HiRISE team has chosen to distribute HiRISE projected
+products using Equirectangular projection (CAR) on a local surface, approximated
+by the sphere with radius equivalent to the local Mars spheroid radius.
+
+In addition, WCS resolves the ambiguity between east-handed and west-handed
+longitude systems, as the pixel conversion in world coordinates is set by an
 oriented matrix.
 If needed, FITS does offer the possibility to fully describe the projected
 coordinate system using several alternative WCS definitions (meters, degrees,
 East and West longitude, etc.)\citep{greisencalaII}.
 
 Table \ref{table:proj} summarizes the FITS projection codes and their
-correspondent PDS4 projection names (see table A.1. in \citet{calagreisenI}
+corresponding PDS4 projection names (see table A.1. in \citet{calagreisenI}
 for details).
 
 \begin{table}
 \label{table:proj}
 \caption{Projection names and codes already available in FITS suitable for
-planetary applications: their correspondent in PDS4 vocabulary are
+planetary applications: the corresponding PDS4 terminology is
 provided.}
 \centering
 \begin{tabular}{l l l}
@@ -411,7 +419,8 @@ coordinate tracking more efficient.
 \subsubsection{FITS WCS keywords and their recommended use in planetary surface context}
 \label{sssec:wcskeys}
 In this section WCS FITS keywords are inserted in the planetary surface context.
-Correspondence with PDS4 and EPN-TAP are added when available.
+When possible, corresponding PDS4 and EPN-TAP definitions are added for archiving
+standardization purposes.
 \begin{enumerate}
 \item{RADESYS.
 Name of the inertial reference frame with respect to which the coordinate
@@ -531,7 +540,7 @@ and PDS4 attributes, is described here.
 \item{\texttt{BITPIX}.
 It specifies the number of bits that represent a data value in
 the associated data array.
-PDS4 uses the attribute \texttt{data\_type}: correspondent 
+PDS4 uses the attribute \texttt{data\_type}: corresponding 
 values depend on the associated object class.}
 
 \item{\texttt{NAXIS}.
@@ -550,7 +559,7 @@ the count of the number of elements along an array.}
 It contains a string, describing the physical units in which the quantities
 in the array are expressed.
 The units of all FITS header keyword values should conform with the recommendations
-in the IAU Style Manual.
+in the IAU Style Manual\footnote{https://www.iau.org/publications/proceedings\_rules/units/}.
 For angular measurements given as floating point values, degrees are the recommended
 units (with the units, if specified, given as 'deg').
 PDS4 specifies in the class Element (of a vector, array, or any other class
@@ -592,23 +601,17 @@ It contains the date of the observation, provided as ISO 8601
 string. The value shall be assumed to refer to the start of the observation,
 unless another interpretation is clearly explained in the comment field.
 It is assumed to be expressed in UTC but other systems are accepted as long as they
-are specified in the ISO string. 
+are specified in the ISO string\footnote{See table 30 in the Standard FITS document https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf}. 
 PDS4 provides a \texttt{Time\_Coordinates} class with attributes
 \textit{start\_date\_time} and \texttt{stop\_date\_time} providing start and
 stop date and time appropriate to the product being labeled, always in UTC.
 The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP scheme,
-they must always be formatted in UTC and Julian Days.}
-% * <chiara.marmo@u-psud.fr> 2018-02-05T10:20:13.335Z:
-% 
-% > Julian Days
-% From https://voparis-confluence.obspm.fr/display/VES/EPN-TAP+v2+parameter+description I see that ISO format is still in the race.... Maybe it would be better to homogenize PDS4 EPN-TAP and FITS?
-% 
-% ^.
+they must always be formatted in UTC as a ISO string (planned in EPN-TAP v2.1).}
 
 \item{\texttt{INSTRUME}.
 It contains a character string identifying the instrument used to acquire the data.
-PDS4 provides an \texttt{Instrument} class which attribute \texttt{Name} ideally \replaced{corresponds}{corresponding}
-to this FITS keyword.
+PDS4 provides an \texttt{Instrument} class which attribute \texttt{Name} ideally 
+corresponds to this FITS keyword.
 EPN-TAP provides with an \texttt{instrument\_name} parameter.}
 
 \item{\texttt{TELESCOP}.
@@ -617,11 +620,12 @@ The PDS4 \texttt{Instrument\_Host} class provides the description of the physica
 mounting the instrument. Its \texttt{Name} attribute should correspond to the FITS keyword.
 PDS4 also provides for the definition of a \texttt{Telescope} class, in case of
 ground-based observations.
-In the EPN-TAP scheme this is introduced by the \texttt{instrument\_host\_name} parameter.
-\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Spacecraft}}
+In the EPN-TAP scheme this is introduced by the \texttt{instrument\_host\_name}
+parameter\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Spacecraft}.}
 
 \item{\texttt{OBJECT}.
-It contains a character string giving a name for the observed object\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Planets\%20and\%20Satellites}.
+It contains a character string giving a name for the observed
+object\footnote{https://naif.jpl.nasa.gov/pub/naif/toolkit\_docs/FORTRAN/req/naif\_ids.html\#Planets\%20and\%20Satellites}.
 The PDS4 \texttt{Target} class contains the \texttt{name} attribute corresponding to this
 FITS keyword.
 EPN-TAP standard also provides with a \texttt{target\_name} parameter.
@@ -636,7 +640,8 @@ creating the FITS file.}
 %\item{\texttt{AUTHOR}}
 
 \item{\texttt{REFERENC}.
-It contains a character string citing a reference where the data are published.
+It contains a character string citing the bibliographic reference where the
+data are first described.
 It is recommended that either the Astrophysics Data System bibliographic
 databases\footnote{http://adswww.harvard.edu/}
 bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
@@ -675,7 +680,7 @@ FITS images is to use a GDAL-supported detached header.
 GDAL Virtual Header files simply describe the internal structure of a FITS image, but
 also the map projection and body size in a standardized "well known text"
 (WKT) projection string.
-As a result, the FITS raster loaded into QGIS thanks to its correspondent GDAL Virtual Header
+As a result, the FITS raster loaded into QGIS thanks to its corresponding GDAL Virtual Header
 is indistinguishable from the GeoTIFF layer (see figure \ref{fig:ds9qgis}, right side).
 
 In order to load FITS files in GIS software, it is recommended to have
