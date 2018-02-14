@@ -7,4 +7,4 @@ An editable version is available on [overleaf](https://www.overleaf.com/10763997
 To track changes on overleaf:
 - to add words, use \added{word added}
 - to delete words, use \deleted{word deleted}
-- to replace words, use \replace{word to be replaced}{replacement word}
+- to replace words, use \replaced{word to be replaced}{replacement word}
