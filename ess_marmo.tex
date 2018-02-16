@@ -156,11 +156,11 @@ applications and best practices.}
  \authors{C. Marmo\affil{1},
  T. M. Hare\affil{2},
  S. Erard\affil{3},
- M. Minin\affil{4},
- F.-X. Pineau\affil{5},
- A. Zinzi\affil{6,7},
+ A. Zinzi\affil{4,5},
+ M. Minin\affil{6},
+ F.-X. Pineau\affil{7},
  B. Cecconi\affil{3},
- A. P. Rossi\affil{4}}
+ A. P. Rossi\affil{6}}
 
 \affiliation{1}{GEOPS, Univ. Paris-Sud, CNRS, Univ. Paris-Saclay,
 Orsay, France}
@@ -169,10 +169,10 @@ Flagstaff, AZ, USA}
 \affiliation{3}{LESIA, Observatoire de Paris, PSL Research University,
 CNRS, Sorbonne Universit\'es, UPMC Univ. Paris 06, Univ. Paris Diderot,
 Sorbonne Paris Cit\'e, Meudon, France}
-\affiliation{4}{Jacobs University, Bremen, Germany}
-\affiliation{5}{Observatoire astronomique de Strasbourg, Universit\'e de Strasbourg, CNRS, UMR 7550, 11 rue de l'Universit\'e, 67000, Strasbourg, France}
-\affiliation{6}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
-\affiliation{7}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
+\affiliation{4}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
+\affiliation{5}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
+\affiliation{6}{Jacobs University, Bremen, Germany}
+\affiliation{7}{Observatoire astronomique de Strasbourg, Universit\'e de Strasbourg, CNRS, UMR 7550, 11 rue de l'Universit\'e, 67000, Strasbourg, France}
 
 %% Corresponding Author
 %(include name and email addresses of the corresponding author.  More
@@ -204,8 +204,8 @@ brings together several research communities (geologists, astronomers,
 physicists, geochemists, etc.). Planetary missions produce an impressively growing 
 amount of diverse data requiring an evolution from a mostly manual-based visual 
 analysis to a more automated and quantitative analysis.
-Interoperability, openness of data formats, and shared processing techniques are
-becoming a necessity to efficiently extract scientific information from the data and 
+Interoperability, openness of data formats, and shared processing techniques are 
+a necessity to efficiently extract scientific information from the data and 
 to guarantee the reproducibility of the scientific results.
 Unfortunately, the technologies and data formats used by researchers for
 planetary surface studies and the field of astronomy 
@@ -219,10 +219,10 @@ diverged as these related, but almost completely isolated domains evolved.
 % Is this too strong a statement?
 % 
 % ^.
-In this paper we will will describe how a small addition to the Flexible Image Transport System (FITS) 
-standard, widely used in the astronomy investigations,  will allow FITS to be more easily used in planetary
-surface investigations , we will  show  how FITS metadata can easily be transformed in the PDS4 metadata
-archival model, and lastly provide example implementations.
+In this paper we will describe how a small addition to the Flexible Image Transport System (FITS) 
+standard, widely used in the astronomy investigations, will allow FITS to be more easily used in planetary
+surface investigations. We will  show  how FITS metadata can easily be transformed in the PDS4 metadata
+archival model and lastly provide example implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
 interoperability from data acquisition to final visualization.
@@ -236,13 +236,14 @@ interoperability from data acquisition to final visualization.
 
 \section{Introduction}
 \label{sec:intro}
-Planetary science brings together several research communities
-(geologists, astronomers, physicists, geochemists, etc.),
-and planetary missions produce a growing amount of heterogeneous data.
-To efficiently extract scientific information from those data, they must
-be made integrable, thus interoperable.
-Openness of data format and processing techniques is becoming a necessity,
-to guarantee the reproducibility of the results obtained from those data.
+Planetary science encompasses a broad number of research fields and
+brings together several research communities (geologists, astronomers,
+physicists, geochemists, etc.). Planetary missions produce an impressively growing 
+amount of diverse data requiring an evolution from a mostly manual-based visual 
+analysis to a more automated and quantitative analysis.
+Interoperability, openness of data formats, and shared processing techniques are 
+a necessity to efficiently extract scientific information from the data and 
+to guarantee the reproducibility of the scientific results.
 
 This paper proposes to use Flexible Image Transport
 System\footnote{https://fits.gsfc.nasa.gov/}
@@ -255,15 +256,14 @@ Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO), therefore making obvious its connection to the Planetary Virtual
 Observatory initiative and the planetary Table Access Protocol (EPN-TAP)
 \citep{ERARDepntap}.
-FITS format is open and flexible, largely implemented in open and efficient
-processing tools.
-Those reasons make FITS format appropriate to automatically handle large amounts of raster data.
+FITS format is open, flexible, and largely implemented in open and efficient
+processing tools allowing to handle large amounts of raster data.
 The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
-The option to use FITS within the planetary surface domain could potentially
+The option to use FITS within the planetary surface domain could help to
 homogenize methods from acquisition, to visualization, while
-giving chances to optimize data processing.
+giving chances to optimize data processing across the planetary and astronomy domains.
 
 This paper is organized as follows:
 \begin{enumerate}
@@ -280,9 +280,8 @@ of planetary surfaces.}
 \label{sec:fitspss}
 
 \subsection{FITS Format}
-FITS is an open digital standard, defined for data acquisition and archiving
-in astronomical observatories in the late 70's, and it is used for
-spatial telescope data.
+FITS is an open digital standard, defined for data acquisition and archiving telescope data
+by astronomical observatories since the late 1970's.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
@@ -292,8 +291,8 @@ Finally, FITS data storage is compatible with the Planetary Data System (PDS)
 archiving specifications and supported by a large number of open libraries
 and software tools.
 
-FITS is already able to propose standard formatting for some data products
-quite common by now in planetary surface investigations.
+FITS is already capable of being used as a standard formatting for most data products
+commonly used in planetary surface investigations.
 In particular, the Multi-Extension FITS (MEF) schema proposes an easy way
 to store inhomogeneous digital information (reflectance, calibration data,
 vector, table data, etc.) in the same file, each with corresponding metadata,
@@ -305,10 +304,9 @@ Hayabusa AMICA and NIRS cameras\footnote{http://darts.isas.jaxa.jp/planet/projec
 all Akatsuki cameras\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
 (except the Lightning and Airglow Camera),
 and the Dawn Framing Camera\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
-In addition, many PDS3 datasets in the Small Bodies Node include FITS files.
-To be efficiently used in planetary surface investigations, FITS metadata must
-be extended in order to take into account the size of the reference body.
-Planetary body shapes and orientations are well defined and standardized by
+In addition, many PDS3 datasets in the Small Bodies Node are archived and distributed as FITS files with PDS3 labels.
+However, to be more efficiently used in planetary surface investigations, FITS metadata must
+be extended in order to take into account the size of the reference body and orientation as standardized by
 the IAU Working Group on Cartographic Coordinates and Rotational Elements
 (WGCCRE).
 This group reports triennially \citep{wgccre} on the preferred rotation rate,
@@ -322,25 +320,21 @@ taking into account the WGCCRE recommendations.
 
 \subsection{Planetary Surface Proposed Convention}
 \label{ssec:geofits}
-When willing to use FITS format for planetary surfaces the issue of rigorous
-geographical representation must be addressed.
-For their mapping and analysis needs planetary researchers commonly use
-Geographical Information Systems (GIS).
-In general, GIS applications excel in data interoperability even
+To facilitate surface investigations, data taken of a planetary surface should be radiometrically calibrated and orthorectified (when topographic data is available) into a well-known map projection as required by Geographical Information Systems (GIS) applications.
+In general, GIS applications excel in planetary data set integration and interoperability even
 though some have historically been anchored to Earth's spatial description.
-Several of them are based on the Geospatial Data Abstraction
+Often, robust interoperability in GIS applications is achieved by using the Geospatial Data Abstraction
 Library\footnote{http://www.gdal.org} (GDAL), released by the Open Source
 Geospatial Foundation.
 GDAL is essentially a format translation library written in C++ for geospatial raster
-and vector data and, fortunately, it also offer basic support for FITS format.
+and vector data and, fortunately, it also offers basic support for the FITS format.
 
 FITS World Coordinate System
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
 way to describe spatial dependencies in FITS metadata.
 WCS simplifies the spatial coordinate description with respect to historical
 terrestrial references.
-F
-or instance, there is no need for oblique projection definitions
+For instance, there is no need for oblique projection definitions
 \citep{calagreisenI,Snyder1987} as projection parameters
 (projection center or reference point)
 describe the difference between, e.g., the Mercator and
@@ -501,6 +495,7 @@ Comets & CO \\
 
 Nevertheless, WCS does not record information about the body shape and
 orientation, and reference surface.
+Table \ref{table:newkeys} summarize the keywords we propose to add to FITS metadata description.
 
 \begin{sidewaystable}
 \label{table:newkeys}
@@ -663,13 +658,14 @@ exactly the same meaning and use than the FITS keyword.}
 \subsection{Examples and Best Practices}
 
 \subsubsection{Visualization of Global and Projected Maps}
+\label{sssec:maps}
 High level products are meant to be used for visual inspection or GIS analysis.
 They are distributed as projected rasters, often in GeoTIFF\footnote{http://geotiff.osgeo.org/}
 format, as GeoTIFF make them GIS ready.
 Given some new keywords introduced in FITS and WCS definitions adapted to planetary surface, FITS
 and GeoTIFF are completely interchangeable.
 As an example we have downloaded some global maps from USGS
-Astropedia\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
+PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
 We used ds9 to display the FITS image and were able to visualize coordinates in meters
 as in QGIS, a popular open source GIS software, but also in planetary latitude and longitude
 thanks to the alternate coordinate
@@ -763,9 +759,18 @@ quantities measured by the detector itself in a standardized way.
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
-VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+Basic conversion from and to FITS is already supported by GDAL.
+However, dictionaries for precisely translate geospatial metadata are not implemented yet.
+The conversions described in section \ref{sssec:maps} have been performed using python scripts
+available from the VESPA github repository\footnote{https://github.com/epn-vespa/fits2vrt}.
+Those python developments benefit from the rich and well maintained Astropy and GDAL python APIs.
+They will be implemented in planetary VO services with the goal to bridge between GIS and VO services.
+The next step to VO and GIS tool integration will be to directly implement metadata translation
+into GDAL C++ library. 
 
 MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
+
+VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
 
 Aladin\footnote{http://aladin.u-strasbg.fr/}
 
