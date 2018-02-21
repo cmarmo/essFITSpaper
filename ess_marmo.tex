@@ -221,7 +221,7 @@ diverged as these related, but almost completely isolated domains evolved.
 % ^.
 In this paper we will describe how a small addition to the Flexible Image Transport System (FITS) 
 standard, widely used in the astronomy investigations, will allow FITS to be more easily used in planetary
-surface investigations. We will  show  how FITS metadata can easily be transformed in the PDS4 metadata
+surface investigations. We will also show  how FITS metadata can easily be transformed in the PDS4 metadata
 archival model and lastly provide example implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
@@ -263,7 +263,7 @@ in planetary surface investigations, promoting general software based on those
 standards.
 The option to use FITS within the planetary surface domain could help to
 homogenize methods from acquisition, to visualization, while
-giving chances to optimize data processing across the planetary and astronomy domains.
+allowing for optimized data processing across the planetary and astronomy domains.
 
 This paper is organized as follows:
 \begin{enumerate}
@@ -280,8 +280,8 @@ of planetary surfaces.}
 \label{sec:fitspss}
 
 \subsection{FITS Format}
-FITS is an open digital standard, defined for data acquisition and archiving telescope data
-by astronomical observatories since the late 1970's.
+FITS is an open digital standard, created in the late 1970's for data acquisition and archiving telescope data
+by astronomical observatories.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
@@ -320,7 +320,9 @@ taking into account the WGCCRE recommendations.
 
 \subsection{Planetary Surface Proposed Convention}
 \label{ssec:geofits}
-To facilitate surface investigations, data taken of a planetary surface should be radiometrically calibrated and orthorectified (when topographic data is available) into a well-known map projection as required by Geographical Information Systems (GIS) applications.
+To facilitate surface investigations, data taken of a planetary surface should be radiometrically 
+calibrated and orthorectified (when topographic data is available) into a well-known map projection 
+as required by Geographical Information Systems (GIS) applications.
 In general, GIS applications excel in planetary data set integration and interoperability even
 though some have historically been anchored to Earth's spatial description.
 Often, robust interoperability in GIS applications is achieved by using the Geospatial Data Abstraction
@@ -350,19 +352,18 @@ As an example, the HiRISE team has chosen to distribute HiRISE projected
 products using Equirectangular projection (CAR) on a local surface, approximated
 by the sphere with radius equivalent to the local Mars spheroid radius.
 
-In addition, WCS resolves the ambiguity between east-handed and west-handed
+In addition, WCS resolves the ambiguity between east-positive and west-posited
 longitude systems, as the pixel conversion in world coordinates is set by an
 oriented matrix.
 If needed, FITS does offer the possibility to fully describe the projected
 coordinate system using several alternative WCS definitions (meters, degrees,
-East and West longitude, etc.)\citep{greisencalaII}.
+east and west longitude, etc.)\citep{greisencalaII}.
 
 Table \ref{table:proj} summarizes the FITS projection codes and their
 corresponding PDS4 projection names (see table A.1. in \citet{calagreisenI}
 for details).
 
 \begin{table}
-\label{table:proj}
 \caption{Projection names and codes already available in FITS suitable for
 planetary applications: the corresponding PDS4 terminology is
 provided.}
@@ -389,6 +390,7 @@ Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences in the WCS scheme for PDS4 Robinson,} \\
 \multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator.}
 \end{tabular}
+\label{table:proj}
 \end{table}
 
 Once reprojected in one of the standard projections listed in Table \ref{table:proj}
@@ -433,7 +435,7 @@ EPN-TAP provides a \texttt{spatial\_coordinate\_description} parameter.}
 Location of a reference point along axis $n$, in units of the axis index.
 The reference point value do not need to lie within the actual data array.}
 \item{CTYPEn.
-Name of the coordinate represented by axis $n$, in “4–3” form: the first four characters
+Name of the coordinate represented by axis $n$, in ``4--3'' form: the first four characters
 specify the coordinate type, the fifth character is a '-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
 value (\ref{table:proj}).
@@ -468,7 +470,6 @@ Its default value will be blank.}
 \end{enumerate}
 
 \begin{table}
-\label{table:ctype}
 \caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.
 Codes for planets are assumed in \citet{calagreisenI}. We propose to add codes for classes of targets,
 more or less corresponding to PDS4 Target type attribute and to EPN-TAP target\_class parameter.}
@@ -491,6 +492,7 @@ Comets & CO \\
 \hline
 \multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}}
 \end{tabular}
+\label{table:ctype}
 \end{table}
 
 Nevertheless, WCS does not record information about the body shape and
@@ -498,7 +500,6 @@ orientation, and reference surface.
 Table \ref{table:newkeys} summarize the keywords we propose to add to FITS metadata description.
 
 \begin{sidewaystable}
-\label{table:newkeys}
 \caption{Proposed keywords are related to 3D surface shape,
 not available in astronomical celestial standards.}
 \centering
@@ -524,6 +525,7 @@ OGCCODE	& string & reserved, optional & Value field contains a string describing
 \multicolumn{4}{l}{$^{a}$Note that IAU Working Group defines a mean radius for each Solar System body. When this Mean Radius is used in projection definition,} \\
 \multicolumn{4}{l}{  the three keywords A\_RADIUS, B\_RADIUS,C\_RADIUS, must be set to the same value of the defined Mean Radius.} \\
 \end{tabular}
+\label{table:newkeys}
 \end{sidewaystable}
 
 \subsubsection{Correspondence Between Reserved FITS Keywords and PDS4 Standard Reference}
@@ -768,7 +770,26 @@ They will be implemented in planetary VO services with the goal to bridge betwee
 The next step to VO and GIS tool integration will be to directly implement metadata translation
 into GDAL C++ library. 
 
-MATISSE\footnote{http://tools.asdc.asi.it/matisse.jsp} \citep{ZINZI2016}
+MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool for the
+Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool designed by the Space
+Science Data Center of the Italian Space Agency (SSDC-ASI) to access, visualize and analyse data from
+solar system exploration missions.
+Up to now it provides access to public data from 5 different targets (i.e., Mercury, Venus, Mars,
+dwarf planet Ceres and asteroid Vesta) using both data stored on SSDC local storage or by querying
+remote dataset, such as VESPA, Planet Server and NASA JPL (by means of the ODE REST protocol) and
+can be integrated with other datasets thanks to its modular structure.
+Apart from its peculiar 3D visualization, it is worthy to note that one of its 2D outputs is
+formatted as FITS, projected by interpolating the original observations to a grid regularly spaced
+in planetocentric coordinates (i.e., latitude and longitude).
+We used the planetary FITS standard described in this work in order to make the output file compliant
+with the great part of the FITS readers, DS9 and JS9 above all.
+The files generated by MATISSE could be also opened with standard GIS software (e.g., QGIS, ArcGIS) 
+after being provided as input of the fits2vrt Python library\footnote{https://github.com/epn-vespa/fits2vrt},
+whose output is a VRT virtual GDAL header pointing to the FITS file with the appropriate projection.
+Thanks to this approach, in the next major release of MATISSE (v2.0, planned to be online by the end
+of 2018) we are planning to make use of JS9 as the standard reader for the 2D online output of the
+tool, thus allowing users to perform advanced analysis in both 2D and 3D directly inside a web-based
+environment.
 
 VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
 
