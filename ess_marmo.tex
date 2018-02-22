@@ -262,7 +262,7 @@ The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
 The option to use FITS within the planetary surface domain could help to
-homogenize methods from acquisition, to visualization, while
+homogenize methods from acquisition to visualization, while
 allowing for optimized data processing across the planetary and astronomy domains.
 
 This paper is organized as follows:
@@ -280,8 +280,8 @@ of planetary surfaces.}
 \label{sec:fitspss}
 
 \subsection{FITS Format}
-FITS is an open digital standard, created in the late 1970's for data acquisition and archiving telescope data
-by astronomical observatories.
+FITS is an open digital standard, created in the late 1970's for data acquisition, transfer and
+archiving of telescope data by astronomical observatories.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
@@ -399,10 +399,16 @@ Planetary images or maps can be described using the WCS scheme
 In WCS context pixels are first translated in an intermediate pixel coordinate system
 via linear transformations, then mapped on the grid specified by the \texttt{CTYPE}
 keyword, containing the projection code and the coordinate system.
+% * <chiara.marmo@u-psud.fr> 2018-02-22T21:31:39.056Z:
+% 
+% Example or scheme needed in order to better understand the coordinate transformation flow
+% 
+% ^.
+
 The coordinate system must be defined with respect to a specific inertial reference frame.
 
 Multiple coordinate system descriptions are allowed in the same header: this is a valuable
-property for planetary surface imagery, as angular ('deg') and linear ('m') description of
+property for planetary surface imagery, as angular (`deg') and linear (`m') description of
 the surface are often needed at the same time.
 Further below 3D keyword will be proposed for FITS metadata, in order to standardize
 the conversion between angular and linear coordinates: alternate description will still
@@ -420,10 +426,10 @@ standardization purposes.
 \begin{enumerate}
 \item{RADESYS.
 Name of the inertial reference frame with respect to which the coordinate
-system is defined (defaulted to \texttt{'ICRS'})}
+system is defined (defaulted to \texttt{`ICRS'})}
 \item{EQUINOX.
 The value field contains the equinox in years for the celestial
-coordinate system in which positions are expressed (defaulted to \texttt{'J2000'})}
+coordinate system in which positions are expressed (defaulted to \texttt{`J2000'})}
 \item{WCSAXES.
 Number of axes in the WCS description.
 The value of WCSAXES may exceed the number of raster pixel axes.}
@@ -436,7 +442,7 @@ Location of a reference point along axis $n$, in units of the axis index.
 The reference point value do not need to lie within the actual data array.}
 \item{CTYPEn.
 Name of the coordinate represented by axis $n$, in ``4--3'' form: the first four characters
-specify the coordinate type, the fifth character is a '-' and the
+specify the coordinate type, the fifth character is a `-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
 value (\ref{table:proj}).
 For angular coordinates \citet{calagreisenI} provides the form xLN xLG or yzLN yzLG, where x or yz
@@ -511,13 +517,13 @@ WGCCRECS & string & reserved & Value field contains a string referring to the WG
 & & & or document defining the coordinate system describing the data. (DOI)    \\
 A\_RADIUS$^{a}$ & real & mandatory & Value field contains the semi-major axis of the ellipsoid that \\
 & & & defines the approximate shape of a target body used in projection. \\
-& & & 'A' is usually in the equatorial plane. Always in meters.  \\
+& & & `A' is usually in the equatorial plane. Always in meters.  \\
 B\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the intermediate axis of \\
 & & & the ellipsoid that defines the approximate shape of a target body used in projection. \\
-& & & 'B' is usually in the equatorial plane. Always in meters.   \\
+& & & `B' is usually in the equatorial plane. Always in meters.   \\
 C\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the semi-minor axis of the \\
 & & & ellipsoid that defines the approximate shape of a target body used in projection. \\
-& & & 'C' is normal to the plane defined by 'A' and 'B'. Always in meters. \\
+& & & `C' is normal to the plane defined by `A' and `B'. Always in meters. \\
 OGCCODE	& string & reserved, optional & Value field contains a string describing the standard OGC code \\
 & & & (if any) from \citet{hare2006} corresponding to the shape and projection used in the image. \\
 & & & This keyword will assure compatibility with standard GIS softwares. \\
@@ -558,7 +564,7 @@ in the array are expressed.
 The units of all FITS header keyword values should conform with the recommendations
 in the IAU Style Manual\footnote{https://www.iau.org/publications/proceedings\_rules/units/}.
 For angular measurements given as floating point values, degrees are the recommended
-units (with the units, if specified, given as 'deg').
+units (with the units, if specified, given as `deg').
 PDS4 specifies in the class Element (of a vector, array, or any other class
 containing Elements), a \texttt{unit\_id}} (unit abbreviation) and a \texttt{unit}
 (unit long name).
