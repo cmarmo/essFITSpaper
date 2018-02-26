@@ -166,9 +166,8 @@ applications and best practices.}
 Orsay, France}
 \affiliation{2}{U. S. Geological Survey, Astrogeology Science Center,
 Flagstaff, AZ, USA}
-\affiliation{3}{LESIA, Observatoire de Paris, PSL Research University,
-CNRS, Sorbonne Universit\'es, UPMC Univ. Paris 06, Univ. Paris Diderot,
-Sorbonne Paris Cit\'e, Meudon, France}
+\affiliation{3}{LESIA, Observatoire de Paris, Universit\'e PSL, CNRS, Sorbonne Universit\'e,
+Univ. Paris Diderot, Sorbonne Paris Cit\'e, 5 place Jules Janssen, 92195 Meudon, France}
 \affiliation{4}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
 \affiliation{5}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
 \affiliation{6}{Jacobs University, Bremen, Germany}
@@ -225,7 +224,7 @@ surface investigations. We will also show  how FITS metadata can easily be trans
 archival model and lastly provide example implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
-interoperability from data acquisition to final visualization.
+interoperability from raw data formatting to final visualization.
 \end{abstract}
 
 %% ------------------------------------------------------------------------ %%
@@ -262,7 +261,7 @@ The goal of this approach is to make easier data mining and reprocessing
 in planetary surface investigations, promoting general software based on those
 standards.
 The option to use FITS within the planetary surface domain could help to
-homogenize methods from acquisition to visualization, while
+homogenize methods from raw formatting to visualization, while
 allowing for optimized data processing across the planetary and astronomy domains.
 
 This paper is organized as follows:
@@ -282,13 +281,15 @@ of planetary surfaces.}
 \subsection{FITS Format}
 FITS is an open digital standard, created in the late 1970's for data acquisition, transfer and
 archiving of telescope data by astronomical observatories.
+It had been used data exchange and archiving from several orbital telescopes.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
 Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
 (VO).
-Finally, FITS data storage is compatible with the Planetary Data System (PDS)
-archiving specifications and supported by a large number of open libraries
+FITS data storage is compatible with the Planetary Data System (PDS)
+archiving specifications so that FITS files can be embedded in PDS datasets.
+Finally, it is supported by a large number of open libraries
 and software tools.
 
 FITS is already capable of being used as a standard formatting for most data products
@@ -352,7 +353,7 @@ As an example, the HiRISE team has chosen to distribute HiRISE projected
 products using Equirectangular projection (CAR) on a local surface, approximated
 by the sphere with radius equivalent to the local Mars spheroid radius.
 
-In addition, WCS resolves the ambiguity between east-positive and west-posited
+In addition, WCS resolves the ambiguity between east-positive and west-positive
 longitude systems, as the pixel conversion in world coordinates is set by an
 oriented matrix.
 If needed, FITS does offer the possibility to fully describe the projected
@@ -406,7 +407,11 @@ keyword, containing the projection code and the coordinate system.
 % ^.
 
 The coordinate system must be defined with respect to a specific inertial reference frame.
-
+% * <chiara.marmo@u-psud.fr> 2018-02-26T11:33:56.098Z:
+% 
+% Please be more specific about the inertial frame
+% 
+% ^.
 Multiple coordinate system descriptions are allowed in the same header: this is a valuable
 property for planetary surface imagery, as angular (`deg') and linear (`m') description of
 the surface are often needed at the same time.
@@ -421,7 +426,7 @@ coordinate tracking more efficient.
 \subsubsection{FITS WCS keywords and their recommended use in planetary surface context}
 \label{sssec:wcskeys}
 In this section WCS FITS keywords are inserted in the planetary surface context.
-When possible, corresponding PDS4 and EPN-TAP definitions are added for archiving
+When possible, corresponding PDS4 and EPN-TAP definitions are added for archiving and distribution
 standardization purposes.
 \begin{enumerate}
 \item{RADESYS.
@@ -786,15 +791,15 @@ MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced 
 Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool designed by the Space
 Science Data Center of the Italian Space Agency (SSDC-ASI) to access, visualize and analyse data from
 solar system exploration missions.
-Up to now it provides access to public data from 5 different targets (i.e., Mercury, Venus, Mars,
+Currently, it provides access to public data from 5 different targets (i.e., Mercury, Venus, Mars,
 dwarf planet Ceres and asteroid Vesta) using both data stored on SSDC local storage or by querying
 remote dataset, such as VESPA, Planet Server and NASA JPL (by means of the ODE REST protocol) and
 can be integrated with other datasets thanks to its modular structure.
 Apart from its peculiar 3D visualization, it is worthy to note that one of its 2D outputs is
 formatted as FITS, projected by interpolating the original observations to a grid regularly spaced
 in planetocentric coordinates (i.e., latitude and longitude).
-We used the planetary FITS standard described in this work in order to make the output file compliant
-with the great part of the FITS readers, DS9 and JS9 above all.
+We used the planetary FITS standard described in this work in order to make the output file
+compliant with most FITS readers, especially DS9 and JS9.
 The files generated by MATISSE could be also opened with standard GIS software (e.g., QGIS, ArcGIS) 
 after being provided as input of the fits2vrt Python library\footnote{https://github.com/epn-vespa/fits2vrt},
 whose output is a VRT virtual GDAL header pointing to the FITS file with the appropriate projection.
@@ -864,7 +869,7 @@ let's astronomy learn from planetary sciences too: accent must be put on interop
 .... blabla
 Planetary surface is lacking open and general software for massive processing and can benefit
 of astronomy experience. In addition to that WCS projection scheme is simpler than the
-historical one used in planetary applications. 
+historical Earth-based one used in planetary applications. 
 Archiving flexibility and data model are today approached by PDS4 and EPN-TAP efforts.
 Reducing custom data format conversions during the processing chain but
 allowing easy conversion for final products following the needed application.
