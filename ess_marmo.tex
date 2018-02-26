@@ -432,7 +432,9 @@ The value field contains the equinox in years for the celestial
 coordinate system in which positions are expressed (defaulted to \texttt{`J2000'})}
 \item{WCSAXES.
 Number of axes in the WCS description.
-The value of WCSAXES may exceed the number of raster pixel axes.}
+The value of WCSAXES may exceed the number of raster pixel axes. WCSAXES is, e.g.,
+generally set to $2$ in two-dimensional rasters, it could be set to $3$ if an
+additional time dependency is added to the coordinate description.}
 \item{WCSNAME.
 Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic,
 non-rotating, inertial).
@@ -446,9 +448,10 @@ specify the coordinate type, the fifth character is a `-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
 value (\ref{table:proj}).
 For angular coordinates \citet{calagreisenI} provides the form xLN xLG or yzLN yzLG, where x or yz
-are listed in Table \ref{table:ctype}.
-For linear coordinates we propose a similar scheme: xPX as Projected X, xPY as Projected Y,
-or yzPX and yzPY.
+correspond to the target body. We propose to standardize those codes as listed in Table
+\ref{table:ctype}.
+For projected coordinates in meters we propose a similar scheme: xPX as Projected X, xPY as
+Projected Y, or yzPX and yzPY.
 Alternative representation of WCS are already possible in FITS, to describe images in degrees
 and in meters \citep{greisencalaII}.
 The name of the alternative axis will be specified using the alternative CNAMEn keyword.}
@@ -767,6 +770,8 @@ quantities measured by the detector itself in a standardized way.
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
+
+\subsection{FITS and GDAL}
 Basic conversion from and to FITS is already supported by GDAL.
 However, dictionaries for precisely translate geospatial metadata are not implemented yet.
 The conversions described in section \ref{sssec:maps} have been performed using python scripts
@@ -776,6 +781,7 @@ They will be implemented in planetary VO services with the goal to bridge betwee
 The next step to VO and GIS tool integration will be to directly implement metadata translation
 into GDAL C++ library. 
 
+\subsection{MATISSE}
 MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool for the
 Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool designed by the Space
 Science Data Center of the Italian Space Agency (SSDC-ASI) to access, visualize and analyse data from
@@ -797,9 +803,59 @@ of 2018) we are planning to make use of JS9 as the standard reader for the 2D on
 tool, thus allowing users to perform advanced analysis in both 2D and 3D directly inside a web-based
 environment.
 
-VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+\subsection{Aladin}
+Aladin is both a sky atlas and a portal to access data -- mainly images and
+catalogues -- available through the VO.
+It is able to load FITS files and to display images taking into account various
+WCS projections.
+Like DS9, Aladin is popular and broadly used in the part of the astronomical
+community manipulating images.
+So far it is also the reference generator and visualizer of Hierarchical
+Progressive Survey (HiPS).
+HiPS\footnote{http://www.ivoa.net/documents/HiPS/} is a recommendation endorsed
+by the International Virtual Observatory Alliance (IVOA).
+It describes how to access to sky survey data stored at various spatial
+resolutions, offering a progressive view of possibly very large datasets.
+The purpose is to allows users to explore all-sky surveys without having to
+explicitly perform any query: the most important information is visible at low
+spatial resolutions while finer details appear by zooming in.
+In addition, an important property of HiPS is to preserve as much as possible
+the scientific content of the original dataset (few spatial distortions,
+flux conservation).
 
-Aladin\footnote{http://aladin.u-strasbg.fr/}
+In the framework of the VESPA project, the idea of using Aladin to display
+planetary data, especially planetary HiPS, has emerged.
+As a general tool, not dedicated to planetology, Aladin does not support PDS
+files.
+HiPS are usually generated from a collection of WCS tagged FITS files.
+%As an alternative, Aladin can use JPEG files together with additional metadata
+%files.
+%A metadata file -- one by JPEG file -- basically contains in a text format the
+%WCS part of a FITS header.
+
+Aladin\footnote{http://aladin.u-strasbg.fr/} and its HiPS generator have been updated to support
+several planetary conventions.
+First, while the sky is displayed from the inside of the unit sphere, planetary
+surfaces are observed -- and must be displayed -- from the exterior.
+It means that the direction of the east on the horizontal axis has to be
+inverted when displaying planetary data.
+Then, planetary missions usually use different projections when providing
+images of planets polar caps and equatorial region.
+Often the former are in the stereographic (STG) projection while the later
+is in the Plate Carr\'ee (CAR) projection. 
+This specificity has been taken into account into the HiPS generator.
+Also, in the future, Aladin will be able to recognize the FITS keywords defined
+in the present paper (see Tab. \ref{table:proj} and \ref{table:ctype}).
+For example, it will be able to take into account a planet's radii to compute
+distances on the surface of the body.
+Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of them are
+barely used in extrasolar astronomy and are not supported in Aladin yet.
+An effort has been started to revamp and update the code of projections in
+Aladin.
+We expect all projections to be available in a forthcoming release.
+
+
+VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
 
 \section{Discussion and Perspectives}
 \label{sec:disc}
@@ -833,6 +889,10 @@ allowing easy conversion for final products following the needed application.
 %\begin{linenomath*}
 %\begin{equation}asdf\end{equation}
 %\end{linenomath*}
+
+\appendix
+\section{Planetary Header example}
+%An example of planetary header goes here.
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
