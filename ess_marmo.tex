@@ -186,9 +186,12 @@ Univ. Paris Diderot, Sorbonne Paris Cit\'e, 5 place Jules Janssen, 92195 Meudon,
 %  Each must be 100 characters or less with no special characters or punctuation 
 
 \begin{keypoints}
-\item Inter-operable data formats 
-\item Planetary data standards
-\item Data processing and visualization
+\item We present an extension of FITS metadata description for planetary surface
+investigations. 
+\item A FITS description for planetary data aims
+to simplify sharing data across the planetary and astronomy domains.
+\item FITS open description metadata will promote interoperability from raw data
+formatting to final visualization.
 \end{keypoints}
 
 %% ------------------------------------------------------------------------ %%
@@ -218,9 +221,10 @@ diverged as these related, but almost completely isolated domains evolved.
 % Is this too strong a statement?
 % 
 % ^.
-In this paper we will describe how a small addition to the Flexible Image Transport System (FITS) 
-standard, widely used in the astronomy investigations, will allow FITS to be more easily used in planetary
-surface investigations. We will also show  how FITS metadata can easily be transformed
+In this paper we will describe how a small addition to the Flexible Image Transport
+System (FITS) standard, widely used in the astronomy investigations, will allow FITS
+to be more easily used in planetary surface investigations.
+We will also show how FITS metadata can easily be transformed
 in the PDS4 metadata archival model and lastly provide example implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
@@ -853,18 +857,28 @@ HiPS are usually generated from a collection of WCS tagged FITS files.
 %A metadata file -- one by JPEG file -- basically contains in a text format the
 %WCS part of a FITS header.
 Aladin\footnote{http://aladin.u-strasbg.fr/} \citep{aladin} and its HiPS generator have
-been updated to support planetary conventions.
+been updated to support planetary conventions (see Figure \ref{fig:aladin}).
 %Then, planetary missions usually use different projections when providing
 %images of planets polar caps and equatorial region.
 %Often the former are in the stereographic (STG) projection while the later
 %is in the Plate Carr\'ee (CAR) projection. 
 %This specificity has been taken into account into the HiPS generator.
+
+\begin{figure}[ht!]
+\centerline{\includegraphics[height=20pc]{ess_marmo6}}
+\caption{Visualization of several level of detail on Mars with Aladin: from the
+global topographic map, as a HiPS layer, to a high resolution CRISM spectral cube
+in FITS format. All spectral analysis tools useful for astronomical spectra
+are then available for planetary data.}
+\label{fig:aladin}
+\end{figure}
+
 In the future, Aladin will be able to recognize the FITS keywords defined
 in the present paper (see Tab. \ref{table:proj} and \ref{table:ctype}).
 For example, it will be able to take into account a planet's radii to compute
 distances on the surface of the body.
-Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of them are
-barely used in extrasolar astronomy and are not supported in Aladin yet.
+Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of
+them are barely used in extrasolar astronomy and are not supported in Aladin yet.
 An effort has been started to revamp and update the code of projections in
 Aladin.
 We expect all projections to be available in a forthcoming release.
