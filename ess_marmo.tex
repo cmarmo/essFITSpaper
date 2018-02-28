@@ -170,7 +170,7 @@ Flagstaff, AZ, USA}
 Univ. Paris Diderot, Sorbonne Paris Cit\'e, 5 place Jules Janssen, 92195 Meudon, France}
 \affiliation{4}{Jacobs University, Bremen, Germany}
 \affiliation{5}{Observatoire astronomique de Strasbourg, Universit\'e de Strasbourg, CNRS, UMR 7550, 11 rue de l'Universit\'e, 67000, Strasbourg, France}
-\affiliation{6}{ASI Science Data Center, c/o ASI, Via del Politecnico snc, 00133, Rome, Italy}
+\affiliation{6}{Space Science Data Center - ASI, Via del Politecnico snc, 00133, Rome, Italy}
 \affiliation{7}{INAF-OAR, Via Frascati n. 33, 00078, Monte Porzio Catone (RM), Italy}
 
 %% Corresponding Author
@@ -809,7 +809,14 @@ and VO services.
 The next step to VO and GIS tool integration will be to directly implement metadata 
 translation into GDAL C++ library. 
 
-VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+\subsection{FITS and QGIS}
+QGIS is a largely used open source geospatial analysis software.
+It is using GDAL for layer import: QGIS is then already capable to display FITS files,
+making use of a Virtual GDAL header, as described above.
+Once implemented in GDAL, FITS will officially become a supported format by QGIS.
+
+In addition to that, a QGIS plugin has been developed\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+\citep{Minin} in order to download and display files exposed via EPN-TAP servers.
 
 \subsection{MATISSE}
 MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool
