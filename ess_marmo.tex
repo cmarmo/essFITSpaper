@@ -809,6 +809,8 @@ and VO services.
 The next step to VO and GIS tool integration will be to directly implement metadata 
 translation into GDAL C++ library. 
 
+VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
+
 \subsection{MATISSE}
 MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool
 for the Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool
@@ -883,20 +885,33 @@ An effort has been started to revamp and update the code of projections in
 Aladin.
 We expect all projections to be available in a forthcoming release.
 
-
-VO-QGIS-plugin\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
-
 \section{Discussion and Perspectives}
 \label{sec:disc}
-FITS discussion in astronomy\citep{THOMAS2015133} 
-let's astronomy learn from planetary sciences too: accent must be put on interoperability
-.... blabla
-Planetary surface is lacking open and general software for massive processing and can benefit
-of astronomy experience. In addition to that WCS projection scheme is simpler than the
-historical Earth-based one used in planetary applications. 
-Archiving flexibility and data model are today approached by PDS4 and EPN-TAP efforts.
-Reducing custom data format conversions during the processing chain but
+An extension to the FITS standard has been proposed to encompass planetary
+surface data description.
+Planetary surface investigation is lacking open and general software for massive data
+processing and can benefit from astronomy experience in this field.
+
+We are aware that FITS is today subject of questioning in astronomical applications
+\citep{THOMAS2015133}.
+We are not convinced that one format can solve all the issues faced from long-term
+archiving to on-line streaming.
+Planetary science research community has used a large variety of format customizing
+specific software.
+We want to stress here that using FITS could be an efficient compromise, reducing custom
+data format conversions during the processing chain and
 allowing easy conversion for final products following the needed application.
+
+FITS as an open and flexible data and metadata exchange and archiving format, could be
+inserted in the PDS4 data model scheme in order to address the issue of more complex
+metadata and data relationships.
+
+In order to improve interoperability and knowledge sharing between astronomy and
+planetary science, we will soon finalize the integration of FITS specifications in the
+GDAL library.
+In the framework of the VESPA project a review of the available and planned mission data
+archives is ongoing in order to evaluate their insertion in the planetary VO structure
+with a possible on-demand conversion in FITS format.
 
 %%% End of body of article
 
