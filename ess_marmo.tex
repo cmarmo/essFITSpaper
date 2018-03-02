@@ -42,29 +42,6 @@
 % ie,
 \journalname{Earth and Space Science}
 
-%% Choose from this list of Journals:
-%
-% JGR-Atmospheres
-% JGR-Biogeosciences
-% JGR-Earth Surface
-% JGR-Oceans
-% JGR-Planets
-% JGR-Solid Earth
-% JGR-Space Physics
-% Global Biochemical Cycles
-% Geophysical Research Letters
-% Paleoceanography
-% Radio Science
-% Reviews of Geophysics
-% Tectonics
-% Space Weather
-% Water Resource Research
-% Geochemistry, Geophysics, Geosystems
-% Journal of Advances in Modeling Earth Systems (JAMES)
-% Earth's Future
-% Earth and Space Science
-
-
 %% ------------------------------------------------------------------------ %%
 %
 %  ENTER Title Page commands:
@@ -77,63 +54,11 @@
 % Additional author notes should be indicated with \thanks{} (for
 % example, for current addresses). 
 
-% Example: \authors{A. B. Author\affil{1}\thanks{Current address, Antartica}, B. C. Author\affil{2,3}, and D. E.
-% Author\affil{3,4}\thanks{Also funded by Monsanto.}}
-
-% (include name and email addresses of the corresponding author.  More
-% than one corresponding author is allowed in this LaTeX file and for
-% publication; but only one corresponding author is allowed in our
-% editorial system.)  
-
 %% Corresponding Author:
 % Corresponding author mailing address and e-mail address:
 
-% Example: \correspondingauthor{First and Last Name}{email@address.edu}
-
-% Authors are individuals who have significantly contributed to the
-% research and preparation of the article. Group authors are allowed, if
-% each author in the group is separately identified in an appendix.)
-
-% \affiliation{1}{First Affiliation}
-% \affiliation{2}{Second Affiliation}
-% \affiliation{3}{Third Affiliation}
-% \affiliation{4}{Fourth Affiliation}
-
 %% Keypoints, final entry on title page.
-% Example: 
-% \begin{keypoints}
-% \item	List up to three key points (at least one is required)
-% \item	Key Points summarize the main points and conclusions of the article
-% \item	Each must be 100 characters or less with no special
-% characters or punctuation 
-% \end{keypoints}
-
 %% \begin{abstract} begins second page 
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% Track Changes:
-% To add words, \added{<word added>}
-% To delete words, \deleted{<word deleted>}
-% To replace words, \replace{<word to be replaced>}{<replacement word>}
-% To explain why change was made: \explain{<explanation>}
-
-% At the end of the document, use \listofchanges, which will list the
-% changes and the page and line number where the change was made.
-
-% When final version, \listofchanges will not produce anything,
-% \added{} word will be printed, \deleted{} will take away the word,
-% \replaced{}{} will print only the 2nd argument.
-% \explain will not print anything.
-
-% Optional argument:
-% You can also add additional information to be printed with the list
-% of changes, to indicate the initials of the person changing the text,
-% and the time and/or date of the change, or any other comment by using
-% the optional [] argument:
-% \added[AH, 3:30pm, Feb 18, 2016]{added term}
-% will yield 
-% [AH, 3:30pm, Feb 18, 2016] added term on page...
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{document}
 
@@ -212,15 +137,7 @@ to guarantee the reproducibility of the scientific results.
 Unfortunately, the technologies and data formats used by researchers for
 planetary surface studies and the field of astronomy 
 diverged as these related, but almost completely isolated domains evolved.  
-% * <thare@usgs.gov> 2018-02-13T00:44:29.292Z:
-% 
-% > Unfortunately, the technologies 
-% > and data formats used by researchers for planetary surface studies and the field of astronomy 
-% > diverged as these related, but almost completely isolated domains evolved.  
-% 
-% Is this too strong a statement?
-% 
-% ^.
+
 In this paper we will describe how a small addition to the Flexible Image Transport
 System (FITS) standard, widely used in the astronomy investigations, will allow FITS
 to be more easily used in planetary surface investigations.
@@ -407,18 +324,7 @@ Planetary images or maps can be described using the WCS scheme
 In WCS context pixels are first translated in an intermediate pixel coordinate system
 via linear transformations, then mapped on the grid specified by the \texttt{CTYPE}
 keyword, containing the projection code and the coordinate system.
-% * <chiara.marmo@u-psud.fr> 2018-02-22T21:31:39.056Z:
-% 
-% Example or scheme needed in order to better understand the coordinate transformation flow
-% 
-% ^.
-
 The coordinate system must be defined with respect to a specific inertial reference frame.
-% * <chiara.marmo@u-psud.fr> 2018-02-26T11:33:56.098Z:
-% 
-% Please be more specific about the inertial frame
-% 
-% ^.
 Multiple coordinate system descriptions are allowed in the same header: this is a
 valuable property for planetary surface imagery, as angular (`deg') and linear (`m')
 description of the surface are often needed at the same time.
@@ -668,9 +574,6 @@ which must be specified from an enumerated list.}
 It contains string identifying the organization or institution responsible for
 creating the FITS file.}
 
-%
-%\item{\texttt{AUTHOR}}
-
 \item{\texttt{REFERENC}.
 It contains a character string citing the bibliographic reference where the
 data are first described.
@@ -855,23 +758,9 @@ HiPS\footnote{http://www.ivoa.net/documents/HiPS/} is a recommendation endorsed
 by the International Virtual Observatory Alliance (IVOA).
 It describes how to access to sky survey data stored at various spatial
 resolutions, offering a progressive view of possibly very large datasets.
-%The purpose is to allows users to explore all-sky surveys without having to
-%explicitly perform any query: the most important information is visible at low
-%spatial resolutions while finer details appear by zooming in.
-%In the framework of the VESPA project, the idea of using Aladin to display
-%planetary data, especially planetary HiPS, has emerged.
 HiPS are usually generated from a collection of WCS tagged FITS files.
-%As an alternative, Aladin can use JPEG files together with additional metadata
-%files.
-%A metadata file -- one by JPEG file -- basically contains in a text format the
-%WCS part of a FITS header.
 Aladin\footnote{http://aladin.u-strasbg.fr/} \citep{aladin} and its HiPS generator have
 been updated to support planetary conventions (see Figure \ref{fig:aladin}).
-%Then, planetary missions usually use different projections when providing
-%images of planets polar caps and equatorial region.
-%Often the former are in the stereographic (STG) projection while the later
-%is in the Plate Carr\'ee (CAR) projection. 
-%This specificity has been taken into account into the HiPS generator.
 
 \begin{figure}[ht!]
 \centerline{\includegraphics[height=20pc]{ess_marmo6}}
@@ -929,22 +818,6 @@ with a possible on-demand conversion in FITS format.
 % but doesn't print anything.
 % After typing \appendix
 %
-%\section{Here Is Appendix Title}
-% will show
-% A: Here Is Appendix Title
-%
-%\appendix
-%\section{Here Is Appendix Title}
-%This is an Appendix section.
-
-%\begin{linenomath*}
-%\begin{equation}asdf\end{equation}
-%\end{linenomath*}
-
-\appendix
-\section{Planetary Header example}
-%An example of planetary header goes here.
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Optional Glossary, Notation or Acronym section goes here:
@@ -1026,119 +899,6 @@ discussions about TAB projection in FITS.
 
 
 %\begin{thebibliography}{}
-
-
-% % \bibitem[{\textit{Bell and Munoz}}(2008)]{Boug10} Bell, A.~H., and
-% % Munoz, D.~P.  (2008). Activity in the superior colliculus reflects
-% % dynamic interactions between voluntary and involuntary influences on
-% % orienting behaviour. \textit{Eur. J. Neurosci.} 28, 1654--1660.
-
-% % \bibitem[{\textit{Corbetta et~al.}}(1991)]{Buiz07} Corbetta, M.,
-% % Miezin, F.~M., Dobmeyer, S., Shulman, G.~L., and Petersen, S.~E.
-% % (1991). Selective and divided attention during visual discriminations
-% % of shape, color, and speed: functional anatomy by positron emission
-% % tomography. \textit{J.~Neurosci.} 11, 2383--2402.
-
-% % \bibitem[{\textit{Borra et~al.}}(2014)]{Buiz98} Borra, E., Gerbella,
-% % M., Rozzi, S., Tonelli, S., and Luppino, G.  (2014). Projections to
-% % the superior colliculus from inferior parietal, ventral premotor, and
-% % ventrolateral prefrontal areas involved in controlling goal-directed
-% % hand actions in the macaque. \textit{Cereb. Cortex} 24, 1054--1065.
-
-% % \bibitem[{\textit{Dorris et~al.}}(1997)]{Fra10}
-% %  Dorris, M.~C.,
-% % Par\'{e}, M., and Munoz, D.~P.  (1997). Neuronal activity in monkey
-% % superior colliculus related to the initiation of saccadic eye
-% % movements. \textit{J.~Neurosci.} 17, 8566--8579.
-
-% % \bibitem[{\textit{Elsabbagh et~al.}}(2009)]{Ghel00} 
-% % Elsabbagh, M.,
-% % Volein, A., Holmboe, K., Tucker, L., Csibra, G., Baron-Cohen, S.,
-% % et~al.  (2009). Visual orienting in the early broader autism
-% % phenotype: disengagement. \textit{J.~Child Psychol. Psychiatry} 50,
-% % 637--642.
-
-% % \bibitem[{\textit{Fortin et~al.}}(1999)]{Gneit05} Fortin, S., Chabli,
-% % A., Dumont, I., Shumikhina, S., Itaya, S.~K., and Molotchnikoff, S.
-% % (1999). Maturation of visual receptive field properties in the rat
-% % superior colliculus. \textit{bibain Res. Dev. Brain Res.} 1112,
-% % 55--64.
-
-% % \bibitem[{\textit{Felsen and Mainen}}(2008)]{Gneit07b} Felsen, G., and
-% % Mainen, Z.~F.  (2008). Neural substrates of sensory-guided locomotor
-% % decisions in the rat superior colliculus. \textit{Neuron} 60,
-% % 137--148.
-
-% % \bibitem[{\textit{Gattass and Desimone}}(1996)]{Haid14} Gattass, R.,
-% % and Desimone, R.  (1996). Responses of cells in the superior
-% % colliculus during performance of a spatial attention task in the
-% % macaque. \textit{Rev. Bras. Biol.} 56, 257--279.
-
-% % \bibitem[{\textit{Goldberg and Wurtz}}(1972)]{Hami00} Goldberg, M.~E.,
-% % and Wurtz, R.~H.  (1972). Activity of superior colliculus in behaving
-% % monkey. II. Effect of attention on neuronal responses.
-% % \textit{J.~Neurophysiol.} 35, \hbox{560--574}.
-
-% % \bibitem[{\textit{Krauzlis}}(2003)]{Kendall} Krauzlis, R.~J.  (2003).
-% % Neuronal activity in the rostral superior colliculus related to the
-% % initiation of pursuit and saccadic eye movements.
-% % \textit{J.~Neurosci.} 23, 4333--4344.
-
-% % \bibitem[{\textit{Heesy}}(2009)]{Leit74} 
-% % Heesy, C.~P.  (2009). Seeing
-% % in stereo: the ecology and evolution of primate binocular vision and
-% % stereopsis. \textit{Evol. Anthropol.} 18, 21--35.
-
-% % \bibitem[{\textit{Hilbig et~al.}}(2000)]{Mann45} Hilbig, H., Bidmon,
-% % H.~J., Ettrich, P., and M\"{u}ller, A.  (2000). Projection neurons in
-% % the superficial layers of the superior colliculus in the rat: a
-% % topographic and quantitative morphometric analysis.
-% % \textit{Neuroscience} 96, 109--119.
-
-% % \bibitem[{\textit{Ignashchenkova et~al.}}(2004)]{Math76}
-% % Ignashchenkova, A., Dicke, P.~W., Haarmeier, T., and Their, P.
-% % (2004). Neuron-specific contribution of the superior colliculus to
-% % overt and covert shifts of attention. \textit{Nat. Neurosci.} 7,
-% % 56--64.
-
-% \bibitem[{\textit{Krauzlis et~al.}}(2013)]{Palm00} Krauzlis, R.~J.,
-% Lovejoy, L.~P., and Z\'{e}non, A.  (2013). Superior colliculus and
-% visual spatial attention. \textit{Annu. Rev. Neurosci.} 36, 165--182.
-
-% \bibitem[{\textit{Kustov and Robinson}}(1996)]{Papp09} Kustov, A.~A.,
-% and Robinson, D.~L.  (1996). Shared neural control of attentional
-% shifts and eye movements. \textit{Nature} 384, 74--77.
-
-% \bibitem[{\textit{Landry and Bryson}}(2004)]{Park08} Landry, R., and
-% Bryson, S.~E.  (2004). Impaired disengagement of attention in young
-% children with autism. \textit{J.~Child Psychol. Psychiatry} 45,
-% 1115--1122.
-
-% \bibitem[{\textit{Kobayashi et~al.}}(2003)]{R2013} Kobayashi, T.,
-% Tran, A.~H., Nishijo, H., Ono, T., and Matsumoto, G.  (2003).
-% Contribution of hippocampal place cell activity to learning and
-% formation of goal-directed navigation in rats. \textit{Neuroscience}
-% 117, 1025--1035.
-
-% \bibitem[{\textit{McHaffie et~al.}}(2005)]{Raft05} McHaffie, J.~G.,
-% Stanford, T.~R., Stein, B.~E., Coizet, V., and Redgrave, P.  (2005).
-% Subcortical loops through the basal ganglia. \textit{Trends Neurosci.}
-% 28, 401--407.
-
-% \bibitem[{\textit{McPeek and Keller}}(2004)]{Rich13} McPeek, R.~M.,
-% and Keller, E.~L.  (2004). Deficits in saccade target selection after
-% inactivation of superior colliculus. \textit{Nat. Neurosci.} 7,
-% 757--763.
-
-% \bibitem[{\textit{M\"{u}ller et~al.}}(2005)]{Scheu14} M\"{u}ller,
-% J.~R., Philiastides, M.~G., and Newsome, W.~T.  (2005).
-% Microstimulation of the superior colliculus focuses attention without
-% moving the eyes. \textit{Proc. Natl. Acad. Sci. U.S.A.} 102, 524--529.
-
-% \bibitem[{\textit{Munoz and Istvan}}(1998)]{ScheueBue13} Munoz, D.~P.,
-% and Istvan, P.~J.  (1998). Lateral inhibitory interactions in
-% the intermediate layers of the monkey superior colliculus.
-% \textit{J.~Neurophysiol.} 79, 1193--1209.
 
 %\end{thebibliography}
 
@@ -1229,83 +989,3 @@ More Information and Advice:
 % \item
 % \end{enumerate}
 %
-%% ------------------------------------------------------------------------ %%
-%
-%  EQUATIONS
-%
-%% ------------------------------------------------------------------------ %%
-
-% Single-line equations are centered.
-% Equation arrays will appear left-aligned.
-
-Math coded inside display math mode \[ ...\]
- will not be numbered, e.g.,:
- \[ x^2=y^2 + z^2\]
-
- Math coded inside \begin{equation} and \end{equation} will
- be automatically numbered, e.g.,:
- \begin{equation}
- x^2=y^2 + z^2
- \end{equation}
-
-
-% To create multiline equations, use the
-% \begin{eqnarray} and \end{eqnarray} environment
-% as demonstrated below.
-\begin{eqnarray}
-  x_{1} & = & (x - x_{0}) \cos \Theta \nonumber \\
-        && + (y - y_{0}) \sin \Theta  \nonumber \\
-  y_{1} & = & -(x - x_{0}) \sin \Theta \nonumber \\
-        && + (y - y_{0}) \cos \Theta.
-\end{eqnarray}
-
-%If you don't want an equation number, use the star form:
-%\begin{eqnarray*}...\end{eqnarray*}
-
-% Break each line at a sign of operation
-% (+, -, etc.) if possible, with the sign of operation
-% on the new line.
-
-% Indent second and subsequent lines to align with
-% the first character following the equal sign on the
-% first line.
-
-% Use an \hspace{} command to insert horizontal space
-% into your equation if necessary. Place an appropriate
-% unit of measure between the curly braces, e.g.
-% \hspace{1in}; you may have to experiment to achieve
-% the correct amount of space.
-
-
-%% ------------------------------------------------------------------------ %%
-%
-%  EQUATION NUMBERING: COUNTER
-%
-%% ------------------------------------------------------------------------ %%
-
-% You may change equation numbering by resetting
-% the equation counter or by explicitly numbering
-% an equation.
-
-% To explicitly number an equation, type \eqnum{}
-% (with the desired number between the brackets)
-% after the \begin{equation} or \begin{eqnarray}
-% command.  The \eqnum{} command will affect only
-% the equation it appears with; LaTeX will number
-% any equations appearing later in the manuscript
-% according to the equation counter.
-%
-
-% If you have a multiline equation that needs only
-% one equation number, use a \nonumber command in
-% front of the double backslashes (\\) as shown in
-% the multiline equation above.
-
-% If you are using line numbers, remember to surround
-% equations with \begin{linenomath*}...\end{linenomath*}
-
-%  To add line numbers to lines in equations:
-%  \begin{linenomath*}
-%  \begin{equation}
-%  \end{equation}
-%  \end{linenomath*}
