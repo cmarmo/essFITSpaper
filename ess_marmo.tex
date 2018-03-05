@@ -206,8 +206,7 @@ It had been used for data exchange and archiving from several orbital telescopes
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
-Observatory\footnote{http://www.ivoa.net/astronomers/using\_the\_vo.html}
-(VO).
+Observatory (VO).
 FITS data storage is compatible with the Planetary Data System (PDS)
 archiving specifications so that FITS files can be embedded in PDS datasets.
 Finally, it is supported by a large number of open libraries
@@ -313,7 +312,7 @@ Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
 \multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences in the WCS scheme for PDS4 Robinson,} \\
-\multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator: those three projection are not used for archival or analysis.}
+\multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator: those three projections are not used for archival or analysis.}
 \end{tabular}
 \label{table:proj}
 \end{table}
@@ -328,11 +327,11 @@ The coordinate system must be defined with respect to a specific inertial refere
 Multiple coordinate system descriptions are allowed in the same header: this is a
 valuable property for planetary surface imagery, as angular (`deg') and linear (`m')
 description of the surface are often needed at the same time.
-Further below 3D keyword will be proposed for FITS metadata, in order to standardize
+Further below 3D keywords will be proposed for FITS metadata, in order to standardize
 the conversion between angular and linear coordinates: alternate description will still
 be important in our framework as standard libraries (e.g.
 wcslib\footnote{http://www.atnf.csiro.au/people/mcalabre/WCS/wcslib/} or
-astropy\footnote{http://www.astropy.org/} \citet{astropy}) and some FITS visualization
+astropy\footnote{http://www.astropy.org/}, \citet{astropy}) and some FITS visualization
 software (e.g. ds9\footnote{http://ds9.si.edu/}) already implement them, making linear
 coordinate tracking more efficient.  
 
@@ -540,7 +539,7 @@ unless another interpretation is clearly explained in the comment field.
 It is assumed to be expressed in UTC but other systems are accepted as long as they
 are specified in the ISO string\footnote{See table 30 in the Standard FITS document https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf}. 
 PDS4 provides a \texttt{Time\_Coordinates} class with attributes
-\textit{start\_date\_time} and \texttt{stop\_date\_time} providing start and
+\texttt{start\_date\_time} and \texttt{stop\_date\_time} providing start and
 stop date and time appropriate to the product being labeled, always in UTC.
 The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP
 scheme, they must always be formatted in UTC as a ISO string (planned in EPN-TAP v2.1).}
@@ -719,7 +718,7 @@ making use of a Virtual GDAL header, as described above.
 Once implemented in GDAL, FITS will officially become a supported format by QGIS.
 
 In addition to that, a QGIS plugin has been developed\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
-\citep{Minin} in order to download and display files exposed via EPN-TAP servers.
+\citep[][in preparation]{Minin} in order to download and display files exposed via EPN-TAP servers.
 
 \subsection{MATISSE}
 MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool
@@ -893,14 +892,210 @@ discussions about TAB projection in FITS.
 % 4. Run LaTeX on your new file which will produce the citations.
 %
 
-\bibliography{ess_marmo}
+%\bibliography{ess_marmo}
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
+\begin{thebibliography}{18}
+\providecommand{\natexlab}[1]{#1}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
+  \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
+  \urlstyle{rm}\Url}\fi
 
-%\begin{thebibliography}{}
+\bibitem[{\textit{{Archinal} et~al.}(2011)\textit{{Archinal}, {A'Hearn},
+  {Bowell}, {Conrad}, {Consolmagno}, {Courtin}, {Fukushima}, {Hestroffer},
+  {Hilton}, {Krasinsky}, {Neumann}, {Oberst}, {Seidelmann}, {Stooke}, {Tholen},
+  {Thomas}, and {Williams}}}]{wgccre}
+{Archinal}, B.~A., M.~F. {A'Hearn}, E.~{Bowell}, A.~{Conrad}, G.~J.
+  {Consolmagno}, R.~{Courtin}, T.~{Fukushima}, D.~{Hestroffer}, J.~L. {Hilton},
+  G.~A. {Krasinsky}, G.~{Neumann}, J.~{Oberst}, P.~K. {Seidelmann},
+  P.~{Stooke}, D.~J. {Tholen}, P.~C. {Thomas}, and I.~P. {Williams} (2011),
+  {Report of the IAU Working Group on Cartographic Coordinates and Rotational
+  Elements: 2009}, \textit{Celestial Mechanics and Dynamical Astronomy},
+  \textit{109}, 101--135, \doi{10.1007/s10569-010-9320-4}.
 
-%\end{thebibliography}
+\bibitem[{\textit{{Astropy Collaboration} et~al.}(2013)\textit{{Astropy
+  Collaboration}, {Robitaille}, {Tollerud}, {Greenfield}, {Droettboom}, {Bray},
+  {Aldcroft}, {Davis}, {Ginsburg}, {Price-Whelan}, {Kerzendorf}, {Conley},
+  {Crighton}, {Barbary}, {Muna}, {Ferguson}, {Grollier}, {Parikh}, {Nair},
+  {Unther}, {Deil}, {Woillez}, {Conseil}, {Kramer}, {Turner}, {Singer}, {Fox},
+  {Weaver}, {Zabalza}, {Edwards}, {Azalee Bostroem}, {Burke}, {Casey},
+  {Crawford}, {Dencheva}, {Ely}, {Jenness}, {Labrie}, {Lim}, {Pierfederici},
+  {Pontzen}, {Ptak}, {Refsdal}, {Servillat}, and {Streicher}}}]{astropy}
+{Astropy Collaboration}, T.~P. {Robitaille}, E.~J. {Tollerud}, P.~{Greenfield},
+  M.~{Droettboom}, E.~{Bray}, T.~{Aldcroft}, M.~{Davis}, A.~{Ginsburg}, A.~M.
+  {Price-Whelan}, W.~E. {Kerzendorf}, A.~{Conley}, N.~{Crighton}, K.~{Barbary},
+  D.~{Muna}, H.~{Ferguson}, F.~{Grollier}, M.~M. {Parikh}, P.~H. {Nair}, H.~M.
+  {Unther}, C.~{Deil}, J.~{Woillez}, S.~{Conseil}, R.~{Kramer}, J.~E.~H.
+  {Turner}, L.~{Singer}, R.~{Fox}, B.~A. {Weaver}, V.~{Zabalza}, Z.~I.
+  {Edwards}, K.~{Azalee Bostroem}, D.~J. {Burke}, A.~R. {Casey}, S.~M.
+  {Crawford}, N.~{Dencheva}, J.~{Ely}, T.~{Jenness}, K.~{Labrie}, P.~L. {Lim},
+  F.~{Pierfederici}, A.~{Pontzen}, A.~{Ptak}, B.~{Refsdal}, M.~{Servillat}, and
+  O.~{Streicher} (2013), {Astropy: A community Python package for astronomy},
+  \textit{Astronomy and Astrophysics}, \textit{558}, A33,
+  \doi{10.1051/0004-6361/201322068}.
+
+\bibitem[{\textit{{Bibring} et~al.}(2005)\textit{{Bibring}, {Langevin},
+  {Gendrin}, {Gondet}, {Poulet}, {Berth{\'e}}, {Soufflot}, {Arvidson},
+  {Mangold}, {Mustard}, {Drossart}, {OMEGA Team}, {Erard}, {Forni}, {Combes},
+  {Encrenaz}, {Fouchet}, {Merchiorri}, {Belluci}, {Altieri}, {Formisano},
+  {Bonello}, {Capaccioni}, {Cerroni}, {Coradini}, {Fonti}, {Kottsov},
+  {Ignatiev}, {Moroz}, {Titov}, {Zasova}, {Mangold}, {Pinet}, {Dout{\'e}},
+  {Schmitt}, {Sotin}, {Hauber}, {Hoffmann}, {Jaumann}, {Keller}, {Duxbury}, and
+  {Forget}}}]{omega}
+{Bibring}, J.-P., Y.~{Langevin}, A.~{Gendrin}, B.~{Gondet}, F.~{Poulet},
+  M.~{Berth{\'e}}, A.~{Soufflot}, R.~{Arvidson}, N.~{Mangold}, J.~{Mustard},
+  P.~{Drossart}, {OMEGA Team}, S.~{Erard}, O.~{Forni}, M.~{Combes},
+  T.~{Encrenaz}, T.~{Fouchet}, R.~{Merchiorri}, G.~{Belluci}, F.~{Altieri},
+  V.~{Formisano}, G.~{Bonello}, F.~{Capaccioni}, P.~{Cerroni}, A.~{Coradini},
+  S.~{Fonti}, V.~{Kottsov}, N.~{Ignatiev}, V.~{Moroz}, D.~{Titov}, L.~{Zasova},
+  M.~{Mangold}, P.~{Pinet}, S.~{Dout{\'e}}, B.~{Schmitt}, C.~{Sotin},
+  E.~{Hauber}, H.~{Hoffmann}, R.~{Jaumann}, U.~{Keller}, T.~{Duxbury}, and
+  F.~{Forget} (2005), {Mars Surface Diversity as Revealed by the OMEGA/Mars
+  Express Observations}, \textit{Science}, \textit{307}, 1576--1581,
+  \doi{10.1126/science.1108806}.
+
+\bibitem[{\textit{{Bonnarel} et~al.}(2000)\textit{{Bonnarel}, {Fernique},
+  {Bienaym{\'e}}, {Egret}, {Genova}, {Louys}, {Ochsenbein}, {Wenger}, and
+  {Bartlett}}}]{aladin}
+{Bonnarel}, F., P.~{Fernique}, O.~{Bienaym{\'e}}, D.~{Egret}, F.~{Genova},
+  M.~{Louys}, F.~{Ochsenbein}, M.~{Wenger}, and J.~G. {Bartlett} (2000), {The
+  ALADIN interactive sky atlas. A reference tool for identification of
+  astronomical sources}, \textit{Astronomy and Astrophysics Supplement},
+  \textit{143}, 33--40, \doi{10.1051/aas:2000331}.
+
+\bibitem[{\textit{{Calabretta} and {Greisen}}(2002)}]{calagreisenI}
+{Calabretta}, M.~R., and E.~W. {Greisen} (2002), {Representations of celestial
+  coordinates in FITS}, \textit{Astronomy and Astrophysics}, \textit{395},
+  1077--1122, \doi{10.1051/0004-6361:20021327}.
+
+\bibitem[{\textit{Erard et~al.}(2014)\textit{Erard, Cecconi, Sidaner, Berthier,
+  Henry, Molinaro, Giardino, Bourrel, AndrÃ©, Gangloff, Jacquey, and
+  Topf}}]{ERARDepntap}
+Erard, S., B.~Cecconi, P.~L. Sidaner, J.~Berthier, F.~Henry, M.~Molinaro,
+  M.~Giardino, N.~Bourrel, N.~AndrÃ©, M.~Gangloff, C.~Jacquey, and F.~Topf
+  (2014), The epn-tap protocol for the planetary science virtual observatory,
+  \textit{Astronomy and Computing}, \textit{7-8}, 52 -- 61,
+  \doi{https://doi.org/10.1016/j.ascom.2014.07.008}, special Issue on The
+  Virtual Observatory: I.
+
+\bibitem[{\textit{Erard et~al.}(2018)\textit{Erard, Cecconi, Sidaner, Rossi,
+  Capria, Schmitt, G\'enot, Andr\'e, Vandaele, Scherf, Hueso,
+  M{\"a}{\"a}tt{\"a}nen, Thuillot, Carry, Achilleos, Marmo, Santolik, Benson,
+  Fernique, Beigbeder, Millour, Rousseau, Andrieu, Chauvin, Minin, Ivanoski,
+  Longobardo, Bollard, Albert, Gangloff, Jourdane, Bouchemit, Glorian, Trompet,
+  Al-Ubaidi, Juaristi, Desmars, Guio, Delaa, Lagain, Soucek, and
+  Pisa}}]{vespapss}
+Erard, S., B.~Cecconi, P.~L. Sidaner, A.~Rossi, M.~Capria, B.~Schmitt,
+  V.~G\'enot, N.~Andr\'e, A.~Vandaele, M.~Scherf, R.~Hueso,
+  A.~M{\"a}{\"a}tt{\"a}nen, W.~Thuillot, B.~Carry, N.~Achilleos, C.~Marmo,
+  O.~Santolik, K.~Benson, P.~Fernique, L.~Beigbeder, E.~Millour, B.~Rousseau,
+  F.~Andrieu, C.~Chauvin, M.~Minin, S.~Ivanoski, A.~Longobardo, P.~Bollard,
+  D.~Albert, M.~Gangloff, N.~Jourdane, M.~Bouchemit, J.-M. Glorian, L.~Trompet,
+  T.~Al-Ubaidi, J.~Juaristi, J.~Desmars, P.~Guio, O.~Delaa, A.~Lagain,
+  J.~Soucek, and D.~Pisa (2018), Vespa: A community-driven virtual observatory
+  in planetary science, \textit{Planetary and Space Science}, \textit{150}, 65
+  -- 85, \doi{https://doi.org/10.1016/j.pss.2017.05.013}, enabling Open and
+  Interoperable Access to Planetary Science and Heliophysics Databases and
+  Tools.
+
+\bibitem[{\textit{{Greisen} and {Calabretta}}(2002)}]{greisencalaII}
+{Greisen}, E.~W., and M.~R. {Calabretta} (2002), {Representations of world
+  coordinates in FITS}, \textit{Astronomy and Astrophysics}, \textit{395},
+  1061--1075, \doi{10.1051/0004-6361:20021326}.
+
+\bibitem[{\textit{{Greisen, E. W.} et~al.}(2006)\textit{{Greisen, E. W.},
+  {Calabretta, M. R.}, {Valdes, F. G.}, and {Allen, S. L.}}}]{wcsspectral}
+{Greisen, E. W.}, {Calabretta, M. R.}, {Valdes, F. G.}, and {Allen, S. L.}
+  (2006), Representations of spectral coordinates in fits, \textit{Astronomy
+  and Astrophysics}, \textit{446}(2), 747--771,
+  \doi{10.1051/0004-6361:20053818}.
+
+\bibitem[{\textit{{Hare} et~al.}(2006)\textit{{Hare}, {Archinal}, {Plesea},
+  {Dobinson}, and {Curkendall}}}]{hare2006}
+{Hare}, T.~M., B.~A. {Archinal}, L.~{Plesea}, E.~{Dobinson}, and
+  D.~{Curkendall} (2006), {Standards Proposal to Support Planetary Coordinate
+  Reference Systems in Open Geospatial Web Services and Geospatial
+  Applications}, in \textit{37th Annual Lunar and Planetary Science
+  Conference}, \textit{Lunar and Planetary Inst.~Technical Report}, vol.~37,
+  edited by S.~{Mackwell} and E.~{Stansbery}.
+
+\bibitem[{\textit{McEwen et~al.}(2007)\textit{McEwen, Eliason, Bergstrom,
+  Bridges, Hansen, Delamere, Grant, Gulick, Herkenhoff, Keszthelyi, Kirk,
+  Mellon, Squyres, Thomas, and Weitz}}]{hirise}
+McEwen, A.~S., E.~M. Eliason, J.~W. Bergstrom, N.~T. Bridges, C.~J. Hansen,
+  W.~A. Delamere, J.~A. Grant, V.~C. Gulick, K.~E. Herkenhoff, L.~Keszthelyi,
+  R.~L. Kirk, M.~T. Mellon, S.~W. Squyres, N.~Thomas, and C.~M. Weitz (2007),
+  Mars reconnaissance orbiter's high resolution imaging science experiment
+  (hirise), \textit{Journal of Geophysical Research: Planets},
+  \textit{112}(E5), n/a--n/a, \doi{10.1029/2005JE002605}, e05S02.
+
+\bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {et al.}, and {et
+  al.}}}]{Minin}
+{Minin}, M., {et al.}, and {et al.} (2018).
+
+\bibitem[{\textit{Murchie et~al.}(2007)\textit{Murchie, Arvidson, Bedini,
+  Beisser, Bibring, Bishop, Boldt, Cavender, Choo, Clancy, Darlington,
+  Des~Marais, Espiritu, Fort, Green, Guinness, Hayes, Hash, Heffernan, Hemmler,
+  Heyler, Humm, Hutcheson, Izenberg, Lee, Lees, Lohr, Malaret, Martin,
+  McGovern, McGuire, Morris, Mustard, Pelkey, Rhodes, Robinson, Roush,
+  Schaefer, Seagrave, Seelos, Silverglate, Slavney, Smith, Shyong, Strohbehn,
+  Taylor, Thompson, Tossman, Wirzburger, and Wolff}}]{crism}
+Murchie, S., R.~Arvidson, P.~Bedini, K.~Beisser, J.-P. Bibring, J.~Bishop,
+  J.~Boldt, P.~Cavender, T.~Choo, R.~T. Clancy, E.~H. Darlington,
+  D.~Des~Marais, R.~Espiritu, D.~Fort, R.~Green, E.~Guinness, J.~Hayes,
+  C.~Hash, K.~Heffernan, J.~Hemmler, G.~Heyler, D.~Humm, J.~Hutcheson,
+  N.~Izenberg, R.~Lee, J.~Lees, D.~Lohr, E.~Malaret, T.~Martin, J.~A. McGovern,
+  P.~McGuire, R.~Morris, J.~Mustard, S.~Pelkey, E.~Rhodes, M.~Robinson,
+  T.~Roush, E.~Schaefer, G.~Seagrave, F.~Seelos, P.~Silverglate, S.~Slavney,
+  M.~Smith, W.-J. Shyong, K.~Strohbehn, H.~Taylor, P.~Thompson, B.~Tossman,
+  M.~Wirzburger, and M.~Wolff (2007), Compact reconnaissance imaging
+  spectrometer for mars (crism) on mars reconnaissance orbiter (mro),
+  \textit{Journal of Geophysical Research: Planets}, \textit{112}(E5),
+  n/a--n/a, \doi{10.1029/2006JE002682}, e05S03.
+
+\bibitem[{\textit{{Pence} et~al.}(2010)\textit{{Pence}, {Chiappetti}, {Page},
+  {Shaw}, and {Stobie}}}]{fitsver3}
+{Pence}, W.~D., L.~{Chiappetti}, C.~G. {Page}, R.~A. {Shaw}, and E.~{Stobie}
+  (2010), {Definition of the Flexible Image Transport System (FITS), version
+  3.0}, \textit{Astronomy and Astrophysics}, \textit{524}, A42,
+  \doi{10.1051/0004-6361/201015362}.
+
+\bibitem[{\textit{Snyder}(1987)}]{Snyder1987}
+Snyder, J.~P. (1987), Map projections: A working manual, \textit{Tech. rep.},
+  Washington, D.C., report.
+
+\bibitem[{\textit{Thomas et~al.}(2015)\textit{Thomas, Jenness, Economou,
+  Greenfield, Hirst, Berry, Bray, Gray, Muna, Turner, de~Val-Borro,
+  Santander-Vela, Shupe, Good, Berriman, Kitaeff, Fay, Laurino, Alexov, Landry,
+  Masters, Brazier, Schaaf, Edwards, Redman, Marsh, Streicher, Norris, Pascual,
+  Davie, Droettboom, Robitaille, Campana, Hagen, Hartogh, Klaes, Craig, and
+  Homeier}}]{THOMAS2015133}
+Thomas, B., T.~Jenness, F.~Economou, P.~Greenfield, P.~Hirst, D.~Berry,
+  E.~Bray, N.~Gray, D.~Muna, J.~Turner, M.~de~Val-Borro, J.~Santander-Vela,
+  D.~Shupe, J.~Good, G.~Berriman, S.~Kitaeff, J.~Fay, O.~Laurino, A.~Alexov,
+  W.~Landry, J.~Masters, A.~Brazier, R.~Schaaf, K.~Edwards, R.~Redman,
+  T.~Marsh, O.~Streicher, P.~Norris, S.~Pascual, M.~Davie, M.~Droettboom,
+  T.~Robitaille, R.~Campana, A.~Hagen, P.~Hartogh, D.~Klaes, M.~Craig, and
+  D.~Homeier (2015), Learning from fits: Limitations in use in modern
+  astronomical research, \textit{Astronomy and Computing}, \textit{12}, 133 --
+  145, \doi{https://doi.org/10.1016/j.ascom.2015.01.009}.
+
+\bibitem[{\textit{{Wells} et~al.}(1981)\textit{{Wells}, {Greisen}, and
+  {Harten}}}]{fitsorig}
+{Wells}, D.~C., E.~W. {Greisen}, and R.~H. {Harten} (1981), {FITS - a Flexible
+  Image Transport System}, \textit{Astronomy and Astrophysics Supplement
+  Series}, \textit{44}, 363.
+
+\bibitem[{\textit{Zinzi et~al.}(2016)\textit{Zinzi, Capria, Palomba, Giommi,
+  and Antonelli}}]{ZINZI2016}
+Zinzi, A., M.~Capria, E.~Palomba, P.~Giommi, and L.~Antonelli (2016), Matisse:
+  A novel tool to access, visualize and analyse data from planetary exploration
+  missions, \textit{Astronomy and Computing}, \textit{15}, 16 -- 28,
+  \doi{https://doi.org/10.1016/j.ascom.2016.02.006}.
+
+\end{thebibliography}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Track Changes:
