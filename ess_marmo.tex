@@ -162,8 +162,8 @@ physicists, geochemists, etc.). Planetary missions produce an impressively growi
 amount of diverse data requiring an evolution from a mostly manual-based visual 
 analysis to a more automated and quantitative analysis.
 Interoperability, openness of data formats, and shared processing techniques are 
-a necessity to efficiently extract scientific information from the data and 
-to guarantee the reproducibility of the scientific results.
+a necessity to allow efficient scientific analysis of the data and 
+to guarantee the reproducibility of the results.
 
 This paper proposes to use Flexible Image Transport
 System\footnote{https://fits.gsfc.nasa.gov/}
@@ -185,24 +185,15 @@ The option to use FITS within the planetary surface domain can help to
 homogenize methods from raw formatting to visualization, while
 allowing for optimized data processing across the planetary and astronomy domains.
 
-This paper is organized as follows:
-\begin{enumerate}
-\item{a brief description of FITS format;}
-\item{a proposition for planetary surface metadata description in FITS;}
-\item{dictionaries between FITS, PDS metadata description and EPN-TAP2.0
-parameters;}
-\item{some examples of planetary dataset in FITS;}
-\item{current developments for making FITS more usable to handle data
-of planetary surfaces.}
-\end{enumerate}
-
 \section{FITS Format in Planetary Surface Investigation}
 \label{sec:fitspss}
 
 \subsection{FITS Format}
 FITS is an open digital standard, created in the late 1970's for data acquisition,
-transfer and archiving of telescope data by astronomical observatories.
-It had been used for data exchange and archiving from several orbital telescopes.
+transfer and archiving of telescope data by astronomical observatories, where
+it has been used during the last thirty years.
+It had been adopted for data exchange and archiving from several orbital telescopes
+and spatial missions.
 The International Astronomical Union approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
@@ -253,7 +244,8 @@ Often, robust interoperability in GIS applications is achieved by using the Geos
 Data Abstraction Library\footnote{http://www.gdal.org} (GDAL), released by the Open
 Source Geospatial Foundation.
 GDAL is essentially a format translation library written in C++ for geospatial raster
-and vector data and, fortunately, it also offers basic support for the FITS format.
+and vector data and, fortunately, it also offers basic support for the FITS format,
+however missing a FITS metadata dictionary. 
 
 FITS World Coordinate System
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
@@ -408,6 +400,7 @@ target\_class parameter.}
 Body & CTYPE$^{a}$ \\ 
 \hline
 Moon & SE \\
+Mercury & ME \\
 Venus & VE \\
 Mars & MA \\
 Jupiter & JU \\
@@ -415,11 +408,12 @@ Saturn & SA \\
 Uranus & UR \\
 Neptune & NE \\
 Satellites (other than the Moon) & ST \\
-Asteroids & AS \\
+Asteroids$^{b}$ & AS \\
 Dwarf Planets & DW \\
 Comets & CO \\
 \hline
-\multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}}
+\multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}} \\
+\multicolumn{2}{l}{$^{b}$Transneptunian (TNO) and Kuiper Belt (KBO) objects must be placed there}
 \end{tabular}
 \label{table:ctype}
 \end{table}

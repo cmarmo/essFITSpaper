@@ -1,0 +1,31 @@
+2018EA000388 Answers to the first Reviewer
+
+l. 43
+Rephrased: see the new version of the manuscript
+
+l. 57
+We agree with the reviewer: the paragraph has been deleted
+
+l. 68
+Rephrased: see the new version of the manuscript
+
+l. 68-69
+IPDA informally discussed about proposing recommended data formats for archive.
+As an IPDA official position is missing we cannot argue about FITS in that context.
+
+l. 83-84
+
+
+
+l. 102
+GDAL lack of metadata description for FITS format: added in the manuscript
+
+Table 1: note b
+
+
+
+Table 2 : header
+Mercury must be there... sorry for the oversight.
+TNO and KBO are Asteroids: this is now clarified in the note.
+
+
