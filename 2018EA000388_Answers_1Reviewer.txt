@@ -10,19 +10,39 @@ l. 68
 Rephrased: see the new version of the manuscript
 
 l. 68-69
-IPDA informally discussed about proposing recommended data formats for archive.
+IPDA informally discussed about proposing recommended data formats for archive,
+but no conclusions are available at the moment.
 As an IPDA official position is missing we cannot argue about FITS in that context.
 
 l. 83-84
-
-
+Rosetta data at PSA have been cited.
 
 l. 102
-GDAL lack of metadata description for FITS format: added in the manuscript
+GDAL lacks a metadata description/dictionary for FITS format: added in the manuscript
 
 Table 1: note b
+We agree with referee: the statement is confusing. Our goal here is to show that FITS metadata
+describe a number of projections used in Planetary surface data and the mapping to PDS4
+vocabulary is straightforward. The statement has been deleted.
 
+l. 144
+Planetary surface applications of standard keywords have been detailed. See the manuscript.
 
+l. 151
+WCSNAME is not the same than Table 1 column 1.
+WCSNAME is a human-readable short description of the coordinate system e.g. body-fixed rotating,
+-ocentric -ographic, non-rotating, inertia,... ). In PDS3 it was probably COORDINATE_SYSTEM_NAME + COORDINATE_SYSTEM_TYPE
+
+l. 152
+Rephrased: see the new version of the manuscript
+
+l. 175
+Rephrased: see the new version of the manuscript
+
+l. 177
+CUNIT is not mandatory in FITS standard: when absent, degrees are assumed.
+This is a valid assumption for planetary surfaces too. 
+Rephrased: see the new version of the manuscript
 
 Table 2 : header
 Mercury must be there... sorry for the oversight.

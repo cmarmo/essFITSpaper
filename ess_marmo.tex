@@ -216,6 +216,8 @@ Hayabusa AMICA and NIRS cameras\footnote{http://darts.isas.jaxa.jp/planet/projec
 all Akatsuki cameras\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
 (except the Lightning and Airglow Camera),
 and the Dawn Framing Camera\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
+Some Rosetta data, from NAVCAM and OSIRIS cameras, are distributed in FITS format at
+the ESA Planetary Science Archive\footnote{https://archives.esac.esa.int/psa} (PSA).
 In addition, many PDS3 datasets in the Small Bodies Node are archived and distributed
 as FITS files with PDS3 labels.
 However, to be more efficiently used in planetary surface investigations, FITS metadata
@@ -280,13 +282,13 @@ corresponding PDS4 projection names (see table A.1. in \citet{calagreisenI}
 for details).
 
 \begin{table}
-\caption{Projection names and codes already available in FITS suitable for
+\caption{Projection names and codes available in WCS FITS, suitable for
 planetary applications: the corresponding PDS4 terminology is
 provided.}
 \centering
 \begin{tabular}{l l l}
 \hline
-FITS Name$^{a}$ & FITS code$^{a}$ & PDS name$^{b}$ \\ 
+FITS Name$^{a}$ & FITS code$^{a}$ & PDS4 name$^{b}$ \\ 
 \hline
 Zenithal Equidistant & ARC & Azimuthal Equidistant \\
 Zenithal Perspective & AZP & General Vertical Near-sided Projection \\
@@ -303,8 +305,7 @@ Gnomonic & TAN & Gnomonic \\
 Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
-\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences in the WCS scheme for PDS4 Robinson,} \\
-\multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator: those three projections are not used for archival or analysis.}
+\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary}
 \end{tabular}
 \label{table:proj}
 \end{table}
@@ -335,19 +336,27 @@ and distribution standardization purposes.
 \begin{enumerate}
 \item{RADESYS.
 Name of the inertial reference frame with respect to which the coordinate
-system is defined (defaulted to \texttt{`ICRS'})}
+system is defined. Standard FITS defaults this keyword to \texttt{`ICRS'}.
+This is applicable to planetary data too as long as the planetary coordinate system
+parameters, i.e. the rotational elements, are defined with respect to \texttt{`ICRS'}.
+This is the case starting from the 2003 WGCCRE report \citep{wgccre2003}.
+Before the 1982 WGCCRE report \citep{wgccre1982} the inertial system was \texttt{`FK4'},
+after it was \texttt{`FK5'}.}
 \item{EQUINOX.
 The value field contains the equinox in years for the celestial
-coordinate system in which positions are expressed (defaulted to \texttt{`J2000'})}
+coordinate system in which positions are expressed.
+Standard FITS defaults this keyword to \texttt{`J2000'}.
+This is applicable to planetary data starting from the 1982 WGCCRE report \citep{wgccre1982}.
+Before 1982 the standard equinox was \texttt{`B1950'}.}
 \item{WCSAXES.
 Number of axes in the WCS description.
 The value of WCSAXES may exceed the number of raster pixel axes. WCSAXES is, e.g.,
 generally set to $2$ in two-dimensional rasters, it could be set to $3$ if an
-additional time dependency is added to the coordinate description.}
+additional time or filter dependency is added to the coordinate description.}
 \item{WCSNAME.
 Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic,
 non-rotating, inertial).
-EPN-TAP provides a \texttt{spatial\_coordinate\_description} parameter.}
+EPN-TAP provides similar information through the \texttt{spatial\_coordinate\_description} parameter.}
 \item{CRPIXn.
 Location of a reference point along axis $n$, in units of the axis index.
 The reference point value do not need to lie within the actual data array.}
@@ -376,12 +385,14 @@ pixel coordinates (to be used with CDELT keywords).}
 \item{CDELTn.
 The coordinate increment along axis $n$ (scaling component of the linear transformation
 matrix PCi\_j).
-In PDS4 they correspond to the \textit{pixel\_resolution\_x} and
-\texttt{pixel\_resolution\_y} attributes.
-In EPN-TAP they are connected to the \texttt{spatial\_resolution} parameter.}
+They correspond to the \textit{pixel\_resolution\_x} and
+\texttt{pixel\_resolution\_y} attributes in PDS4, to the \texttt{spatial\_resolution} parameter
+in EPN-TAP.}
 \item{CUNITn.
-Units of the coordinate system, not mandatory, defaulted to degrees for angular
-coordinates and to meters (m) for linear ones.}
+Units of the coordinate system. This is a not mandatory keyword: when not present FITS standard
+assumes its value as degrees, the most common description in astronomical sky images.
+The same can be assumed for planetary surfaces: when linear coordinates are used SI units must
+be used (meters, m).}
 \item{CNAMEn.
 The description of a particular coordinate for an axis in a particular WCS (up to 68
 characters), while the WCSNAMEa keyword names the particular WCS as a whole.
@@ -885,12 +896,11 @@ discussions about TAB projection in FITS.
 %
 % 4. Run LaTeX on your new file which will produce the citations.
 %
-
 %\bibliography{ess_marmo}
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{18}
+\begin{thebibliography}{20}
 \providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
@@ -964,6 +974,14 @@ discussions about TAB projection in FITS.
   coordinates in FITS}, \textit{Astronomy and Astrophysics}, \textit{395},
   1077--1122, \doi{10.1051/0004-6361:20021327}.
 
+\bibitem[{\textit{{Davies} et~al.}(1983)\textit{{Davies}, {Abalakin}, {Lieske},
+  {Seidelmann}, {Sinclair}, {Sinzi}, {Smith}, and {Tjuflin}}}]{wgccre1982}
+{Davies}, M.~E., V.~K. {Abalakin}, J.~H. {Lieske}, P.~K. {Seidelmann}, A.~T.
+  {Sinclair}, A.~M. {Sinzi}, B.~A. {Smith}, and Y.~S. {Tjuflin} (1983), {Report
+  of the IAU working group on cartographic coordinates and rotational elements
+  of the planets and satellites - 1982}, \textit{Celestial Mechanics},
+  \textit{29}, 309--321, \doi{10.1007/BF01228525}.
+
 \bibitem[{\textit{Erard et~al.}(2014)\textit{Erard, Cecconi, Sidaner, Berthier,
   Henry, Molinaro, Giardino, Bourrel, AndrÃ©, Gangloff, Jacquey, and
   Topf}}]{ERARDepntap}
@@ -1025,9 +1043,13 @@ McEwen, A.~S., E.~M. Eliason, J.~W. Bergstrom, N.~T. Bridges, C.~J. Hansen,
   (hirise), \textit{Journal of Geophysical Research: Planets},
   \textit{112}(E5), n/a--n/a, \doi{10.1029/2005JE002605}, e05S02.
 
-\bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {et al.}, and {et
-  al.}}}]{Minin}
-{Minin}, M., {et al.}, and {et al.} (2018).
+\bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {Rossi}, {Marco
+  Figuera}, {Unnithan}, Marmo, Walter, Demleitner, Le~Sidaner, Cecconi, S., and
+  Hare}}]{Minin}
+{Minin}, M., A.~{Rossi}, R.~{Marco Figuera}, V.~{Unnithan}, C.~Marmo,
+  S.~Walter, M.~Demleitner, P.~Le~Sidaner, B.~Cecconi, E.~S., and T.~Hare
+  (2018), {Bridging the gap between Geographical Information Systems and
+  Planetary Virtual Observatory}, \textit{this issue}.
 
 \bibitem[{\textit{Murchie et~al.}(2007)\textit{Murchie, Arvidson, Bedini,
   Beisser, Bibring, Bishop, Boldt, Cavender, Choo, Clancy, Darlington,
@@ -1055,6 +1077,16 @@ Murchie, S., R.~Arvidson, P.~Bedini, K.~Beisser, J.-P. Bibring, J.~Bishop,
   (2010), {Definition of the Flexible Image Transport System (FITS), version
   3.0}, \textit{Astronomy and Astrophysics}, \textit{524}, A42,
   \doi{10.1051/0004-6361/201015362}.
+
+\bibitem[{\textit{{Seidelmann} et~al.}(2005)\textit{{Seidelmann}, {Archinal},
+  {A'Hearn}, {Cruikshank}, {Hilton}, {Keller}, {Oberst}, {Simon}, {Stooke},
+  {Tholen}, and {Thomas}}}]{wgccre2003}
+{Seidelmann}, P.~K., B.~A. {Archinal}, M.~F. {A'Hearn}, D.~P. {Cruikshank},
+  J.~L. {Hilton}, H.~U. {Keller}, J.~{Oberst}, J.~L. {Simon}, P.~{Stooke},
+  D.~J. {Tholen}, and P.~C. {Thomas} (2005), {Report of the IAU/IAG Working
+  Group on Cartographic Coordinates and Rotational Elements: 2003},
+  \textit{Celestial Mechanics and Dynamical Astronomy}, \textit{91}, 203--215,
+  \doi{10.1007/s10569-004-3115-4}.
 
 \bibitem[{\textit{Snyder}(1987)}]{Snyder1987}
 Snyder, J.~P. (1987), Map projections: A working manual, \textit{Tech. rep.},
