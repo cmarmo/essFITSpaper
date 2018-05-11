@@ -49,7 +49,10 @@ Mercury must be there... sorry for the oversight.
 TNO and KBO are Asteroids: this is now clarified in the note.
 
 l. 257
-ORIGIN?
+No clear correspondence for the ORIGIN FITS keyword is available in PDS4.
+This is because PDS4 is focused on referencing the authors of the data collection
+and its metadata curation, not the data producer itself.
+Yet, the content of the ORIGIN keyword can be inserted in a PDS4 comment.
 
 l.275-277
 Images have been modified to better show the equivalence of georeferenced TIFF or FITS.

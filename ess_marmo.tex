@@ -401,7 +401,7 @@ Its default value will be blank.}
 
 \begin{table}
 \caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.
-Codes for planets are assumed in \citet{calagreisenI}.
+Codes for planets are implied in \citet{calagreisenI}.
 We propose to add codes for classes of targets,
 more or less corresponding to PDS4 Target type attribute and to EPN-TAP
 target\_class parameter.}
@@ -576,7 +576,11 @@ which must be specified from an enumerated list.}
 
 \item{\texttt{ORIGIN}.
 It contains string identifying the organization or institution responsible for
-creating the FITS file.}
+creating the FITS file.
+No clear correspondence for this reserved FITS keyword is available in PDS4.
+This is because PDS4 is focused on referencing the authors of the data collection
+and its metadata curation, not the data producer itself.
+Yet, the content of the \texttt{ORIGIN} keyword can be inserted in a PDS4 comment.}
 
 \item{\texttt{REFERENC}.
 It contains a character string citing the bibliographic reference where the
