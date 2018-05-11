@@ -48,4 +48,31 @@ Table 2 : header
 Mercury must be there... sorry for the oversight.
 TNO and KBO are Asteroids: this is now clarified in the note.
 
+l. 257
+ORIGIN?
 
+l.275-277
+Images have been modified to better show the equivalence of georeferenced TIFF or FITS.
+The paragraph has been modified accordingly.
+
+l. 279
+I have added a footnote to point the reader to a virtual header tutorial, in order to not to charge the
+text with overwhelming technical details.
+
+l. 307
+Fixed
+
+l. 347
+I have added a paragraph: GDAL implentation is in progress.
+
+l. 351
+Rephrased
+
+l. 389
+Rephrased
+
+l. 402
+Rephrased
+
+l. 404
+Rphrased

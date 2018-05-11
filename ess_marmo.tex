@@ -600,17 +600,21 @@ GeoTIFF\footnote{http://geotiff.osgeo.org/}
 format, as GeoTIFF make them GIS ready.
 Given some new keywords introduced in FITS and WCS definitions adapted to planetary
 surface, FITS and GeoTIFF are completely interchangeable.
-As an example we have downloaded some global maps from USGS
-PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted them in FITS.
-We used ds9 to display the FITS image and were able to visualize coordinates in meters
-as in QGIS, a popular open source GIS software, but also in planetary latitude and
-longitude thanks to the alternate coordinate
-description (see figure \ref{fig:ds9qgis}, left side).
+As an example we have downloaded a Mercury polar map from the USGS
+PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted it in FITS.
+The FITS image has been cropped in two smaller versions using the open source software
+SWarp\footnote{https://www.astromatic.net/software/swarp} \citep{swarp}: SWarp was able to
+automatically manage WCS planetary information.
+We used ds9 to display the three FITS images and were able to correctly align them.
+Linear coordinates in meters are visualized (see figure \ref{fig:ds9qgis}, left side)
+as in QGIS, a popular open source GIS software, thanks to the alternate coordinate
+description.
 \begin{figure}[ht!]
 \centerline{\includegraphics[height=17pc]{ess_marmo2} \includegraphics[height=17pc]{ess_marmo1}}
-\caption{left: Mercury South Pole FITS image displayed in ds9;
-right: GeoTIFF raster (displayed in yellow) and the virtual
-header linked to the FITS raster (displayed in red); the two layers
+\caption{left: Mercury South Pole FITS image displayed in ds9, alternate coordinates in meters
+are displayed;
+right: GeoTIFF raster (displayed in red) and the two virtual haeders
+linked to FITS rasters (displayed in green and blue); the three layers
 are perfectly superposed.
 Mercury image credits: MESSENGER Team, Arizona State University, Johns Hopkins Applied
 Physics Laboratory, Carnegie Science}
@@ -619,7 +623,8 @@ Physics Laboratory, Carnegie Science}
 
 Assuming projected products are distributed in FITS format, a quick method to add GIS
 support for FITS images is to use a GDAL-supported detached header.
-GDAL Virtual Header files simply describe the internal structure of a FITS image, but
+GDAL Virtual Header\footnote{http://www.gdal.org/gdal\_vrttut.html}
+files simply describe the internal structure of a FITS image, but
 also the map projection and body size in a standardized "well known text"
 (WKT) projection string.
 As a result, the FITS raster loaded into QGIS thanks to its corresponding GDAL Virtual
@@ -651,8 +656,7 @@ available in all major linux distribution.
 
 As an example of non projected planetary data we have converted in FITS format some data
 acquired by the imaging spectrometer OMEGA on-board of Mars Express.
-OMEGA unprojected and uncalibrated data (level1b) are distributed by ESA-PSA and PDS
-archives.
+OMEGA unprojected and uncalibrated data (level1b) are distributed by ESA-PSA \citep{BESSE2018131}.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
 \begin{figure}[ht!]
@@ -720,24 +724,21 @@ translation into GDAL C++ library.
 QGIS is a largely used open source geospatial analysis software.
 It is using GDAL for layer import: QGIS is then already capable to display FITS files,
 making use of a Virtual GDAL header, as described above.
+The complete implementation of FITS metadata in GDAL library is in progress.
 Once implemented in GDAL, FITS will officially become a supported format by QGIS.
 
 In addition to that, a QGIS plugin has been developed\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
-\citep[][in preparation]{Minin} in order to download and display files exposed via EPN-TAP servers.
+\citep{Minin} in order to download and display files exposed via EPN-TAP servers.
 
 \subsection{MATISSE}
 MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool
 for the Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool
 designed by the Space Science Data Center of the Italian Space Agency (SSDC-ASI) to
 access, visualize and analyze data from solar system exploration missions.
-Currently, it provides access to public data from five different targets (i.e., Mercury,
-Venus, Mars, dwarf planet Ceres and asteroid Vesta) using both data stored on SSDC local
-storage or by querying remote dataset, such as VESPA, Planet Server and NASA JPL and
-can be integrated with other datasets thanks to its modular structure.
-One of th MATISSE 2D outputs is formatted as FITS, projected by interpolating the
-original observations to a grid regularly spaced
-in planetocentric coordinates (i.e., latitude and longitude).
-We used the planetary FITS standard described in this work in order to make the output
+Currently, MATISSE provides access to public data from five different targets (i.e., Mercury,
+Venus, Mars, the dwarf planet Ceres and the asteroid Vesta).
+MATISSE 2D outputs are formatted as FITS, in equirectangular projection and in planetocentric coordinates.
+The planetary FITS standard described in this work has been implemented in MATISSE in order to make the output
 file compliant with most FITS readers, especially DS9 and JS9.
 The files generated by MATISSE could be also opened with standard GIS software (e.g.,
 QGIS, ArcGIS) 
@@ -745,17 +746,15 @@ after being provided as input of the fits2vrt Python library\footnote{https://gi
 whose output is a VRT virtual GDAL header pointing to the FITS file with the appropriate
 projection.
 Thanks to this approach, in the next major release of MATISSE (v2.0, planned to be
-online by the end of 2018) we are planning to make use of JS9 as the standard reader for
+online by the end of 2018) JS9 will be the standard reader for
 the 2D online output of the tool, thus allowing users to perform advanced analysis in
 both 2D and 3D directly inside a web-based environment.
 
 \subsection{Aladin}
-Aladin is both a sky atlas and a portal to access data -- mainly images and
-catalogues -- available through the VO.
-It is able to load FITS files and to display images taking into account various
+Aladin is both a sky atlas and a portal to access data, mainly images and
+catalogues, available through the VO.
+Aladin is able to load FITS files and to display images taking into account various
 WCS projections.
-Like DS9, Aladin is popular and broadly used in the part of the astronomical
-community manipulating images.
 So far it is also the reference generator and visualizer of Hierarchical
 Progressive Survey (HiPS).
 HiPS\footnote{http://www.ivoa.net/documents/HiPS/} is a recommendation endorsed
@@ -777,13 +776,10 @@ are then available for planetary data.}
 
 In the future, Aladin will be able to recognize the FITS keywords defined
 in the present paper (see Tab. \ref{table:proj} and \ref{table:ctype}).
-For example, it will be able to take into account a planet's radii to compute
-distances on the surface of the body.
 Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of
 them are barely used in extrasolar astronomy and are not supported in Aladin yet.
 An effort has been started to revamp and update the code of projections in
 Aladin.
-We expect all projections to be available in a forthcoming release.
 
 \section{Discussion and Perspectives}
 \label{sec:disc}
@@ -802,16 +798,15 @@ We want to stress here that using FITS could be an efficient compromise, reducin
 data format conversions during the processing chain and
 allowing easy conversion for final products following the needed application.
 
-FITS as an open and flexible data and metadata exchange and archiving format, could be
-inserted in the PDS4 data model scheme in order to address the issue of more complex
-metadata and data relationships.
+FITS is an open and flexible data and metadata exchange and archiving format, its use
+in the PDS4 data model scheme would solve the issue of complex
+metadata and data relationships separating data processing and the data archiving processes.
 
-In order to improve interoperability and knowledge sharing between astronomy and
-planetary science, we will soon finalize the integration of FITS specifications in the
-GDAL library.
 In the framework of the VESPA project a review of the available and planned mission data
 archives is ongoing in order to evaluate their insertion in the planetary VO structure
 with a possible on-demand conversion in FITS format.
+The integration of FITS specifications in the GDAL library will be soon finalize with the goal to
+improve data processing efficiency in planetary science.
 
 %%% End of body of article
 
@@ -900,7 +895,7 @@ discussions about TAB projection in FITS.
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\begin{thebibliography}{20}
+\begin{thebibliography}{22}
 \providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
@@ -939,6 +934,26 @@ discussions about TAB projection in FITS.
   O.~{Streicher} (2013), {Astropy: A community Python package for astronomy},
   \textit{Astronomy and Astrophysics}, \textit{558}, A33,
   \doi{10.1051/0004-6361/201322068}.
+
+\bibitem[{\textit{{Bertin} et~al.}(2002)\textit{{Bertin}, {Mellier},
+  {Radovich}, {Missonnier}, {Didelon}, and {Morin}}}]{swarp}
+{Bertin}, E., Y.~{Mellier}, M.~{Radovich}, G.~{Missonnier}, P.~{Didelon}, and
+  B.~{Morin} (2002), {The TERAPIX Pipeline}, in \textit{Astronomical Data
+  Analysis Software and Systems XI}, \textit{Astronomical Society of the
+  Pacific Conference Series}, vol. 281, edited by D.~A. {Bohlender},
+  D.~{Durand}, and T.~H. {Handley}, p. 228.
+
+\bibitem[{\textit{Besse et~al.}(2018)\textit{Besse, Vallat, Barthelemy, Coia,
+  Costa, Marchi, Fraga, Grotheer, Heather, Lim, Martinez, Arviset, Barbarisi,
+  Docasal, Macfarlane, Rios, Saiz, and Vallejo}}]{BESSE2018131}
+Besse, S., C.~Vallat, M.~Barthelemy, D.~Coia, M.~Costa, G.~D. Marchi, D.~Fraga,
+  E.~Grotheer, D.~Heather, T.~Lim, S.~Martinez, C.~Arviset, I.~Barbarisi,
+  R.~Docasal, A.~Macfarlane, C.~Rios, J.~Saiz, and F.~Vallejo (2018), Esa's
+  planetary science archive: Preserve and present reliable scientific data
+  sets, \textit{Planetary and Space Science}, \textit{150}, 131 -- 140,
+  \doi{https://doi.org/10.1016/j.pss.2017.07.013}, enabling Open and
+  Interoperable Access to Planetary Science and Heliophysics Databases and
+  Tools.
 
 \bibitem[{\textit{{Bibring} et~al.}(2005)\textit{{Bibring}, {Langevin},
   {Gendrin}, {Gondet}, {Poulet}, {Berth{\'e}}, {Soufflot}, {Arvidson},
@@ -983,10 +998,10 @@ discussions about TAB projection in FITS.
   \textit{29}, 309--321, \doi{10.1007/BF01228525}.
 
 \bibitem[{\textit{Erard et~al.}(2014)\textit{Erard, Cecconi, Sidaner, Berthier,
-  Henry, Molinaro, Giardino, Bourrel, AndrÃ©, Gangloff, Jacquey, and
+  Henry, Molinaro, Giardino, Bourrel, Andr{\'e}, Gangloff, Jacquey, and
   Topf}}]{ERARDepntap}
 Erard, S., B.~Cecconi, P.~L. Sidaner, J.~Berthier, F.~Henry, M.~Molinaro,
-  M.~Giardino, N.~Bourrel, N.~AndrÃ©, M.~Gangloff, C.~Jacquey, and F.~Topf
+  M.~Giardino, N.~Bourrel, N.~Andr{\'e}, M.~Gangloff, C.~Jacquey, and F.~Topf
   (2014), The epn-tap protocol for the planetary science virtual observatory,
   \textit{Astronomy and Computing}, \textit{7-8}, 52 -- 61,
   \doi{https://doi.org/10.1016/j.ascom.2014.07.008}, special Issue on The
