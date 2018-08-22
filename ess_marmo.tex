@@ -142,7 +142,8 @@ In this paper we will describe how a small addition to the Flexible Image Transp
 System (FITS) standard, widely used in the astronomy investigations, will allow FITS
 to be more easily used in planetary surface investigations.
 We will also show how FITS metadata can easily be transformed
-in the PDS4 metadata archival model and lastly provide example implementations.
+in the Planetary Data System (PDS4) metadata archival model and lastly provide example 
+implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
 interoperability from raw data formatting to final visualization.
@@ -165,9 +166,8 @@ Interoperability, openness of data formats, and shared processing techniques are
 a necessity to allow efficient scientific analysis of the data and 
 to guarantee the reproducibility of the results.
 
-This paper proposes to use Flexible Image Transport
-System\footnote{https://fits.gsfc.nasa.gov/}
-(FITS) format \citep{fitsorig,fitsver3} in planetary surface investigations,
+This paper proposes to use FITS\footnote{https://fits.gsfc.nasa.gov/}
+format \citep{fitsorig,fitsver3} in planetary surface investigations,
 and describes how FITS metadata can easily be inserted in the
 PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
 metadata distribution model.
@@ -194,10 +194,10 @@ transfer and archiving of telescope data by astronomical observatories, where
 it has been used during the last thirty years.
 It had been adopted for data exchange and archiving from several orbital telescopes
 and spatial missions.
-The International Astronomical Union approved FITS as the standard format
+The International Astronomical Union (IAU) approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
-Observatory (VO).
+Observatory.
 FITS data storage is compatible with the Planetary Data System (PDS)
 archiving specifications so that FITS files can be embedded in PDS datasets.
 Finally, it is supported by a large number of open libraries
@@ -227,7 +227,7 @@ Rotational Elements (WGCCRE).
 This group reports triennially \citep{wgccre} on the preferred rotation rate,
 spin axis, prime meridian, and reference surface for planets and satellites
 ensuring that cartographic endeavors are effectively comparable.
-In the framework of the VESPA\footnote{http://europlanet-vespa.eu/}
+In the framework of the Virtual European Solar and Planetary Access\footnote{http://europlanet-vespa.eu/} (VESPA)
 \citep{vespapss} workpackage of the EuroplanetRI2020\footnote{http://www.europlanet-2020-ri.eu/}
 project an extension to FITS metadata (GeoFITS) has been
 proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention},
@@ -249,7 +249,7 @@ GDAL is essentially a format translation library written in C++ for geospatial r
 and vector data and, fortunately, it also offers basic support for the FITS format,
 however missing a FITS metadata dictionary. 
 
-FITS World Coordinate System
+FITS World Coordinate System (WCS)
 representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
 way to describe spatial dependencies in FITS metadata.
 WCS simplifies the spatial coordinate description with respect to historical
@@ -267,7 +267,7 @@ increasing computing capabilities: spherical projections with a local
 radius definition are easier to reproject from one system to another, than
 from or to a global spheroidal datum.
 As an example, the HiRISE team has chosen to distribute HiRISE projected
-products using Equirectangular projection (CAR) on a local surface, approximated
+products using Equirectangular projection on a local surface, approximated
 by the sphere with radius equivalent to the local Mars spheroid radius.
 
 In addition, WCS resolves the ambiguity between east-positive and west-positive
@@ -364,7 +364,7 @@ The reference point value do not need to lie within the actual data array.}
 Name of the coordinate represented by axis $n$, in ``4--3'' form: the first four
 characters specify the coordinate type, the fifth character is a `-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
-value (\ref{table:proj}).
+value (see Table \ref{table:proj}).
 For angular coordinates \citet{calagreisenI} provides the form xLN xLT or yzLN yzLT,
 where x or yz correspond to the target body.
 We propose to standardize those codes as listed in Table \ref{table:ctype}.
@@ -385,7 +385,7 @@ pixel coordinates (to be used with CDELT keywords).}
 \item{CDELTn.
 The coordinate increment along axis $n$ (scaling component of the linear transformation
 matrix PCi\_j).
-They correspond to the \textit{pixel\_resolution\_x} and
+They correspond to the \texttt{pixel\_resolution\_x} and
 \texttt{pixel\_resolution\_y} attributes in PDS4, to the \texttt{spatial\_resolution} parameter
 in EPN-TAP.}
 \item{CUNITn.
@@ -395,7 +395,7 @@ The same can be assumed for planetary surfaces: when linear coordinates are used
 be used (meters, m).}
 \item{CNAMEn.
 The description of a particular coordinate for an axis in a particular WCS (up to 68
-characters), while the WCSNAMEa keyword names the particular WCS as a whole.
+characters), while the WCSNAMEn keyword names the particular WCS as a whole.
 Its default value will be blank.}
 \end{enumerate}
 
@@ -452,7 +452,7 @@ B\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the inter
 C\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the semi-minor axis of the \\
 & & & ellipsoid that defines the approximate shape of a target body used in projection. \\
 & & & `C' is normal to the plane defined by `A' and `B'. Always in meters. \\
-OGCCODE	& string & reserved, optional & Value field contains a string describing the standard OGC code \\
+OGCCODE	& string & reserved, optional & Value field contains a string describing the standard Open Geospatial Consortium (OGC) code \\
 & & & (if any) from \citet{hare2006} corresponding to the shape and projection used in the image. \\
 & & & This keyword will assure compatibility with standard GIS softwares. \\
 \hline
@@ -541,7 +541,7 @@ and time of product creation.}
 It contains the date of the observation, provided as ISO 8601
 string. The value shall be assumed to refer to the start of the observation,
 unless another interpretation is clearly explained in the comment field.
-It is assumed to be expressed in UTC but other systems are accepted as long as they
+It is assumed to be expressed in Universal Time (UTC) but other systems are accepted as long as they
 are specified in the ISO string\footnote{See table 30 in the Standard FITS document https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf}. 
 PDS4 provides a \texttt{Time\_Coordinates} class with attributes
 \texttt{start\_date\_time} and \texttt{stop\_date\_time} providing start and
@@ -587,7 +587,7 @@ It contains a character string citing the bibliographic reference where the
 data are first described.
 It is recommended that either the Astrophysics Data System bibliographic
 databases\footnote{http://adswww.harvard.edu/}
-bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
+bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org} (DOI)
 be used.
 PDS4 \texttt{External\_Reference} class and EPN-TAP \texttt{bib\_reference} have
 exactly the same meaning and use than the FITS keyword.}
@@ -604,7 +604,7 @@ GeoTIFF\footnote{http://geotiff.osgeo.org/}
 format, as GeoTIFF make them GIS ready.
 Given some new keywords introduced in FITS and WCS definitions adapted to planetary
 surface, FITS and GeoTIFF are completely interchangeable.
-As an example we have downloaded a Mercury polar map from the USGS
+As an example we have downloaded a Mercury polar map from the United States Geological Survey (USGS)
 PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted it in FITS.
 The FITS image has been cropped in two smaller versions using the open source software
 SWarp\footnote{https://www.astromatic.net/software/swarp} \citep{swarp}: SWarp was able to
@@ -747,7 +747,7 @@ file compliant with most FITS readers, especially DS9 and JS9.
 The files generated by MATISSE could be also opened with standard GIS software (e.g.,
 QGIS, ArcGIS) 
 after being provided as input of the fits2vrt Python library\footnote{https://github.com/epn-vespa/fits2vrt},
-whose output is a VRT virtual GDAL header pointing to the FITS file with the appropriate
+whose output is a \texttt{.vrt} GDAL Virtual Header pointing to the FITS file with the appropriate
 projection.
 Thanks to this approach, in the next major release of MATISSE (v2.0, planned to be
 online by the end of 2018) JS9 will be the standard reader for
@@ -793,7 +793,7 @@ Planetary surface investigation is lacking open and general software for massive
 processing and can benefit from astronomy experience in this field.
 
 We understand that some believe FITS has grown too old for newer astronomical
-applications \citep{THOMAS2015133}. We are also not convinced that one format
+applications \citep[e.g.][]{THOMAS2015133}. We are also not convinced that one format
 can solve all the issues faced from long-term archiving to on-line streaming.
 But we want to stress that using FITS can be an efficient compromise.
 FITS can become the format that allows the astronomy and the  planetary science 
@@ -837,14 +837,84 @@ with a possible on-demand conversion in FITS format.
 %
 %%%%%%%%%%%%%%
 % Acronyms
-% \begin{acronyms}
-% \acro{Acronym}
-% Definition here
-% \acro{EMOS}
-% Ensemble model output statistics 
-% \acro{ECMWF}
-% Centre for Medium-Range Weather Forecasts
-% \end{acronyms}
+\begin{acronyms}
+\acro{AMICA}
+Asteroid Multi-band Imaging Camera
+\acro{BIL}
+Band Interleaved per Line
+\acro{BSQ}
+Band SeQuential
+\acro{CRISM}
+Compact Reconnaissance Imaging Spectrometer for Mars
+\acro{DOI}
+Digital Object Identifier
+\acro{EAICD}
+Experiment Archive Interface Control Document
+\acro{EPN-TAP}
+EuroPlaNet Table Access Protocol
+\acro{ESA}
+European Space Agency
+\acro{FITS}
+Flexible Image Transport System
+\acro{GDAL}
+Geospatial Data Abstraction Library
+\acro{GeoTIFF}
+Geographical Tagged Image File Format
+\acro{GIS}
+Geographical Information Systems
+\acro{HiPS}
+Hierarchical Progressive Survey
+\acro{HiRISE}
+High Resolution Imaging Science Experiment
+\acro{IAU}
+International Astronomical Union
+\acro{IEEE}
+Institute of Electrical and Electronics Engineers
+\acro{IVOA}
+International Virtual Observatory Alliance
+\acro{ISO}
+International Organization for Standardization
+\acro{JAXA}
+Japan Aerospace Exploration Agency
+\acro{MATISSE}
+Multi-purpose Advanced Tool for the Instruments for the Solar System Exploration
+\acro{MEF}
+Multi Extension FITS
+\acro{NAVCAM}
+NAVigation CAMera
+\acro{NIRS}
+Near-Infrared Spectrometer
+\acro{OGC}
+Open Geospatial Consortium
+\acro{OMEGA}
+Observatoire pour la Min\'eralogie, l'Eau, les Glaces et l'Activit\'e
+\acro{OSIRIS}
+Optical, Spectroscopic, and Infrared Remote Imaging System
+\acro{PDS}
+Planetary Data System
+\acro{PDS3}
+Planetary Data System (version 3)
+\acro{PDS4}
+Planetary Data System (version 4)
+\acro{PSA}
+Planetary Space Archive
+\acro{SSDC-ASI}
+Space Science Data Center of the Italian Space Agency
+\acro{USGS}
+United States Geological Survey
+\acro{UTC}
+Universal Time Coordinated
+\acro{VESPA}
+Virtual European Solar and Planetary Access
+\acro{VO}
+Virtual Observatory
+\acro{WCS}
+World Coordinate System
+\acro{WGCCRE}
+Working Group on Cartographic Coordinates and Rotational Elements
+\acro{WKT}
+Well Known Text
+\end{acronyms}
 
 %
 %%%%%%%%%%%%%%
