@@ -229,33 +229,24 @@ the ESA Planetary Science Archive\footnote{http://psa.esa.int} (PSA).
 In addition, many PDS3 datasets in the Small Bodies Node are archived and distributed
 as FITS files with PDS3 labels.
 
-%However, INSERT HERE COMMENTS FROM REVIEWER #2.
-%\textit{3. A bigger picture question that this paper should address is, "why hasn't this already happened?" Again, FITS is over 30 years old. What barriers or disincentives have been or currently are in place for the planetary data community preventing or slowing a move toward FITS?
-%The paper should then describe why this proposed scheme reduces or bypasses the relevant barriers, or provides incentives to make the move. Is it just tools, as I note above? Or are there community reasons, e.g. that astronomical and planetary communities have been disjoint to such an extent that languages, standards, etc have never dovetailed? What are the authors' perspectives on such barriers/disincentives, and how the present paper smooths over or bypasses them?}
-
-However, solar system imagery data has been traditionally described using terrestrial based
-reference systems.
-Engineers and cartographers working in spatial missions are closer to Earth observation
+However, solar system imagery data have been traditionally described using terrestrial based
+reference systems and remote sensing formats.
+This is particularly true for planetary surface investigations.
+Engineers and cartographers working in spatial missions are more familiar with Earth observation
 techniques and standards than the astronomy one.
-Furthermore, geospatial standardization in FITS dates back to the 2000s, when planetary
-surface research habits had already been installed.
-Where astronomers and planetary scientists work closer, in small bodies investigations,
-FITS format is already more popular.
+Furthermore, the standardization of the spatial references in FITS dates back to the 2000s,
+when planetary surface research habits had already been installed.
+In small bodies investigations, where astronomers and planetary scientists have worked
+together for longer, FITS format is already more popular.
 
-Why is changing?
-
-- Too many raster images : problem of processing efficiency.
-- Europe and Asia bring more astronomers to the surface planetary investigation.
-- More international collaboration.
-
-This paper:
-
-- specifically addresses the problem of interoperability between astronomy and terrestrial remote sensing tools
-- proposes a mapping between geospatial concepts and astronomical coordinates description
-- proposes to fill the 3d description missing in FITS metadata.
+With the impressive increasing of raster data from planetary missions, the efficient automatization
+of data processing is an issue.
+Metadata, historically optimized for archiving, are not always ready for efficient processing.
+FITS metadata schema can be a solution to this problem.
 
 To be more efficiently used in planetary surface investigations, FITS metadata
-must be extended in order to take into account the size of the reference body and
+must be thouroughly mapped to planetary geospatial concepts.
+Then, they must be extended in order to take into account the size of the reference body and
 orientation as standardized by the IAU Working Group on Cartographic Coordinates and
 Rotational Elements (WGCCRE).
 This group reports triennially \citep{wgccre} on the preferred rotation rate,
@@ -744,6 +735,14 @@ together with physical quantities measured by the detector itself in a standardi
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
+%\textit{2. This leads to my second point, which is that section 3 needs more explanation. At minimum, there should be an introduction to the section that describes why these specific tools are featured. If the paper provides more description up front of the current FITS tool ecosystem, this section 3 could then be contextualized as illustrating how the FITS tool ecosystem is still expanding, and/or that for the planetary data community to fully take advantage of FITS, more expansion is possible, and already in progress.}
+%\textit{3. A bigger picture question that this paper should address is, "why hasn't this already happened?" Again, FITS is over 30 years old. What barriers or disincentives have been or currently are in place for the planetary data community preventing or slowing a move toward FITS?
+%The paper should then describe why this proposed scheme reduces or bypasses the relevant barriers, or provides incentives to make the move. Is it just tools, as I note above? Or are there community reasons, e.g. that astronomical and planetary communities have been disjoint to such an extent that languages, standards, etc have never dovetailed? What are the authors' perspectives on such barriers/disincentives, and how the present paper smooths over or bypasses them?}
+%This paper:
+
+%- specifically addresses the problem of interoperability between astronomy and terrestrial remote sensing tools
+%- proposes a mapping between geospatial concepts and astronomical coordinates description
+%- proposes to fill the 3d description missing in FITS metadata.
 
 \subsection{FITS and GDAL}
 Basic conversion from and to FITS is already supported by GDAL.
