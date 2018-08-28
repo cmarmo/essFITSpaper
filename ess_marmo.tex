@@ -232,16 +232,17 @@ as FITS files with PDS3 labels.
 However, solar system imagery data have been traditionally described using terrestrial based
 reference systems and remote sensing formats.
 This is particularly true for planetary surface investigations.
-Engineers and cartographers working in spatial missions are more familiar with Earth observation
-techniques and standards than the astronomy one.
+Engineers and cartographers working in the first spatial missions were more familiar with
+Earth observation techniques and standards than the astronomy one.
 Furthermore, the standardization of the spatial references in FITS dates back to the 2000s,
 when planetary surface research habits had already been installed.
 In small bodies investigations, where astronomers and planetary scientists have worked
 together for longer, FITS format is already more popular.
 
-With the impressive increasing of raster data from planetary missions, the efficient automatization
-of data processing is an issue.
-Metadata, historically optimized for archiving, are not always ready for efficient processing.
+With the impressive increasing of raster data from planetary missions, the efficient
+automatization of data processing is an issue.
+Metadata, historically optimized for archiving, are not always ready for efficient
+processing.
 FITS metadata schema can be a solution to this problem.
 
 To be more efficiently used in planetary surface investigations, FITS metadata
@@ -735,14 +736,13 @@ together with physical quantities measured by the detector itself in a standardi
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
-%\textit{2. This leads to my second point, which is that section 3 needs more explanation. At minimum, there should be an introduction to the section that describes why these specific tools are featured. If the paper provides more description up front of the current FITS tool ecosystem, this section 3 could then be contextualized as illustrating how the FITS tool ecosystem is still expanding, and/or that for the planetary data community to fully take advantage of FITS, more expansion is possible, and already in progress.}
-%\textit{3. A bigger picture question that this paper should address is, "why hasn't this already happened?" Again, FITS is over 30 years old. What barriers or disincentives have been or currently are in place for the planetary data community preventing or slowing a move toward FITS?
-%The paper should then describe why this proposed scheme reduces or bypasses the relevant barriers, or provides incentives to make the move. Is it just tools, as I note above? Or are there community reasons, e.g. that astronomical and planetary communities have been disjoint to such an extent that languages, standards, etc have never dovetailed? What are the authors' perspectives on such barriers/disincentives, and how the present paper smooths over or bypasses them?}
-%This paper:
-
-%- specifically addresses the problem of interoperability between astronomy and terrestrial remote sensing tools
-%- proposes a mapping between geospatial concepts and astronomical coordinates description
-%- proposes to fill the 3d description missing in FITS metadata.
+In section \ref{ssec:geofits} the mapping between planetary metadata concepts and
+FITS metadata description has been addressed.
+In order to impulse the use of FITS in planetary sciences this section will provide
+some example efforts of implementation of the proposed mapping.
+Our goal is, on remote sensing side, to get FITS into habits of geospatial developers,
+on the other, to benefit planetary astronomers of FITS flexibility providing a processing
+efficient description of their data.
 
 \subsection{FITS and GDAL}
 Basic conversion from and to FITS is already supported by GDAL.
@@ -754,14 +754,14 @@ Those python developments benefit from the rich and well maintained Astropy and 
 python APIs.
 They will be implemented in planetary VO services with the goal to bridge between GIS 
 and VO services.
-The next step to VO and GIS tool integration will be to directly implement metadata 
-translation into GDAL C++ library. 
+The next step will be to directly implement metadata translation into the GDAL library. 
+This work is already in progress, and new developments are available from the VESPA github
+repository\footnote{https://github.com/epn-vespa/gdal}.
 
 \subsection{FITS and QGIS}
 QGIS is a largely used open source geospatial analysis software.
 It is using GDAL for layer import: QGIS is then already capable to display FITS files,
 making use of a Virtual GDAL header, as described above.
-The complete implementation of FITS metadata in GDAL library is in progress.
 Once implemented in GDAL, FITS will officially become a supported format by QGIS.
 
 In addition to that, a QGIS plugin has been developed\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
