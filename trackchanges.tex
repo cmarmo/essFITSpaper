@@ -1,7 +1,7 @@
 %% 2/18/2016
 %DIF LATEXDIFF DIFFERENCE FILE
-%DIF DEL ../essFITSpaper-1.0/ess_marmo.tex   Mon Mar  5 10:03:44 2018
-%DIF ADD ess_marmo.tex                       Fri May 11 22:14:04 2018
+%DIF DEL ../essFITSpaper-2.0/ess_marmo.tex   Sat May 12 18:39:23 2018
+%DIF ADD ess_marmo.tex                       Wed Aug 29 22:33:00 2018
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % AGUJournalSample.tex: this sample file is for articles formatted with LaTeX
 %
@@ -180,7 +180,8 @@ In this paper we will describe how a small addition to the Flexible Image Transp
 System (FITS) standard, widely used in the astronomy investigations, will allow FITS
 to be more easily used in planetary surface investigations.
 We will also show how FITS metadata can easily be transformed
-in the PDS4 metadata archival model and lastly provide example implementations.
+in the \DIFaddbegin \DIFadd{Planetary Data System (}\DIFaddend PDS4\DIFaddbegin \DIFadd{) }\DIFaddend metadata archival model and lastly provide example 
+implementations.
 More than imposing a formal data model, a FITS description for planetary data aims
 to simplify sharing data across the planetary and astronomy domains and promoting
 interoperability from raw data formatting to final visualization.
@@ -200,12 +201,12 @@ physicists, geochemists, etc.). Planetary missions produce an impressively growi
 amount of diverse data requiring an evolution from a mostly manual-based visual 
 analysis to a more automated and quantitative analysis.
 Interoperability, openness of data formats, and shared processing techniques are 
-a necessity to \DIFdelbegin \DIFdel{efficiently extract scientific information from }\DIFdelend \DIFaddbegin \DIFadd{allow efficient scientific analysis of }\DIFaddend the data and 
-to guarantee the reproducibility of the \DIFdelbegin \DIFdel{scientific }\DIFdelend results.
+a necessity to allow efficient scientific analysis of the data and 
+to guarantee the reproducibility of the results.
 
-This paper proposes to use Flexible Image Transport
-System\footnote{https://fits.gsfc.nasa.gov/}
-(FITS) format \citep{fitsorig,fitsver3} in planetary surface investigations,
+This paper proposes to use \DIFdelbegin \DIFdel{Flexible Image Transport
+System}\DIFdelend \DIFaddbegin \DIFadd{FITS}\DIFaddend \footnote{https://fits.gsfc.nasa.gov/}
+\DIFdelbegin \DIFdel{(FITS) }\DIFdelend format \citep{fitsorig,fitsver3} in planetary surface investigations,
 and describes how FITS metadata can easily be inserted in the
 PDS4\footnote{https://pds.nasa.gov/tools/standards-reference.shtml}
 metadata distribution model.
@@ -223,45 +224,32 @@ The option to use FITS within the planetary surface domain can help to
 homogenize methods from raw formatting to visualization, while
 allowing for optimized data processing across the planetary and astronomy domains.
 
-\DIFdelbegin \DIFdel{This paper is organized as follows:
-%DIFDELCMD < \begin{enumerate}
-%DIFDELCMD < \item{a brief description of FITS format;}
-%DIFDELCMD < \item{a proposition for planetary surface metadata description in FITS;}
-%DIFDELCMD < \item{dictionaries between FITS, PDS metadata description and EPN-TAP2.0
-%DIFDELCMD < parameters;}
-%DIFDELCMD < \item{some examples of planetary dataset in FITS;}
-%DIFDELCMD < \item{current developments for making FITS more usable to handle data
-%DIFDELCMD < of planetary surfaces.}
-1. a brief description of FITS format;
-2. a proposition for planetary surface metadata description in FITS;
-3. dictionaries between FITS, PDS metadata description and EPN-TAP2.0 parameters;
-4. some examples of planetary dataset in FITS;
-5. current developments for making FITS more usable to handle data of planetary surfaces.}  \DIFdelend
-
-%\end{enumerate}%DIFAUXCMD
-%DIFDELCMD < \end{enumerate}
-%DIFDELCMD < 
-
-%DIFDELCMD < %%%
-%\DIFdelend
-
 \section{FITS Format in Planetary Surface Investigation}
 \label{sec:fitspss}
 
 \subsection{FITS Format}
 FITS is an open digital standard, created in the late 1970's for data acquisition,
-transfer and archiving of telescope data by astronomical observatories\DIFaddbegin \DIFadd{, where
-it has been used during the last thirty years}\DIFaddend .
-It had been \DIFdelbegin \DIFdel{used }\DIFdelend \DIFaddbegin \DIFadd{adopted }\DIFaddend for data exchange and archiving from several orbital telescopes
-\DIFaddbegin \DIFadd{and spatial missions}\DIFaddend .
-The International Astronomical Union approved FITS as the standard format
+transfer and archiving of telescope data by astronomical observatories, where
+it has been used during the last thirty years.
+It had been adopted for data exchange and archiving from several orbital telescopes
+and spatial missions.
+The International Astronomical Union \DIFaddbegin \DIFadd{(IAU) }\DIFaddend approved FITS as the standard format
 for astronomical data\footnote{https://fits.gsfc.nasa.gov/iaufwg/history/IAU\_1982\_resolution\_c1.html}. 
 Therefore, FITS is one of the standard formats implemented in the Virtual
-Observatory (VO).
+Observatory\DIFdelbegin \DIFdel{(VO)}\DIFdelend .
 FITS data storage is compatible with the Planetary Data System (PDS)
 archiving specifications so that FITS files can be embedded in PDS datasets.
-Finally, it is supported by a large number of open libraries
-and software tools.
+\DIFdelbegin \DIFdel{Finally, it }\DIFdelend \DIFaddbegin 
+
+\DIFadd{FITS format }\DIFaddend is supported by a large number of open libraries
+and software tools\DIFaddbegin \DIFadd{, developed in numerous languages.
+The reference C and Fortran library, CFITSIO}\footnote{\DIFadd{https://heasarc.gsfc.nasa.gov/docs/software/fitsio/fitsio.html}}\DIFadd{,
+is maintained by the NASA's High Energy Astrophysics Science Archive Research Center,
+and it comes with a number of interfaces for other languages (C++, C\#, Perl, Python, MatLab, etc.).
+Independent libraries are available for example in JAVA, go, Python, R, IDL, and many
+other languages}\footnote{\DIFadd{A non exhaustive list is available at https://fits.gsfc.nasa.gov/fits\_libraries.html}}\DIFadd{.
+Software tools for visualization and analysis make use of those libraries or implement
+their own, having different levels of maturity and option completness}\footnote{\DIFadd{See https://fits.gsfc.nasa.gov/fits\_viewer.html}}\DIFaddend .
 
 FITS is already capable of being used as a standard formatting for most data products
 commonly used in planetary surface investigations.
@@ -276,19 +264,40 @@ Hayabusa AMICA and NIRS cameras\footnote{http://darts.isas.jaxa.jp/planet/projec
 all Akatsuki cameras\footnote{http://darts.isas.jaxa.jp/planet/project/akatsuki/index.html}
 (except the Lightning and Airglow Camera),
 and the Dawn Framing Camera\footnote{https://sbn.psi.edu/pds/archive/dawn.html} data.
-\DIFaddbegin \DIFadd{Some Rosetta data, from NAVCAM and OSIRIS cameras, are distributed in FITS format at
-the ESA Planetary Science Archive}\footnote{\DIFadd{https://archives.esac.esa.int/psa}} \DIFadd{(PSA).
-}\DIFaddend In addition, many PDS3 datasets in the Small Bodies Node are archived and distributed
+Some Rosetta data, from NAVCAM and OSIRIS cameras, are distributed in FITS format at
+the ESA Planetary Science Archive\footnote{\DIFdelbegin \DIFdel{https}\DIFdelend \DIFaddbegin \DIFadd{http}\DIFaddend ://\DIFdelbegin \DIFdel{archives}\DIFdelend \DIFaddbegin \DIFadd{psa}\DIFaddend .\DIFdelbegin \DIFdel{esac.}\DIFdelend esa.int\DIFdelbegin \DIFdel{/psa}\DIFdelend } (PSA).
+In addition, many PDS3 datasets in the Small Bodies Node are archived and distributed
 as FITS files with PDS3 labels.
-However, to be more efficiently used in planetary surface investigations, FITS metadata
-must be extended in order to take into account the size of the reference body and
+\DIFdelbegin \DIFdel{However, to be }\DIFdelend \DIFaddbegin 
+
+\DIFadd{However, solar system imagery data have been traditionally described using terrestrial based
+geospatial descriptions and remote sensing formats.
+This is particularly true for planetary surface investigations.
+Engineers and cartographers working in the first spatial missions were more familiar with
+Earth observation techniques and standards than the astronomy one.
+Furthermore, the standardization of the spatial references in FITS dates back to the 2000s,
+when planetary surface research habits had already been installed.
+In small bodies investigations, where astronomers and planetary scientists have worked
+together for longer, FITS format is already more popular.
+}
+
+\DIFadd{With the impressive increasing of raster data from planetary missions, the efficient
+automatization of data processing is an issue.
+Metadata, historically optimized for archiving, are not always ready for efficient
+processing.
+FITS metadata schema can be a solution to this problem.
+}
+
+\DIFadd{To be }\DIFaddend more efficiently used in planetary surface investigations, FITS metadata
+must be \DIFaddbegin \DIFadd{thouroughly mapped to planetary geospatial concepts.
+Then, they must be }\DIFaddend extended in order to take into account the size of the reference body and
 orientation as standardized by the IAU Working Group on Cartographic Coordinates and
 Rotational Elements (WGCCRE).
 This group reports triennially \citep{wgccre} on the preferred rotation rate,
 spin axis, prime meridian, and reference surface for planets and satellites
 ensuring that cartographic endeavors are effectively comparable.
-In the framework of the VESPA\footnote{http://europlanet-vespa.eu/}
-\citep{vespapss} workpackage of the EuroplanetRI2020\footnote{http://www.europlanet-2020-ri.eu/}
+In the framework of the \DIFdelbegin \DIFdel{VESPA}\DIFdelend \DIFaddbegin \DIFadd{Virtual European Solar and Planetary Access}\DIFaddend \footnote{http://europlanet-vespa.eu/} \DIFaddbegin \DIFadd{(VESPA)
+}\DIFaddend \citep{vespapss} workpackage of the EuroplanetRI2020\footnote{http://www.europlanet-2020-ri.eu/}
 project an extension to FITS metadata (GeoFITS) has been
 proposed\footnote{https://voparis-confluence.obspm.fr/display/VES/GeoFITS:+Planetary+Data+FITS+format+and+metadata+convention},
 taking into account the WGCCRE recommendations.
@@ -306,11 +315,11 @@ Often, robust interoperability in GIS applications is achieved by using the Geos
 Data Abstraction Library\footnote{http://www.gdal.org} (GDAL), released by the Open
 Source Geospatial Foundation.
 GDAL is essentially a format translation library written in C++ for geospatial raster
-and vector data and, fortunately, it also offers basic support for the FITS format\DIFaddbegin \DIFadd{,
-however missing a FITS metadata dictionary}\DIFaddend . 
+and vector data and, fortunately, it also offers basic support for the FITS format,
+however missing a FITS metadata dictionary. 
 
-FITS World Coordinate System
-representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
+FITS World Coordinate System \DIFaddbegin \DIFadd{(WCS)
+}\DIFaddend representation\footnote{http://fits.gsfc.nasa.gov/fits\_wcs.html} is the standard
 way to describe spatial dependencies in FITS metadata.
 WCS simplifies the spatial coordinate description with respect to historical
 terrestrial references.
@@ -327,7 +336,7 @@ increasing computing capabilities: spherical projections with a local
 radius definition are easier to reproject from one system to another, than
 from or to a global spheroidal datum.
 As an example, the HiRISE team has chosen to distribute HiRISE projected
-products using Equirectangular projection (CAR) on a local surface, approximated
+products using Equirectangular projection \DIFdelbegin \DIFdel{(CAR) }\DIFdelend on a local surface, approximated
 by the sphere with radius equivalent to the local Mars spheroid radius.
 
 In addition, WCS resolves the ambiguity between east-positive and west-positive
@@ -342,13 +351,13 @@ corresponding PDS4 projection names (see table A.1. in \citet{calagreisenI}
 for details).
 
 \begin{table}
-\caption{Projection names and codes \DIFdelbeginFL \DIFdelFL{already }\DIFdelendFL available in \DIFaddbeginFL \DIFaddFL{WCS }\DIFaddendFL FITS\DIFaddbeginFL \DIFaddFL{, }\DIFaddendFL suitable for
+\caption{Projection names and codes available in WCS FITS, suitable for
 planetary applications: the corresponding PDS4 terminology is
 provided.}
 \centering
 \begin{tabular}{l l l}
 \hline
-FITS Name$^{a}$ & FITS code$^{a}$ & \DIFdelbeginFL \DIFdelFL{PDS }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{PDS4 }\DIFaddendFL name$^{b}$ \\ 
+FITS Name$^{a}$ & FITS code$^{a}$ & PDS4 name$^{b}$ \\ 
 \hline
 Zenithal Equidistant & ARC & Azimuthal Equidistant \\
 Zenithal Perspective & AZP & General Vertical Near-sided Projection \\
@@ -365,14 +374,7 @@ Gnomonic & TAN & Gnomonic \\
 Zenithal Equal-Area & ZEA & Lambert Azimuthal Equal Area \\
 \hline
 \multicolumn{3}{l}{$^{a}$From \citet{calagreisenI}} \\
-\DIFdelbeginFL %DIFDELCMD < \multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary\footnote{https://pds.jpl.nasa.gov/pds4/doc/dd/current/PDS4\_PDS\_DD\_1900.pdf}. We cannot find correspondences in the WCS scheme for PDS4 Robinson,} \\
-%DIFDELCMD < \multicolumn{3}{l}{Van Den Grinten and Space Oblique Mercator: those three projections are not used for archival or analysis.}
-%DIFDELCMD < %%%
-\DIFdelendFL
-\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary \DIFdelbeginFL 
-\DIFdelFL{We cannot find correspondences in the WCS scheme for PDS4 Robinson,}\DIFdelendFL} \\
-\multicolumn{3}{l}{\DIFdelbeginFL 
-\DIFdelFL{Van Den Grinten and Space Oblique Mercator: those three projections are not used for archival or analysis.}\DIFdelendFL}
+\multicolumn{3}{l}{$^{b}$From the PDS4 Data Dictionary}
 \end{tabular}
 \label{table:proj}
 \end{table}
@@ -401,56 +403,52 @@ In this section WCS FITS keywords are inserted in the planetary surface context.
 When possible, corresponding PDS4 and EPN-TAP definitions are added for archiving
 and distribution standardization purposes.
 \begin{enumerate}
-%DIFDELCMD < \item{RADESYS.
-%DIFDELCMD < Name of the inertial reference frame with respect to which the coordinate
-%DIFDELCMD < system is defined (defaulted to \texttt{`ICRS'})}
-%DIFDELCMD < \item{EQUINOX.
-%DIFDELCMD < The value field contains the equinox in years for the celestial
-%DIFDELCMD < coordinate system in which positions are expressed (defaulted to \texttt{`J2000'})}
-%DIFDELCMD < \item{WCSAXES.
-%DIFDELCMD < Number of axes in the WCS description.
-%DIFDELCMD < The value of WCSAXES may exceed the number of raster pixel axes. WCSAXES is, e.g.,
-%DIFDELCMD < generally set to $2$ in two-dimensional rasters, it could be set to $3$ if an
-%DIFDELCMD < additional time dependency is added to the coordinate description.}
-%DIFDELCMD < \item{WCSNAME.
-%DIFDELCMD < Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic,
-%DIFDELCMD < non-rotating, inertial).
-%DIFDELCMD < EPN-TAP provides a \texttt{spatial\_coordinate\_description} parameter.}
-%DIFDELCMD < %%%
 \item{RADESYS.
 Name of the inertial reference frame with respect to which the coordinate
-system is defined\DIFdelbegin \DIFdelFL{ (defaulted to \texttt{`ICRS'})}\DIFdelendFL.
-\DIFaddbegin \DIFaddFL{ Standard FITS defaults this keyword to \texttt{`ICRS'}.
+system is defined. Standard FITS defaults this keyword to \texttt{`ICRS'}.
 This is applicable to planetary data too as long as the planetary coordinate system
 parameters, i.e. the rotational elements, are defined with respect to \texttt{`ICRS'}.
-This is the case starting from the 2003 WGCCRE report [Seidelmann et al., 2005] %\citep{wgccre2003}.
-Before the 1982 WGCCRE report [Davies et al., 1983] %\citep{wgccre1982}
-the inertial system was \texttt{`FK4'}, after it was \texttt{`FK5'}.
-} \DIFaddendFL
-}
+This is the case starting from the 2003 WGCCRE report \citep{wgccre2003}.
+Before the 1982 WGCCRE report \citep{wgccre1982} the inertial system was \texttt{`FK4'},
+after it was \texttt{`FK5'}.}
 \item{EQUINOX.
 The value field contains the equinox in years for the celestial
-coordinate system in which positions are expressed\DIFdelbegin \DIFdelFL{ (defaulted to \texttt{`J2000'})}\DIFdelendFL.
-\DIFaddbegin \DIFaddFL{ Standard FITS defaults this keyword to \texttt{`J2000'}.
-This is applicable to planetary data starting from the 1982 WGCCRE report [Davies et al., 1983].%\citep{wgccre1982}.
- Before 1982 the standard equinox was \texttt{`B1950'}.} \DIFaddendFL}
+coordinate system in which positions are expressed.
+Standard FITS defaults this keyword to \texttt{`J2000'}.
+This is applicable to planetary data starting from the 1982 WGCCRE report \citep{wgccre1982}.
+Before 1982 the standard equinox was \texttt{`B1950'}.}
 \item{WCSAXES.
 Number of axes in the WCS description.
 The value of WCSAXES may exceed the number of raster pixel axes. WCSAXES is, e.g.,
 generally set to $2$ in two-dimensional rasters, it could be set to $3$ if an
-additional time \DIFaddbegin \DIFaddFL{or filter} \DIFaddendFL dependency is added to the coordinate description.}
+additional time or filter dependency is added to the coordinate description.}
 \item{WCSNAME.
 Name of world coordinate descriptions (e.g. body-fixed rotating -ocentric -ographic,
 non-rotating, inertial).
-EPN-TAP provides \DIFdelbegin \DIFdelFL{a} \DIFdelendFL \DIFaddbegin \DIFaddFL{similar information through the} \DIFdelendFL \texttt{spatial\_coordinate\_description} parameter.}
-\DIFaddend \item{CRPIXn.
+EPN-TAP provides similar information through the \texttt{spatial\_coordinate\_description} parameter.}
+\item{CRPIXn.
 Location of a reference point along axis $n$, in units of the axis index.
 The reference point value do not need to lie within the actual data array.}
-\item{CTYPEn.
+\DIFdelbegin %DIFDELCMD < \item{CTYPEn.
+%DIFDELCMD < Name of the coordinate represented by axis $n$, in ``4--3'' form: the first four
+%DIFDELCMD < characters specify the coordinate type, the fifth character is a `-' and the
+%DIFDELCMD < remaining three characters specify an algorithm code for computing the world coordinate
+%DIFDELCMD < value (\ref{table:proj}).
+%DIFDELCMD < For angular coordinates \citet{calagreisenI} provides the form xLN xLT or yzLN yzLT,
+%DIFDELCMD < where x or yz correspond to the target body.
+%DIFDELCMD < We propose to standardize those codes as listed in Table \ref{table:ctype}.
+%DIFDELCMD < For projected coordinates in meters we propose a similar scheme: xPX as Projected X,
+%DIFDELCMD < xPY as Projected Y, or yzPX and yzPY.
+%DIFDELCMD < Alternative representation of WCS are already possible in FITS, to describe images in
+%DIFDELCMD < degrees and in meters \citep{greisencalaII}.
+%DIFDELCMD < The name of the alternative axis will be specified using the alternative CNAMEn
+%DIFDELCMD < keyword.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \item{CTYPEn.
 Name of the coordinate represented by axis $n$, in ``4--3'' form: the first four
 characters specify the coordinate type, the fifth character is a `-' and the
 remaining three characters specify an algorithm code for computing the world coordinate
-value (\ref{table:proj}).
+value (see Table \ref{table:proj}).
 For angular coordinates \citet{calagreisenI} provides the form xLN xLT or yzLN yzLT,
 where x or yz correspond to the target body.
 We propose to standardize those codes as listed in Table \ref{table:ctype}.
@@ -460,7 +458,7 @@ Alternative representation of WCS are already possible in FITS, to describe imag
 degrees and in meters \citep{greisencalaII}.
 The name of the alternative axis will be specified using the alternative CNAMEn
 keyword.}
-\item{CRVALn.
+\DIFaddend \item{CRVALn.
 Value of the coordinate specified by the CTYPEn keyword at the reference point CRPIXn.}
 \item{CDi\_j.
 The $ij$ linear transformation matrix (rotation, skewness, scaling) defining the
@@ -468,37 +466,38 @@ intermediate world coordinates.}
 \item{PCi\_j.
 The $ij$ linear transformation matrix (rotation, skewness) defining the intermediate
 pixel coordinates (to be used with CDELT keywords).}
-%DIFDELCMD < \item{CDELTn.
+\DIFdelbegin %DIFDELCMD < \item{CDELTn.
 %DIFDELCMD < The coordinate increment along axis $n$ (scaling component of the linear transformation
 %DIFDELCMD < matrix PCi\_j).
-%DIFDELCMD < In PDS4 they correspond to the \textit{pixel\_resolution\_x} and
-%DIFDELCMD < \texttt{pixel\_resolution\_y} attributes.
-%DIFDELCMD < In EPN-TAP they are connected to the \texttt{spatial\_resolution} parameter.}
-%DIFDELCMD < \item{CUNITn.
-%DIFDELCMD < Units of the coordinate system, not mandatory, defaulted to degrees for angular
-%DIFDELCMD < coordinates and to meters (m) for linear ones.}
+%DIFDELCMD < They correspond to the \textit{pixel\_resolution\_x} and
+%DIFDELCMD < \texttt{pixel\_resolution\_y} attributes in PDS4, to the \texttt{spatial\_resolution} parameter
+%DIFDELCMD < in EPN-TAP.}
 %DIFDELCMD < %%%
-\item{CDELTn.
+\DIFdelend \DIFaddbegin \item{CDELTn.
 The coordinate increment along axis $n$ (scaling component of the linear transformation
 matrix PCi\_j).
-\DIFdelbegin \DIFdelFL{In EPN-TAP they are connected to} \DIFdelend \DIFaddbegin \DIFaddFL{They correspond to the} \DIFaddend \textit{pixel\_resolution\_x} and
+They correspond to the \texttt{pixel\_resolution\_x} and
 \texttt{pixel\_resolution\_y} attributes in PDS4, to the \texttt{spatial\_resolution} parameter
-\DIFaddbegin \DIFaddFL{in EPN-TAP} \DIFaddend.}
-\item{CUNITn.
-Units of the coordinate system \DIFdelbegin \DIFdelFL{, not mandatory, defaulted to degrees for angular coordinates and to meters (m) for linear ones}. \DIFdelend \DIFaddbegin \DIFaddFL{
-This is a not mandatory keyword: when not present FITS standard
+in EPN-TAP.}
+\DIFaddend \item{CUNITn.
+Units of the coordinate system. This is a not mandatory keyword: when not present FITS standard
 assumes its value as degrees, the most common description in astronomical sky images.
 The same can be assumed for planetary surfaces: when linear coordinates are used SI units must
-be used (meters, m).}}
-\DIFaddend \item{CNAMEn.
+be used (meters, m).}
+\DIFdelbegin %DIFDELCMD < \item{CNAMEn.
+%DIFDELCMD < The description of a particular coordinate for an axis in a particular WCS (up to 68
+%DIFDELCMD < characters), while the WCSNAMEa keyword names the particular WCS as a whole.
+%DIFDELCMD < Its default value will be blank.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \item{CNAMEn.
 The description of a particular coordinate for an axis in a particular WCS (up to 68
-characters), while the WCSNAMEa keyword names the particular WCS as a whole.
+characters), while the WCSNAMEn keyword names the particular WCS as a whole.
 Its default value will be blank.}
-\end{enumerate}
+\DIFaddend \end{enumerate}
 
 \begin{table}
 \caption{Codes to be used in CTYPE FITS keyword in order to identify the planetary body.
-Codes for planets are \DIFdelbeginFL \DIFdelFL{assumed }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{implied }\DIFaddendFL in \citet{calagreisenI}.
+Codes for planets are implied in \citet{calagreisenI}.
 We propose to add codes for classes of targets,
 more or less corresponding to PDS4 Target type attribute and to EPN-TAP
 target\_class parameter.}
@@ -508,21 +507,21 @@ target\_class parameter.}
 Body & CTYPE$^{a}$ \\ 
 \hline
 Moon & SE \\
-\DIFaddbeginFL \DIFaddFL{Mercury }& \DIFaddFL{ME }\\
-\DIFaddendFL Venus & VE \\
+Mercury & ME \\
+Venus & VE \\
 Mars & MA \\
 Jupiter & JU \\
 Saturn & SA \\
 Uranus & UR \\
 Neptune & NE \\
 Satellites (other than the Moon) & ST \\
-Asteroids\DIFaddbeginFL \DIFaddFL{$^{b}$ }\DIFaddendFL & AS \\
+Asteroids$^{b}$ & AS \\
 Dwarf Planets & DW \\
 Comets & CO \\
 \hline
-\multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}} \DIFaddbeginFL \\
+\multicolumn{2}{l}{$^{a}$From \citet{calagreisenI}} \\
 \multicolumn{2}{l}{$^{b}$Transneptunian (TNO) and Kuiper Belt (KBO) objects must be placed there}
-\DIFaddendFL \end{tabular}
+\end{tabular}
 \label{table:ctype}
 \end{table}
 
@@ -549,7 +548,7 @@ B\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the inter
 C\_RADIUS$^{a}$ & real & mandatory & Value field contains the value of the semi-minor axis of the \\
 & & & ellipsoid that defines the approximate shape of a target body used in projection. \\
 & & & `C' is normal to the plane defined by `A' and `B'. Always in meters. \\
-OGCCODE	& string & reserved, optional & Value field contains a string describing the standard OGC code \\
+OGCCODE	& string & reserved, optional & Value field contains a string describing the standard \DIFdelbegin \DIFdel{OGC }\DIFdelend \DIFaddbegin \DIFadd{Open Geospatial Consortium (OGC) }\DIFaddend code \\
 & & & (if any) from \citet{hare2006} corresponding to the shape and projection used in the image. \\
 & & & This keyword will assure compatibility with standard GIS softwares. \\
 \hline
@@ -634,17 +633,30 @@ string.
 PDS4 provides a \texttt{creation\_date\_time} attribute defining date
 and time of product creation.}
 
-\item{\texttt{DATE-OBS}.
+\DIFdelbegin %DIFDELCMD < \item{\texttt{DATE-OBS}.
+%DIFDELCMD < It contains the date of the observation, provided as ISO 8601
+%DIFDELCMD < string. The value shall be assumed to refer to the start of the observation,
+%DIFDELCMD < unless another interpretation is clearly explained in the comment field.
+%DIFDELCMD < It is assumed to be expressed in UTC but other systems are accepted as long as they
+%DIFDELCMD < are specified in the ISO string\footnote{See table 30 in the Standard FITS document https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf}. 
+%DIFDELCMD < PDS4 provides a \texttt{Time\_Coordinates} class with attributes
+%DIFDELCMD < \texttt{start\_date\_time} and \texttt{stop\_date\_time} providing start and
+%DIFDELCMD < stop date and time appropriate to the product being labeled, always in UTC.
+%DIFDELCMD < The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP
+%DIFDELCMD < scheme, they must always be formatted in UTC as a ISO string (planned in EPN-TAP v2.1).}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \item{\texttt{DATE-OBS}.
 It contains the date of the observation, provided as ISO 8601
 string. The value shall be assumed to refer to the start of the observation,
 unless another interpretation is clearly explained in the comment field.
-It is assumed to be expressed in UTC but other systems are accepted as long as they
+It is assumed to be expressed in Universal Time (UTC) but other systems are accepted as long as they
 are specified in the ISO string\footnote{See table 30 in the Standard FITS document https://fits.gsfc.nasa.gov/standard40/fits\_standard40aa.pdf}. 
 PDS4 provides a \texttt{Time\_Coordinates} class with attributes
 \texttt{start\_date\_time} and \texttt{stop\_date\_time} providing start and
 stop date and time appropriate to the product being labeled, always in UTC.
 The \texttt{time\_min} and \texttt{time\_max} fields are mandatory in the EPN-TAP
 scheme, they must always be formatted in UTC as a ISO string (planned in EPN-TAP v2.1).}
+\DIFaddend 
 
 \item{\texttt{INSTRUME}.
 It contains a character string identifying the instrument used to acquire the data.
@@ -671,28 +683,34 @@ EPN-TAP standard also provides with a \texttt{target\_name} parameter.
 Notice that PDS4 and EPN-TAP also ask for a \texttt{target\_type} attribute,
 which must be specified from an enumerated list.}
 
-%DIFDELCMD < \item{\texttt{ORIGIN}.
-%DIFDELCMD < It contains string identifying the organization or institution responsible for
-%DIFDELCMD < creating the FITS file.}
-%DIFDELCMD < %%%
 \item{\texttt{ORIGIN}.
 It contains string identifying the organization or institution responsible for
 creating the FITS file.
-\DIFaddbegin \DIFadd{No clear correspondence for this reserved FITS keyword is available in PDS4.
+No clear correspondence for this reserved FITS keyword is available in PDS4.
 This is because PDS4 is focused on referencing the authors of the data collection
 and its metadata curation, not the data producer itself.
-Yet, the content of the \texttt{ORIGIN} keyword can be inserted in a PDS4 comment.
-\DIFaddend }}
+Yet, the content of the \texttt{ORIGIN} keyword can be inserted in a PDS4 comment.}
 
-\item{\texttt{REFERENC}.
+\DIFdelbegin %DIFDELCMD < \item{\texttt{REFERENC}.
+%DIFDELCMD < It contains a character string citing the bibliographic reference where the
+%DIFDELCMD < data are first described.
+%DIFDELCMD < It is recommended that either the Astrophysics Data System bibliographic
+%DIFDELCMD < databases\footnote{http://adswww.harvard.edu/}
+%DIFDELCMD < bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
+%DIFDELCMD < be used.
+%DIFDELCMD < PDS4 \texttt{External\_Reference} class and EPN-TAP \texttt{bib\_reference} have
+%DIFDELCMD < exactly the same meaning and use than the FITS keyword.}
+%DIFDELCMD < %%%
+\DIFdelend \DIFaddbegin \item{\texttt{REFERENC}.
 It contains a character string citing the bibliographic reference where the
 data are first described.
 It is recommended that either the Astrophysics Data System bibliographic
 databases\footnote{http://adswww.harvard.edu/}
-bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org}
+bibliographic identifier or the Digital Object Identifier\footnote{http://doi.org} (DOI)
 be used.
 PDS4 \texttt{External\_Reference} class and EPN-TAP \texttt{bib\_reference} have
 exactly the same meaning and use than the FITS keyword.}
+\DIFaddend 
 
 \end{enumerate}
 
@@ -706,24 +724,22 @@ GeoTIFF\footnote{http://geotiff.osgeo.org/}
 format, as GeoTIFF make them GIS ready.
 Given some new keywords introduced in FITS and WCS definitions adapted to planetary
 surface, FITS and GeoTIFF are completely interchangeable.
-As an example we have downloaded \DIFdelbegin \DIFdel{some global maps from }\DIFdelend \DIFaddbegin \DIFadd{a Mercury polar map from the }\DIFaddend USGS
-PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted \DIFdelbegin \DIFdel{them }\DIFdelend \DIFaddbegin \DIFadd{it }\DIFaddend in FITS.
-\DIFaddbegin \DIFadd{The FITS image has been cropped in two smaller versions using the open source software
-SWarp}\footnote{\DIFadd{https://www.astromatic.net/software/swarp}} \DIFadd{\mbox{%DIFAUXCMD
-\citep{swarp}}\hspace{0pt}%DIFAUXCMD
-: SWarp was able to
+As an example we have downloaded a Mercury polar map from the \DIFdelbegin \DIFdel{USGS
+}\DIFdelend \DIFaddbegin \DIFadd{United States Geological Survey (USGS)
+}\DIFaddend PDS Annex\footnote{https://astrogeology.usgs.gov/search} and converted it in FITS.
+The FITS image has been cropped in two smaller versions using the open source software
+SWarp\footnote{https://www.astromatic.net/software/swarp} \citep{swarp}: SWarp was able to
 automatically manage WCS planetary information.
-}\DIFaddend We used ds9 to display the \DIFdelbegin \DIFdel{FITS image }\DIFdelend \DIFaddbegin \DIFadd{three FITS images }\DIFaddend and were able to \DIFdelbegin \DIFdel{visualize }\DIFdelend \DIFaddbegin \DIFadd{correctly align them.
-Linear }\DIFaddend coordinates in meters \DIFaddbegin \DIFadd{are visualized (see figure \ref{fig:ds9qgis}, left side)
-}\DIFaddend as in QGIS, a popular open source GIS software, \DIFdelbegin \DIFdel{but also in planetary latitude and
-longitude }\DIFdelend thanks to the alternate coordinate
-description\DIFdelbegin \DIFdel{(see figure \ref{fig:ds9qgis}, left side)}\DIFdelend .
+We used ds9 to display the three FITS images and were able to correctly align them.
+Linear coordinates in meters are visualized (see figure \ref{fig:ds9qgis}, left side)
+as in QGIS, a popular open source GIS software, thanks to the alternate coordinate
+description \DIFaddbegin \DIFadd{keywords in the header}\DIFaddend .
 \begin{figure}[ht!]
 \centerline{\includegraphics[height=17pc]{ess_marmo2} \includegraphics[height=17pc]{ess_marmo1}}
-\caption{left: Mercury South Pole FITS \DIFdelbeginFL \DIFdelFL{image }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{images }\DIFaddendFL displayed in ds9\DIFaddbeginFL \DIFaddFL{, alternate coordinates in meters
-are displayed}\DIFaddendFL ;
-right: GeoTIFF raster (displayed in \DIFdelbeginFL \DIFdelFL{yellow}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{red}\DIFaddendFL ) and the \DIFaddbeginFL \DIFaddFL{two }\DIFaddendFL virtual \DIFdelbeginFL \DIFdelFL{header }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{haeders
-}\DIFaddendFL linked to \DIFdelbeginFL \DIFdelFL{the }\DIFdelendFL FITS \DIFdelbeginFL \DIFdelFL{raster }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{rasters }\DIFaddendFL (displayed in \DIFdelbeginFL \DIFdelFL{red}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{green and blue}\DIFaddendFL ); the \DIFdelbeginFL \DIFdelFL{two }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{three }\DIFaddendFL layers
+\caption{left: Mercury South Pole FITS images displayed in ds9, alternate coordinates in meters
+are displayed;
+right: GeoTIFF raster (displayed in red) and the two virtual haeders
+linked to FITS rasters (displayed in green and blue); the three layers
 are perfectly superposed.
 Mercury image credits: MESSENGER Team, Arizona State University, Johns Hopkins Applied
 Physics Laboratory, Carnegie Science}
@@ -732,8 +748,8 @@ Physics Laboratory, Carnegie Science}
 
 Assuming projected products are distributed in FITS format, a quick method to add GIS
 support for FITS images is to use a GDAL-supported detached header.
-GDAL Virtual Header\DIFaddbegin \footnote{\DIFadd{http://www.gdal.org/gdal\_vrttut.html}}
-\DIFaddend files simply describe the internal structure of a FITS image, but
+GDAL Virtual Header\footnote{http://www.gdal.org/gdal\_vrttut.html}
+files simply describe the internal structure of a FITS image, but
 also the map projection and body size in a standardized "well known text"
 (WKT) projection string.
 As a result, the FITS raster loaded into QGIS thanks to its corresponding GDAL Virtual
@@ -765,10 +781,7 @@ available in all major linux distribution.
 
 As an example of non projected planetary data we have converted in FITS format some data
 acquired by the imaging spectrometer OMEGA on-board of Mars Express.
-OMEGA unprojected and uncalibrated data (level1b) are distributed by ESA-PSA \DIFdelbegin \DIFdel{and PDS
-archives}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\citep{BESSE2018131}}\hspace{0pt}%DIFAUXCMD
-}\DIFaddend .
+OMEGA unprojected and uncalibrated data (level1b) are distributed by ESA-PSA \citep{BESSE2018131}.
 Their structure is described in the OMEGA Experiment Archive 
 Interface Control Document\footnote{ftp://psa.esac.esa.int/pub/mirror/MARS-EXPRESS/OMEGA/MEX-M-OMEGA-2-EDR-FLIGHT-V1.0/DOCUMENT/EAICD\_OMEGA.PDF}.
 \begin{figure}[ht!]
@@ -818,6 +831,14 @@ together with physical quantities measured by the detector itself in a standardi
 
 \section{Interoperable Software Developments}
 \label{sec:softdev}
+\DIFaddbegin \DIFadd{In section \ref{ssec:geofits} the mapping between planetary metadata concepts and
+FITS metadata description has been addressed.
+In order to impulse the use of FITS in planetary sciences this section will provide
+some example efforts of implementation of the proposed mapping.
+Our goal is, on remote sensing side, to get FITS into habits of geospatial developers,
+on the other, to benefit planetary astronomers of FITS flexibility providing a processing
+efficient description of their data.
+}\DIFaddend 
 
 \subsection{FITS and GDAL}
 Basic conversion from and to FITS is already supported by GDAL.
@@ -829,58 +850,48 @@ Those python developments benefit from the rich and well maintained Astropy and 
 python APIs.
 They will be implemented in planetary VO services with the goal to bridge between GIS 
 and VO services.
-The next step to VO and GIS tool integration will be to directly implement metadata 
-translation into GDAL C++ library. 
+The next step \DIFdelbegin \DIFdel{to VO and GIS tool integration }\DIFdelend will be to directly implement metadata translation into \DIFdelbegin \DIFdel{GDAL C++ library. 
+}\DIFdelend \DIFaddbegin \DIFadd{the GDAL library. 
+This work is already in progress, and new developments are available from the VESPA github
+repository}\footnote{\DIFadd{https://github.com/epn-vespa/gdal}}\DIFadd{.
+}\DIFaddend 
 
 \subsection{FITS and QGIS}
 QGIS is a largely used open source geospatial analysis software.
 It is using GDAL for layer import: QGIS is then already capable to display FITS files,
 making use of a Virtual GDAL header, as described above.
-\DIFaddbegin \DIFadd{The complete implementation of FITS metadata in GDAL library is in progress.
-}\DIFaddend Once implemented in GDAL, FITS will officially become a supported format by QGIS.
+\DIFdelbegin \DIFdel{The complete implementation of FITS metadata in GDAL library is in progress.
+}\DIFdelend Once implemented in GDAL, FITS will officially become a supported format by QGIS.
 
 In addition to that, a QGIS plugin has been developed\footnote{https://github.com/epn-vespa/VO\_QGIS\_plugin}
-\DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
-\citep[][in preparation]{Minin} }\hspace{0pt}%DIFAUXCMD
-}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
-\citep{Minin} }\hspace{0pt}%DIFAUXCMD
-}\DIFaddend in order to download and display files exposed via EPN-TAP servers.
+\citep{Minin} in order to download and display files exposed via EPN-TAP servers.
 
 \subsection{MATISSE}
-MATISSE\footnote{https://tools.asdc.asi.it/matisse.jsp} (Multi-purpose Advanced Tool
+MATISSE\footnote{https://tools.\DIFdelbegin \DIFdel{asdc}\DIFdelend \DIFaddbegin \DIFadd{ssdc}\DIFaddend .asi.it/matisse.jsp} (Multi-purpose Advanced Tool
 for the Instruments for the Solar System Exploration) \citep{ZINZI2016} is the webtool
 designed by the Space Science Data Center of the Italian Space Agency (SSDC-ASI) to
 access, visualize and analyze data from solar system exploration missions.
-Currently, \DIFdelbegin \DIFdel{it }\DIFdelend \DIFaddbegin \DIFadd{MATISSE }\DIFaddend provides access to public data from five different targets (i.e., Mercury,
-Venus, Mars, \DIFaddbegin \DIFadd{the }\DIFaddend dwarf planet Ceres and \DIFaddbegin \DIFadd{the }\DIFaddend asteroid Vesta)\DIFdelbegin \DIFdel{using both data stored on SSDC local
-storage or by querying remote dataset, such as VESPA, Planet Server and NASA JPL and
-can be integrated with other datasets thanks to its modular structure.
-One of th }\DIFdelend \DIFaddbegin \DIFadd{.
-}\DIFaddend MATISSE 2D outputs \DIFdelbegin \DIFdel{is }\DIFdelend \DIFaddbegin \DIFadd{are }\DIFaddend formatted as FITS, \DIFdelbegin \DIFdel{projected by interpolating the
-original observations to a grid regularly spaced
-in planetocentric coordinates (i.
-e., latitude and longitude).
-We used the }\DIFdelend \DIFaddbegin \DIFadd{in equirectangular projection and in planetocentric coordinates.
-The }\DIFaddend planetary FITS standard described in this work \DIFdelbegin \DIFdel{in }\DIFdelend \DIFaddbegin \DIFadd{has been implemented in MATISSE in }\DIFaddend order to make the output
+Currently, MATISSE provides access to public data from five different targets (i.e., Mercury,
+Venus, Mars, the dwarf planet Ceres and the asteroid Vesta).
+MATISSE 2D outputs are formatted as FITS, in equirectangular projection and in planetocentric coordinates.
+The planetary FITS standard described in this work has been implemented in MATISSE in order to make the output
 file compliant with most FITS readers, especially DS9 and JS9.
 The files generated by MATISSE could be also opened with standard GIS software (e.g.,
 QGIS, ArcGIS) 
 after being provided as input of the fits2vrt Python library\footnote{https://github.com/epn-vespa/fits2vrt},
-whose output is a VRT virtual GDAL header pointing to the FITS file with the appropriate
+whose output is a \DIFdelbegin \DIFdel{VRT virtual GDAL header }\DIFdelend \DIFaddbegin \texttt{\DIFadd{.vrt}} \DIFadd{GDAL Virtual Header }\DIFaddend pointing to the FITS file with the appropriate
 projection.
 Thanks to this approach, in the next major release of MATISSE (v2.0, planned to be
-online by the end of 2018) \DIFdelbegin \DIFdel{we are planning to make use of }\DIFdelend JS9 \DIFdelbegin \DIFdel{as }\DIFdelend \DIFaddbegin \DIFadd{will be }\DIFaddend the standard reader for
+online by the end of 2018) JS9 will be the standard reader for
 the 2D online output of the tool, thus allowing users to perform advanced analysis in
 both 2D and 3D directly inside a web-based environment.
 
 \subsection{Aladin}
-Aladin is both a sky atlas and a portal to access data\DIFdelbegin \DIFdel{-- }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend mainly images and
-catalogues\DIFdelbegin \DIFdel{-- }\DIFdelend \DIFaddbegin \DIFadd{, }\DIFaddend available through the VO.
-\DIFdelbegin \DIFdel{It }\DIFdelend \DIFaddbegin \DIFadd{Aladin }\DIFaddend is able to load FITS files and to display images taking into account various
+Aladin is both a sky atlas and a portal to access data, mainly images and
+catalogues, available through the VO.
+Aladin is able to load FITS files and to display images taking into account various
 WCS projections.
-\DIFdelbegin \DIFdel{Like DS9, Aladin is popular and broadly used in the part of the astronomical
-community manipulating images.
-}\DIFdelend So far it is also the reference generator and visualizer of Hierarchical
+So far it is also the reference generator and visualizer of Hierarchical
 Progressive Survey (HiPS).
 HiPS\footnote{http://www.ivoa.net/documents/HiPS/} is a recommendation endorsed
 by the International Virtual Observatory Alliance (IVOA).
@@ -901,14 +912,10 @@ are then available for planetary data.}
 
 In the future, Aladin will be able to recognize the FITS keywords defined
 in the present paper (see Tab. \ref{table:proj} and \ref{table:ctype}).
-\DIFdelbegin \DIFdel{For example, it will be able to take into account a planet's radii to compute
-distances on the surface of the body.
-}\DIFdelend Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of
+Finally, among the WCS projections listed in Tab. \ref{table:proj}, several of
 them are barely used in extrasolar astronomy and are not supported in Aladin yet.
 An effort has been started to revamp and update the code of projections in
 Aladin.
-\DIFdelbegin \DIFdel{We expect all projections to be available in a forthcoming release.
-}\DIFdelend 
 
 \section{Discussion and Perspectives}
 \label{sec:disc}
@@ -917,31 +924,24 @@ surface data description.
 Planetary surface investigation is lacking open and general software for massive data
 processing and can benefit from astronomy experience in this field.
 
-\DIFdelbegin \DIFdel{We are aware that FITS is today subject of questioning in astronomical applications}
-\DIFdelend \DIFaddbegin \DIFadd{We understand that some believe FITS has grown too old for newer astronomical
-applications} \DIFaddend \citep{THOMAS2015133}.
-We are not convinced that one format can solve all the issues faced from long-term
-archiving to on-line streaming.
-\DIFdelbegin \DIFdel{Planetary science research community has used a large variety of format customizing
-specific software.
-We want to stress here that using FITS could be an efficient compromise, reducing custom
-data format conversions during the processing chain and
-allowing easy conversion for final products following the needed application.} \DIFdelend
-\DIFaddbegin \DIFadd{But we want to stress that using FITS can be an efficient compromise.
+We understand that some believe FITS has grown too old for newer astronomical
+applications \DIFdelbegin \DIFdel{\mbox{%DIFAUXCMD
+\citep{THOMAS2015133}}\hspace{0pt}%DIFAUXCMD
+}\DIFdelend \DIFaddbegin \DIFadd{\mbox{%DIFAUXCMD
+\citep[e.g.][]{THOMAS2015133}}\hspace{0pt}%DIFAUXCMD
+}\DIFaddend . We are also not convinced that one format
+can solve all the issues faced from long-term archiving to on-line streaming.
+But we want to stress that using FITS can be an efficient compromise.
 FITS can become the format that allows the astronomy and the  planetary science 
 research communities to more easily share data across domains, allowing for
 reduced data format conversions during processing and easy conversion for final
-archival products.} \DIFaddend
+archival products.
 
-FITS \DIFdelbegin \DIFdel{as }\DIFdelend \DIFaddbegin \DIFadd{is }\DIFaddend an open and flexible data and metadata exchange and archiving format, \DIFdelbegin \DIFdel{could be
-inserted }\DIFdelend \DIFaddbegin \DIFadd{its use
-}\DIFaddend in the PDS4 data model scheme \DIFdelbegin \DIFdel{in order to address }\DIFdelend \DIFaddbegin \DIFadd{would solve }\DIFaddend the issue of \DIFdelbegin \DIFdel{more }\DIFdelend complex
-metadata and data relationships \DIFdelbegin \DIFdel{.
-}\DIFdelend \DIFaddbegin \DIFadd{separating data processing and the data archiving processes.
-}\DIFaddend 
+FITS is an open and flexible data and metadata exchange and archiving format, its use
+in the PDS4 data model scheme would solve the issue of complex
+metadata and data relationships separating data processing and the data archiving processes.
 
-\DIFdelbegin \DIFdel{In order to improve interoperability and knowledge sharing between astronomy and
-planetary science, we will soon finalize the }\DIFdelend \DIFaddbegin \DIFadd{The }\DIFaddend integration of FITS specifications in the GDAL library \DIFaddbegin \DIFadd{will be finalized soon}\DIFaddend .
+The integration of FITS specifications in the GDAL library will be finalized soon.
 In the framework of the VESPA project a review of the available and planned mission data
 archives is ongoing in order to evaluate their insertion in the planetary VO structure
 with a possible on-demand conversion in FITS format.
@@ -973,14 +973,93 @@ with a possible on-demand conversion in FITS format.
 %
 %%%%%%%%%%%%%%
 % Acronyms
-% \begin{acronyms}
-% \acro{Acronym}
-% Definition here
-% \acro{EMOS}
-% Ensemble model output statistics 
-% \acro{ECMWF}
-% Centre for Medium-Range Weather Forecasts
-% \end{acronyms}
+%DIF <  \begin{acronyms}
+%DIF <  \acro{Acronym}
+%DIF <  Definition here
+%DIF <  \acro{EMOS}
+%DIF <  Ensemble model output statistics 
+%DIF <  \acro{ECMWF}
+%DIF <  Centre for Medium-Range Weather Forecasts
+%DIF <  \end{acronyms}
+\DIFaddbegin \begin{acronyms}
+\acro{AMICA}
+\DIFadd{Asteroid Multi-band Imaging Camera
+}\acro{BIL}
+\DIFadd{Band Interleaved per Line
+}\acro{BSQ}
+\DIFadd{Band SeQuential
+}\acro{CRISM}
+\DIFadd{Compact Reconnaissance Imaging Spectrometer for Mars
+}\acro{DOI}
+\DIFadd{Digital Object Identifier
+}\acro{EAICD}
+\DIFadd{Experiment Archive Interface Control Document
+}\acro{EPN-TAP}
+\DIFadd{EuroPlaNet Table Access Protocol
+}\acro{ESA}
+\DIFadd{European Space Agency
+}\acro{FITS}
+\DIFadd{Flexible Image Transport System
+}\acro{GDAL}
+\DIFadd{Geospatial Data Abstraction Library
+}\acro{GeoTIFF}
+\DIFadd{Geographical Tagged Image File Format
+}\acro{GIS}
+\DIFadd{Geographical Information Systems
+}\acro{HiPS}
+\DIFadd{Hierarchical Progressive Survey
+}\acro{HiRISE}
+\DIFadd{High Resolution Imaging Science Experiment
+}\acro{IAU}
+\DIFadd{International Astronomical Union
+}\acro{IEEE}
+\DIFadd{Institute of Electrical and Electronics Engineers
+}\acro{IVOA}
+\DIFadd{International Virtual Observatory Alliance
+}\acro{ISO}
+\DIFadd{International Organization for Standardization
+}\acro{JAXA}
+\DIFadd{Japan Aerospace Exploration Agency
+}\acro{MATISSE}
+\DIFadd{Multi-purpose Advanced Tool for the Instruments for the Solar System Exploration
+}\acro{MEF}
+\DIFadd{Multi Extension FITS
+}\acro{NAVCAM}
+\DIFadd{NAVigation CAMera
+}\acro{NIRS}
+\DIFadd{Near-Infrared Spectrometer
+}\acro{OGC}
+\DIFadd{Open Geospatial Consortium
+}\acro{OMEGA}
+\DIFadd{Observatoire pour la Min\'eralogie, l'Eau, les Glaces et l'Activit\'e
+}\acro{OSIRIS}
+\DIFadd{Optical, Spectroscopic, and Infrared Remote Imaging System
+}\acro{PDS}
+\DIFadd{Planetary Data System
+}\acro{PDS3}
+\DIFadd{Planetary Data System (version 3)
+}\acro{PDS4}
+\DIFadd{Planetary Data System (version 4)
+}\acro{PSA}
+\DIFadd{Planetary Space Archive
+}\acro{SSDC-ASI}
+\DIFadd{Space Science Data Center of the Italian Space Agency
+}\acro{USGS}
+\DIFadd{United States Geological Survey
+}\acro{UTC}
+\DIFadd{Universal Time Coordinated
+}\acro{VESPA}
+\DIFadd{Virtual European Solar and Planetary Access
+}\acro{VO}
+\DIFadd{Virtual Observatory
+}\acro{WCS}
+\DIFadd{World Coordinate System
+}\acro{WGCCRE}
+\DIFadd{Working Group on Cartographic Coordinates and Rotational Elements
+}\acro{WKT}
+\DIFadd{Well Known Text
+}\end{acronyms}
+\DIFaddend 
 
 %
 %%%%%%%%%%%%%%
@@ -1029,17 +1108,12 @@ discussions about TAB projection in FITS.
 %
 % 4. Run LaTeX on your new file which will produce the citations.
 %
-\DIFdelbegin %DIFDELCMD < 
-
-%DIFDELCMD < %%%
-\DIFdelend %\bibliography{ess_marmo}
+%\bibliography{ess_marmo}
 
 % AGU does not want a .bib or a .bbl file. Please copy in the contents of your .bbl file here.
 
-\DIFdelbegin %DIFDELCMD < \begin{thebibliography}{18}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \begin{thebibliography}{22}
-\DIFaddend \providecommand{\natexlab}[1]{#1}
+\begin{thebibliography}{22}
+\providecommand{\natexlab}[1]{#1}
 \expandafter\ifx\csname urlstyle\endcsname\relax
   \providecommand{\doi}[1]{doi:\discretionary{}{}{}#1}\else
   \providecommand{\doi}{doi:\discretionary{}{}{}\begingroup
@@ -1078,29 +1152,27 @@ discussions about TAB projection in FITS.
   \textit{Astronomy and Astrophysics}, \textit{558}, A33,
   \doi{10.1051/0004-6361/201322068}.
 
-\DIFaddbegin \bibitem[{\textit{{Bertin} et~al.}(2002)\textit{{Bertin}, {Mellier},
+\bibitem[{\textit{{Bertin} et~al.}(2002)\textit{{Bertin}, {Mellier},
   {Radovich}, {Missonnier}, {Didelon}, and {Morin}}}]{swarp}
-{\DIFadd{Bertin}}\DIFadd{, E., Y.~}{\DIFadd{Mellier}}\DIFadd{, M.~}{\DIFadd{Radovich}}\DIFadd{, G.~}{\DIFadd{Missonnier}}\DIFadd{, P.~}{\DIFadd{Didelon}}\DIFadd{, and
-  B.~}{\DIFadd{Morin}} \DIFadd{(2002), }{\DIFadd{The TERAPIX Pipeline}}\DIFadd{, in }\textit{\DIFadd{Astronomical Data
-  Analysis Software and Systems XI}}\DIFadd{, }\textit{\DIFadd{Astronomical Society of the
-  Pacific Conference Series}}\DIFadd{, vol. 281, edited by D.~A. }{\DIFadd{Bohlender}}\DIFadd{,
-  D.~}{\DIFadd{Durand}}\DIFadd{, and T.~H. }{\DIFadd{Handley}}\DIFadd{, p. 228.
-}
+{Bertin}, E., Y.~{Mellier}, M.~{Radovich}, G.~{Missonnier}, P.~{Didelon}, and
+  B.~{Morin} (2002), {The TERAPIX Pipeline}, in \textit{Astronomical Data
+  Analysis Software and Systems XI}, \textit{Astronomical Society of the
+  Pacific Conference Series}, vol. 281, edited by D.~A. {Bohlender},
+  D.~{Durand}, and T.~H. {Handley}, p. 228.
 
 \bibitem[{\textit{Besse et~al.}(2018)\textit{Besse, Vallat, Barthelemy, Coia,
   Costa, Marchi, Fraga, Grotheer, Heather, Lim, Martinez, Arviset, Barbarisi,
   Docasal, Macfarlane, Rios, Saiz, and Vallejo}}]{BESSE2018131}
-\DIFadd{Besse, S., C.~Vallat, M.~Barthelemy, D.~Coia, M.~Costa, G.~D. Marchi, D.~Fraga,
+Besse, S., C.~Vallat, M.~Barthelemy, D.~Coia, M.~Costa, G.~D. Marchi, D.~Fraga,
   E.~Grotheer, D.~Heather, T.~Lim, S.~Martinez, C.~Arviset, I.~Barbarisi,
   R.~Docasal, A.~Macfarlane, C.~Rios, J.~Saiz, and F.~Vallejo (2018), Esa's
   planetary science archive: Preserve and present reliable scientific data
-  sets, }\textit{\DIFadd{Planetary and Space Science}}\DIFadd{, }\textit{\DIFadd{150}}\DIFadd{, 131 -- 140,
-  }\doi{https://doi.org/10.1016/j.pss.2017.07.013}\DIFadd{, enabling Open and
+  sets, \textit{Planetary and Space Science}, \textit{150}, 131 -- 140,
+  \doi{https://doi.org/10.1016/j.pss.2017.07.013}, enabling Open and
   Interoperable Access to Planetary Science and Heliophysics Databases and
   Tools.
-}
 
-\DIFaddend \bibitem[{\textit{{Bibring} et~al.}(2005)\textit{{Bibring}, {Langevin},
+\bibitem[{\textit{{Bibring} et~al.}(2005)\textit{{Bibring}, {Langevin},
   {Gendrin}, {Gondet}, {Poulet}, {Berth{\'e}}, {Soufflot}, {Arvidson},
   {Mangold}, {Mustard}, {Drossart}, {OMEGA Team}, {Erard}, {Forni}, {Combes},
   {Encrenaz}, {Fouchet}, {Merchiorri}, {Belluci}, {Altieri}, {Formisano},
@@ -1134,24 +1206,19 @@ discussions about TAB projection in FITS.
   coordinates in FITS}, \textit{Astronomy and Astrophysics}, \textit{395},
   1077--1122, \doi{10.1051/0004-6361:20021327}.
 
-\DIFdelbegin %DIFDELCMD < \bibitem[{\textit{Erard et~al.}(2014)\textit{Erard, Cecconi, Sidaner, Berthier,
-%DIFDELCMD <   Henry, Molinaro, Giardino, Bourrel, AndrÃ©, Gangloff, Jacquey, and
-%DIFDELCMD <   Topf}}]{ERARDepntap}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \bibitem[{\textit{{Davies} et~al.}(1983)\textit{{Davies}, {Abalakin}, {Lieske},
+\bibitem[{\textit{{Davies} et~al.}(1983)\textit{{Davies}, {Abalakin}, {Lieske},
   {Seidelmann}, {Sinclair}, {Sinzi}, {Smith}, and {Tjuflin}}}]{wgccre1982}
-{\DIFadd{Davies}}\DIFadd{, M.~E., V.~K. }{\DIFadd{Abalakin}}\DIFadd{, J.~H. }{\DIFadd{Lieske}}\DIFadd{, P.~K. }{\DIFadd{Seidelmann}}\DIFadd{, A.~T.
-  }{\DIFadd{Sinclair}}\DIFadd{, A.~M. }{\DIFadd{Sinzi}}\DIFadd{, B.~A. }{\DIFadd{Smith}}\DIFadd{, and Y.~S. }{\DIFadd{Tjuflin}} \DIFadd{(1983), }{\DIFadd{Report
+{Davies}, M.~E., V.~K. {Abalakin}, J.~H. {Lieske}, P.~K. {Seidelmann}, A.~T.
+  {Sinclair}, A.~M. {Sinzi}, B.~A. {Smith}, and Y.~S. {Tjuflin} (1983), {Report
   of the IAU working group on cartographic coordinates and rotational elements
-  of the planets and satellites - 1982}}\DIFadd{, }\textit{\DIFadd{Celestial Mechanics}}\DIFadd{,
-  }\textit{\DIFadd{29}}\DIFadd{, 309--321, }\doi{10.1007/BF01228525}\DIFadd{.
-}
+  of the planets and satellites - 1982}, \textit{Celestial Mechanics},
+  \textit{29}, 309--321, \doi{10.1007/BF01228525}.
 
 \bibitem[{\textit{Erard et~al.}(2014)\textit{Erard, Cecconi, Sidaner, Berthier,
   Henry, Molinaro, Giardino, Bourrel, Andr{\'e}, Gangloff, Jacquey, and
   Topf}}]{ERARDepntap}
-\DIFaddend Erard, S., B.~Cecconi, P.~L. Sidaner, J.~Berthier, F.~Henry, M.~Molinaro,
-  M.~Giardino, N.~Bourrel, N.~\DIFdelbegin \DIFdel{AndrÃ©}\DIFdelend \DIFaddbegin \DIFadd{Andr}{\DIFadd{\'e}}\DIFaddend , M.~Gangloff, C.~Jacquey, and F.~Topf
+Erard, S., B.~Cecconi, P.~L. Sidaner, J.~Berthier, F.~Henry, M.~Molinaro,
+  M.~Giardino, N.~Bourrel, N.~Andr{\'e}, M.~Gangloff, C.~Jacquey, and F.~Topf
   (2014), The epn-tap protocol for the planetary science virtual observatory,
   \textit{Astronomy and Computing}, \textit{7-8}, 52 -- 61,
   \doi{https://doi.org/10.1016/j.ascom.2014.07.008}, special Issue on The
@@ -1208,16 +1275,13 @@ McEwen, A.~S., E.~M. Eliason, J.~W. Bergstrom, N.~T. Bridges, C.~J. Hansen,
   (hirise), \textit{Journal of Geophysical Research: Planets},
   \textit{112}(E5), n/a--n/a, \doi{10.1029/2005JE002605}, e05S02.
 
-\DIFdelbegin %DIFDELCMD < \bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {et al.}, and {et
-%DIFDELCMD <   al.}}}]{Minin}
-%DIFDELCMD < %%%
-\DIFdelend \DIFaddbegin \bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {Rossi}, {Marco
+\bibitem[{\textit{{Minin} et~al.}(2018)\textit{{Minin}, {Rossi}, {Marco
   Figuera}, {Unnithan}, Marmo, Walter, Demleitner, Le~Sidaner, Cecconi, S., and
   Hare}}]{Minin}
-\DIFaddend {Minin}, M., \DIFaddbegin \DIFadd{A.~}\DIFaddend {\DIFdelbegin \DIFdel{et al.}\DIFdelend \DIFaddbegin \DIFadd{Rossi}\DIFaddend }, \DIFdelbegin \DIFdel{and }\DIFdelend \DIFaddbegin \DIFadd{R.~}\DIFaddend {\DIFdelbegin \DIFdel{et al.}\DIFdelend \DIFaddbegin \DIFadd{Marco Figuera}\DIFaddend }\DIFaddbegin \DIFadd{, V.~}{\DIFadd{Unnithan}}\DIFadd{, C.~Marmo,
+{Minin}, M., A.~{Rossi}, R.~{Marco Figuera}, V.~{Unnithan}, C.~Marmo,
   S.~Walter, M.~Demleitner, P.~Le~Sidaner, B.~Cecconi, E.~S., and T.~Hare
-  }\DIFaddend (2018)\DIFaddbegin \DIFadd{, }{\DIFadd{Bridging the gap between Geographical Information Systems and
-  Planetary Virtual Observatory}}\DIFadd{, }\textit{\DIFadd{this issue}}\DIFaddend .
+  (2018), {Bridging the gap between Geographical Information Systems and
+  Planetary Virtual Observatory}, \textit{this issue}.
 
 \bibitem[{\textit{Murchie et~al.}(2007)\textit{Murchie, Arvidson, Bedini,
   Beisser, Bibring, Bishop, Boldt, Cavender, Choo, Clancy, Darlington,
@@ -1244,18 +1308,17 @@ Murchie, S., R.~Arvidson, P.~Bedini, K.~Beisser, J.-P. Bibring, J.~Bishop,
 {Pence}, W.~D., L.~{Chiappetti}, C.~G. {Page}, R.~A. {Shaw}, and E.~{Stobie}
   (2010), {Definition of the Flexible Image Transport System (FITS), version
   3.0}, \textit{Astronomy and Astrophysics}, \textit{524}, A42,
-  \doi{10.1051/0004-6361/201015362}\DIFaddbegin \DIFadd{.
-}
+  \doi{10.1051/0004-6361/201015362}.
 
 \bibitem[{\textit{{Seidelmann} et~al.}(2005)\textit{{Seidelmann}, {Archinal},
   {A'Hearn}, {Cruikshank}, {Hilton}, {Keller}, {Oberst}, {Simon}, {Stooke},
   {Tholen}, and {Thomas}}}]{wgccre2003}
-{\DIFadd{Seidelmann}}\DIFadd{, P.~K., B.~A. }{\DIFadd{Archinal}}\DIFadd{, M.~F. }{\DIFadd{A'Hearn}}\DIFadd{, D.~P. }{\DIFadd{Cruikshank}}\DIFadd{,
-  J.~L. }{\DIFadd{Hilton}}\DIFadd{, H.~U. }{\DIFadd{Keller}}\DIFadd{, J.~}{\DIFadd{Oberst}}\DIFadd{, J.~L. }{\DIFadd{Simon}}\DIFadd{, P.~}{\DIFadd{Stooke}}\DIFadd{,
-  D.~J. }{\DIFadd{Tholen}}\DIFadd{, and P.~C. }{\DIFadd{Thomas}} \DIFadd{(2005), }{\DIFadd{Report of the IAU/IAG Working
-  Group on Cartographic Coordinates and Rotational Elements: 2003}}\DIFadd{,
-  }\textit{\DIFadd{Celestial Mechanics and Dynamical Astronomy}}\DIFadd{, }\textit{\DIFadd{91}}\DIFadd{, 203--215,
-  }\doi{10.1007/s10569-004-3115-4}\DIFaddend .
+{Seidelmann}, P.~K., B.~A. {Archinal}, M.~F. {A'Hearn}, D.~P. {Cruikshank},
+  J.~L. {Hilton}, H.~U. {Keller}, J.~{Oberst}, J.~L. {Simon}, P.~{Stooke},
+  D.~J. {Tholen}, and P.~C. {Thomas} (2005), {Report of the IAU/IAG Working
+  Group on Cartographic Coordinates and Rotational Elements: 2003},
+  \textit{Celestial Mechanics and Dynamical Astronomy}, \textit{91}, 203--215,
+  \doi{10.1007/s10569-004-3115-4}.
 
 \bibitem[{\textit{Snyder}(1987)}]{Snyder1987}
 Snyder, J.~P. (1987), Map projections: A working manual, \textit{Tech. rep.},
