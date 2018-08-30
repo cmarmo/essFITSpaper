@@ -52,7 +52,7 @@ the choice of the described tools.
 
 Section 2.1 has been expanded (see paragraph starting at L86 in trackchanges.pdf).
 We hope this syntetic answer will be enough to clarify our point of view.
-A more detailed discussion have been omitted due to overall length.
+A more detailed discussion has been omitted due to overall length.
 
 > 4. Editorial comment - the paper is heavy on acronyms, some of which are not spelled
 > out at all, e.g. VRT, some of which are only spelled out in the titles of papers in the
