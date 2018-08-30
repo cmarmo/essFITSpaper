@@ -1,0 +1,62 @@
+Reviewer 1
+
+> Page 4, the footnote 8 should rather be psa.esa.int (which is indeed
+> redirected to the addressed mentioned). In the future, the psa.esa.int
+> will certainly remain. 
+
+Fixed
+
+> L278 -> headers
+
+Fixed
+
+
+-------------------------------------------------------------------------------
+
+Reviewer 2
+
+We want to thank the anonymous reviewer for his thoughtful comments.
+Sections 2.1 and 3 have been enriched following his suggestions.
+
+> 1. The FITS tool ecosystem - FITS has been around for a long time, and has a
+> robust user base. Accordingly, the FITS tool ecosystem is very large and well
+> established. This seems like a prime motivator for moving toward FITS.
+> This paper notes on lines 72-73 that there is a "large number of open libraries
+> and software tools," but does not say much more. It would be useful to note
+> that FITS tools exist in numerous languages, including, but not limited to, C,
+> C++, IDL, Java, MATLAB, Fortran, R, & Python. 
+
+Section 2.1 has been expanded (see paragraph starting at L68 in trackchanges.pdf),
+references to available tools have been added in footnotes.
+
+> 2. This leads to my second point, which is that section 3 needs more explanation.
+> At minimum, there should be an introduction to the section that describes why
+> these specific tools are featured. If the paper provides more description up front
+> of the current FITS tool ecosystem, this section 3 could then be contextualized as
+> illustrating how the FITS tool ecosystem is still expanding, and/or that for the
+> planetary data community to fully take advantage of FITS, more expansion is possible,
+> and already in progress. 
+
+A small introduction to Section 3 has been added, in particular clarifying, we hope,
+the choice of the described tools.
+
+> 3. A bigger picture question that this paper should address is, "why hasn't this
+> already happened?" Again, FITS is over 30 years old. What barriers or disincentives
+> have been or currently are in place for the planetary data community preventing or
+> slowing a move toward FITS? The paper should then describe why this proposed scheme
+> reduces or bypasses the relevant barriers, or provides incentives to make the move.
+> Is it just tools, as I note above? Or are there community reasons, e.g. that
+> astronomical and planetary communities have been disjoint to such an extent that
+> languages, standards, etc have never dovetailed? What are the authors' perspectives
+> on such barriers/disincentives, and how the present paper smooths over or bypasses them?
+
+Section 2.1 has been expanded (see paragraph starting at L86 in trackchanges.pdf).
+We hope this syntetic answer will be enough to clarify our point of view.
+A more detailed discussion have been omitted due to overall length.
+
+> 4. Editorial comment - the paper is heavy on acronyms, some of which are not spelled
+> out at all, e.g. VRT, some of which are only spelled out in the titles of papers in the
+> bibliography but not in the text (VESPA, CRISM, HiRISE).
+> All acronyms should be spelled out, and/or a table of acronyms should be added.
+
+Fixed.

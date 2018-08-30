@@ -733,12 +733,13 @@ automatically manage WCS planetary information.
 We used ds9 to display the three FITS images and were able to correctly align them.
 Linear coordinates in meters are visualized (see figure \ref{fig:ds9qgis}, left side)
 as in QGIS, a popular open source GIS software, thanks to the alternate coordinate
-description \DIFaddbegin \DIFadd{keywords in the header}\DIFaddend .
+description.
 \begin{figure}[ht!]
 \centerline{\includegraphics[height=17pc]{ess_marmo2} \includegraphics[height=17pc]{ess_marmo1}}
 \caption{left: Mercury South Pole FITS images displayed in ds9, alternate coordinates in meters
 are displayed;
-right: GeoTIFF raster (displayed in red) and the two virtual haeders
+right: GeoTIFF raster (displayed in red) and the two virtual \DIFdelbegin \DIFdel{haeders
+}\DIFdelend \DIFaddbegin \DIFadd{headers}\DIFaddend
 linked to FITS rasters (displayed in green and blue); the three layers
 are perfectly superposed.
 Mercury image credits: MESSENGER Team, Arizona State University, Johns Hopkins Applied
